@@ -1,16 +1,37 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import HeroSection from "@/components/home/HeroSection";
+import ExperienceStatement from "@/components/home/ExperienceStatement";
+import FeaturedServices from "@/components/home/FeaturedServices";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import GalleryPreview from "@/components/home/GalleryPreview";
+import ReviewsPreview from "@/components/home/ReviewsPreview";
+import PackagesPreview from "@/components/home/PackagesPreview";
+import InstagramSection from "@/components/home/InstagramSection";
+import ServiceArea from "@/components/home/ServiceArea";
+import FAQPreview from "@/components/home/FAQPreview";
+import FinalCTA from "@/components/home/FinalCTA";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <ExperienceStatement />
+        <FeaturedServices />
+        <WhyChooseUs />
+        <GalleryPreview />
+        <ReviewsPreview />
+        <PackagesPreview />
+        <InstagramSection />
+        <ServiceArea />
+        <FAQPreview />
+        <FinalCTA />
+      </main>
+      <Footer />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;

@@ -323,7 +323,7 @@ const PackageCard = ({
         ))}
       </div>
     )}
-    <Link to="/contact">
+    <Link to={`/book?package=${pkg.id}`}>
       <Button variant={selected ? "gold" : "gold-outline"} className="w-full">
         {pkg.cta}
       </Button>
@@ -595,7 +595,7 @@ const PackagesPage = () => {
                   ${total.toLocaleString()}
                 </p>
               </div>
-              <Link to="/contact">
+              <Link to={`/book?package=${selectedPkg}`}>
                 <Button variant="gold" size="lg">
                   Book This Package →
                 </Button>

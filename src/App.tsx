@@ -14,6 +14,7 @@ import DancingCloudsPage from "./pages/DancingCloudsPage.tsx";
 import PackagesPage from "./pages/PackagesPage.tsx";
 import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
+import BookingPage from "./pages/BookingPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,7 @@ const App = () => (
           <Route path="/cold-sparks" element={<ColdSparksPage />} />
           <Route path="/dancing-on-the-clouds" element={<DancingCloudsPage />} />
           <Route path="/packages" element={<PackagesPage />} />
-          <Route path="/book" element={<PackagesPage />} />
+          <Route path="/book" element={<BookingPage />} />
           <Route path="/backdrops" element={<BackdropsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<ComingSoon />} />

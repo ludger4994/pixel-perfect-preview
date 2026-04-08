@@ -15,8 +15,8 @@
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 45 65% 49%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 42 72% 42%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 90%;
@@ -32,14 +32,14 @@
 
     --border: 0 0% 18%;
     --input: 0 0% 18%;
-    --ring: 45 65% 49%;
+    --ring: 42 72% 42%;
 
     --radius: 0.375rem;
 
     /* Custom brand tokens */
-    --gold: 45 65% 49%;
-    --gold-light: 47 70% 60%;
-    --gold-dark: 43 60% 38%;
+    --gold: 42 72% 42%;
+    --gold-light: 45 65% 54%;
+    --gold-dark: 38 70% 30%;
     --champagne: 35 30% 85%;
     --blush: 350 30% 80%;
     --ice-blue: 200 60% 65%;
@@ -50,12 +50,12 @@
 
     --sidebar-background: 0 0% 7%;
     --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 45 65% 49%;
+    --sidebar-primary: 42 72% 42%;
     --sidebar-primary-foreground: 0 0% 0%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 0 0% 90%;
     --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 45 65% 49%;
+    --sidebar-ring: 42 72% 42%;
   }
 }
 

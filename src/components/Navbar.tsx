@@ -111,7 +111,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link to="/contact">
+          <Link to="/book">
             <Button variant="gold" size="default" className="text-xs sm:text-sm">
               Book Now
             </Button>
@@ -175,7 +175,7 @@ const Navbar = () => {
               </div>
             ))}
             <div className="mt-6">
-              <Link to="/contact" onClick={() => setMobileOpen(false)}>
+              <Link to="/book" onClick={() => setMobileOpen(false)}>
                 <Button variant="gold" size="lg" className="w-full">
                   Book Now
                 </Button>

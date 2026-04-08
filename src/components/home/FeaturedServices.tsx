@@ -64,7 +64,7 @@ const FeaturedServices = () => {
 
         <div className="hidden md:grid md:grid-cols-3 gap-6 mb-6">
           {services.slice(0, 3).map((service, i) => (
-            <ServiceCard key={service.href} service={service} delay={i * 100} />
+            <ServiceCard key={service.href} service={service} delay={i * 100} fixedHeight />
           ))}
         </div>
         <div className="hidden md:grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -88,11 +88,12 @@ const FeaturedServices = () => {
 interface ServiceCardProps {
   service: typeof services[number];
   delay: number;
+  fixedHeight?: boolean;
 }
 
-const ServiceCard = ({ service, delay }: ServiceCardProps) => (
+const ServiceCard = ({ service, delay, fixedHeight }: ServiceCardProps) => (
   <AnimateOnScroll delay={delay}>
-    <Link to={service.href} className="group block relative overflow-hidden rounded-lg aspect-[4/5]">
+    <Link to={service.href} className={`group block relative overflow-hidden rounded-lg ${fixedHeight ? 'h-[500px]' : 'aspect-[4/5]'}`}>
       <img
         src={service.image}
         alt={service.alt}

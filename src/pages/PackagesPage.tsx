@@ -595,7 +595,7 @@ const PackagesPage = () => {
                   ${total.toLocaleString()}
                 </p>
               </div>
-              <Link to="/contact">
+              <Link to={`/book?package=${selectedPkg}`}>
                 <Button variant="gold" size="lg">
                   Book This Package →
                 </Button>

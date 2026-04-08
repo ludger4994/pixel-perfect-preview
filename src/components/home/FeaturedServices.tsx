@@ -14,6 +14,7 @@ const services = [
     image: glamBoothImg,
     href: "/selfie-booth",
     alt: "Glam selfie photo booth rental South Florida",
+    objectPosition: "center",
   },
   {
     title: "360° Booth",
@@ -22,6 +23,7 @@ const services = [
     image: threeSixtyImg,
     href: "/360-booth",
     alt: "360 photo booth rental Fort Lauderdale event",
+    objectPosition: "center 30%",
   },
   {
     title: "TXR20 Luxury Booth",
@@ -98,6 +100,7 @@ const ServiceCard = ({ service, delay, fixedHeight }: ServiceCardProps) => (
         src={service.image}
         alt={service.alt}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        style={{ objectPosition: service.objectPosition || 'center' }}
         loading="lazy"
         width={800}
         height={1000}

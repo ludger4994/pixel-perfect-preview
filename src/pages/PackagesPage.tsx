@@ -323,7 +323,7 @@ const PackageCard = ({
         ))}
       </div>
     )}
-    <Link to="/contact">
+    <Link to={`/book?package=${pkg.id}`}>
       <Button variant={selected ? "gold" : "gold-outline"} className="w-full">
         {pkg.cta}
       </Button>

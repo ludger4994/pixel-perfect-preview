@@ -64,7 +64,7 @@ const FeaturedServices = () => {
 
         <div className="hidden md:grid md:grid-cols-3 gap-6 mb-6">
           {services.slice(0, 3).map((service, i) => (
-            <ServiceCard key={service.href} service={service} delay={i * 100} />
+            <ServiceCard key={service.href} service={service} delay={i * 100} fixedHeight />
           ))}
         </div>
         <div className="hidden md:grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">

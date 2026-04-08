@@ -75,7 +75,7 @@ const selfiePackages: PackageData[] = [
   {
     id: "ultimate",
     name: "The Ultimate Experience",
-    price: 700,
+    price: 800,
     duration: "4 Hours",
     badge: "Ultimate",
     badgeColor: "bg-amber-600/80 text-foreground",

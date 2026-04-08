@@ -14,7 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blocked_dates: {
+        Row: {
+          blocked_date: string
+          booking_id: string | null
+          created_at: string
+          id: string
+          service_type: string
+        }
+        Insert: {
+          blocked_date: string
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          service_type: string
+        }
+        Update: {
+          blocked_date?: string
+          booking_id?: string | null
+          created_at?: string
+          id?: string
+          service_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blocked_dates_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bookings: {
+        Row: {
+          add_ons: Json | null
+          add_ons_total: number
+          city: string | null
+          created_at: string
+          email: string
+          event_date: string
+          event_type: string
+          first_name: string
+          guest_count: string | null
+          hours: string
+          id: string
+          last_name: string | null
+          notes: string | null
+          package_name: string
+          package_price: number
+          paypal_order_id: string | null
+          paypal_status: string | null
+          phone: string
+          status: string
+          total_price: number
+          updated_at: string
+          venue: string | null
+        }
+        Insert: {
+          add_ons?: Json | null
+          add_ons_total?: number
+          city?: string | null
+          created_at?: string
+          email: string
+          event_date: string
+          event_type: string
+          first_name: string
+          guest_count?: string | null
+          hours: string
+          id?: string
+          last_name?: string | null
+          notes?: string | null
+          package_name: string
+          package_price: number
+          paypal_order_id?: string | null
+          paypal_status?: string | null
+          phone: string
+          status?: string
+          total_price: number
+          updated_at?: string
+          venue?: string | null
+        }
+        Update: {
+          add_ons?: Json | null
+          add_ons_total?: number
+          city?: string | null
+          created_at?: string
+          email?: string
+          event_date?: string
+          event_type?: string
+          first_name?: string
+          guest_count?: string | null
+          hours?: string
+          id?: string
+          last_name?: string | null
+          notes?: string | null
+          package_name?: string
+          package_price?: number
+          paypal_order_id?: string | null
+          paypal_status?: string | null
+          phone?: string
+          status?: string
+          total_price?: number
+          updated_at?: string
+          venue?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

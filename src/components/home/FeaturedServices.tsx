@@ -93,7 +93,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ service, delay, fixedHeight }: ServiceCardProps) => (
   <AnimateOnScroll delay={delay}>
-    <Link to={service.href} className={`group block relative overflow-hidden rounded-lg ${fixedHeight ? 'h-[500px]' : 'aspect-[4/5]'}`}>
+    <Link to={service.href} className={`group block relative overflow-hidden rounded-2xl border border-primary/30 shadow-gold hover:shadow-gold-lg hover:border-primary/60 transition-all duration-500 ${fixedHeight ? 'h-[500px]' : 'aspect-[4/5]'}`}>
       <img
         src={service.image}
         alt={service.alt}

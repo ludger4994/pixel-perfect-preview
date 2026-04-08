@@ -14,6 +14,7 @@ const services = [
     image: glamBoothImg,
     href: "/selfie-booth",
     alt: "Glam selfie photo booth rental South Florida",
+    objectPosition: "center",
   },
   {
     title: "360° Booth",
@@ -22,6 +23,7 @@ const services = [
     image: threeSixtyImg,
     href: "/360-booth",
     alt: "360 photo booth rental Fort Lauderdale event",
+    objectPosition: "center 30%",
   },
   {
     title: "TXR20 Luxury Booth",

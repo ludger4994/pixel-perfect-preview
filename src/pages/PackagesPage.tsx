@@ -60,7 +60,7 @@ const selfiePackages: PackageData[] = [
       "Custom start screen design",
       "Custom branded guest gallery",
       "Photos, GIFs, Boomerangs & Video",
-      "Digital sharing — text, email & QR code",
+      "Digital sharing — text, email, QR code & AirDrop",
       "Live online guest gallery",
       "Glam skin-smoothing filter",
       "AR filters & face masks",

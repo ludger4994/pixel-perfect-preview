@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroSelfie from "@/assets/hero-selfie-booth.jpg";
-import hero360 from "@/assets/hero-360-booth.jpg";
-import heroParty from "@/assets/hero-party.jpg";
+import glamBoothImg from "@/assets/glam-booth-main.jpg";
+import threeSixtyImg from "@/assets/360-booth-main.jpg";
+import coldSparksImg from "@/assets/cold-sparks.jpg";
+import dancingCloudsImg from "@/assets/dancing-clouds.jpg";
 
-const heroImages = [heroSelfie, hero360, heroParty];
+const heroImages = [glamBoothImg, threeSixtyImg, coldSparksImg, dancingCloudsImg];
 
 const HeroSection = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -46,7 +47,7 @@ const HeroSection = () => {
           Corporate Events & More.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style={{ animationDelay: "0.4s" }}>
-          <Link to="/contact">
+          <Link to="/book">
             <Button variant="gold" size="xl">
               Book Now
             </Button>

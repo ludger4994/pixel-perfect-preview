@@ -20,7 +20,7 @@ const FinalCTA = () => {
 
         <AnimateOnScroll delay={200}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-            <Link to="/contact">
+            <Link to="/book">
               <Button variant="gold" size="xl">
                 Book Now
               </Button>

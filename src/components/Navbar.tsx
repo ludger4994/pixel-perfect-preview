@@ -111,8 +111,8 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link to="/contact" className="hidden lg:block">
-            <Button variant="gold" size="default">
+          <Link to="/contact">
+            <Button variant="gold" size="default" className="text-xs sm:text-sm">
               Book Now
             </Button>
           </Link>

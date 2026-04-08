@@ -1,18 +1,37 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/silver-sequin-backdrop.jpg";
+import heroSelfie from "@/assets/hero-selfie-booth.jpg";
+import hero360 from "@/assets/hero-360-booth.jpg";
+import heroParty from "@/assets/hero-party.jpg";
+
+const heroImages = [heroSelfie, hero360, heroParty];
 
 const HeroSection = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <img
-          src={heroBg}
-          alt="Silver sequin shimmer wall photo booth backdrop South Florida"
-          className="w-full h-full object-cover object-center"
-          width={1920}
-          height={1080}
-        />
+        {heroImages.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`Photo booth event experience ${i + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+              i === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+            width={1920}
+            height={1080}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       </div>
 

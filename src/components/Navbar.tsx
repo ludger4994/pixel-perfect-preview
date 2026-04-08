@@ -111,7 +111,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link to="/contact">
+          <Link to="/book">
             <Button variant="gold" size="default" className="text-xs sm:text-sm">
               Book Now
             </Button>

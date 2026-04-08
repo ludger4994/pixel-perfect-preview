@@ -1,45 +1,49 @@
 import { Link } from "react-router-dom";
 import { Phone, Instagram } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/30">
       <div className="container mx-auto px-4 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="font-heading text-xl font-bold text-primary">Photo Booth</span>
-              <span className="font-heading text-xl font-light text-foreground">Legends</span>
-            </div>
+            <img src={logo} alt="Photo Booth Legends" className="w-[100px] h-auto" />
             <p className="text-muted-foreground text-sm leading-relaxed">
               South Florida's premier luxury event experience brand. Transforming celebrations into unforgettable memories.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="font-heading text-lg text-foreground mb-4">Quick Links</h4>
             <div className="space-y-2">
-              {["Home", "Packages", "Gallery", "Reviews", "FAQ", "About", "Contact"].map((link) => (
+              {[
+                { label: "Home", href: "/" },
+                { label: "Packages", href: "/packages" },
+                { label: "Backdrops", href: "/backdrops" },
+                { label: "Gallery", href: "/gallery" },
+                { label: "Reviews", href: "/reviews" },
+                { label: "FAQ", href: "/faq" },
+                { label: "About", href: "/about" },
+                { label: "Contact", href: "/contact" },
+              ].map((link) => (
                 <Link
-                  key={link}
-                  to={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                  key={link.href}
+                  to={link.href}
                   className="block text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  {link}
+                  {link.label}
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Services */}
           <div>
             <h4 className="font-heading text-lg text-foreground mb-4">Our Services</h4>
             <div className="space-y-2">
               {[
                 { label: "Selfie Booth", href: "/selfie-booth" },
-                { label: "360 Booth", href: "/360-booth" },
+                { label: "360° Booth", href: "/360-booth" },
                 { label: "TXR20 Luxury Booth", href: "/txr20-booth" },
                 { label: "Cold Sparks", href: "/cold-sparks" },
                 { label: "Dancing on the Clouds", href: "/dancing-on-the-clouds" },
@@ -51,7 +55,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="font-heading text-lg text-foreground mb-4">Get In Touch</h4>
             <div className="space-y-3">

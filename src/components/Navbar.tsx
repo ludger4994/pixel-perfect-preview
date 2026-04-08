@@ -55,7 +55,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
-        <Link to="/" className="flex-shrink-0">
+        <Link to="/" className="flex-shrink-0 bg-background/90 backdrop-blur-sm rounded-lg p-1.5">
           <img
             src={logo}
             alt="Photo Booth Legends"

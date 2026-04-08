@@ -1,5 +1,5 @@
 import ServicePageLayout from "@/components/ServicePageLayout";
-import heroImg from "@/assets/txr20-booth.jpg";
+import heroImg from "@/assets/lux-booth.jpg";
 
 const TXR20BoothPage = () => (
   <ServicePageLayout

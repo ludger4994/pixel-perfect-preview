@@ -11,6 +11,9 @@ import ThreeSixtyBoothPage from "./pages/ThreeSixtyBoothPage.tsx";
 import TXR20BoothPage from "./pages/TXR20BoothPage.tsx";
 import ColdSparksPage from "./pages/ColdSparksPage.tsx";
 import DancingCloudsPage from "./pages/DancingCloudsPage.tsx";
+import PackagesPage from "./pages/PackagesPage.tsx";
+import BackdropsPage from "./pages/BackdropsPage.tsx";
+import ContactPage from "./pages/ContactPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -22,19 +25,19 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/photo-booths" element={<ComingSoon />} />
           <Route path="/selfie-booth" element={<SelfieBoothPage />} />
           <Route path="/360-booth" element={<ThreeSixtyBoothPage />} />
           <Route path="/txr20-booth" element={<TXR20BoothPage />} />
-          <Route path="/special-effects" element={<ComingSoon />} />
           <Route path="/cold-sparks" element={<ColdSparksPage />} />
           <Route path="/dancing-on-the-clouds" element={<DancingCloudsPage />} />
-          <Route path="/packages" element={<ComingSoon />} />
+          <Route path="/packages" element={<PackagesPage />} />
+          <Route path="/book" element={<PackagesPage />} />
+          <Route path="/backdrops" element={<BackdropsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<ComingSoon />} />
           <Route path="/reviews" element={<ComingSoon />} />
           <Route path="/faq" element={<ComingSoon />} />
           <Route path="/about" element={<ComingSoon />} />
-          <Route path="/contact" element={<ComingSoon />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

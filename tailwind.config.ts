@@ -58,6 +58,7 @@ export default {
         },
         champagne: "hsl(var(--champagne))",
         blush: "hsl(var(--blush))",
+        "ice-blue": "hsl(var(--ice-blue))",
         "surface-elevated": "hsl(var(--surface-elevated))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

@@ -6,6 +6,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import ComingSoon from "./pages/ComingSoon.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import SelfieBoothPage from "./pages/SelfieBoothPage.tsx";
+import ThreeSixtyBoothPage from "./pages/ThreeSixtyBoothPage.tsx";
+import TXR20BoothPage from "./pages/TXR20BoothPage.tsx";
+import ColdSparksPage from "./pages/ColdSparksPage.tsx";
+import DancingCloudsPage from "./pages/DancingCloudsPage.tsx";
 
 const queryClient = new QueryClient();
 

@@ -100,6 +100,7 @@ const ServiceCard = ({ service, delay, fixedHeight }: ServiceCardProps) => (
         src={service.image}
         alt={service.alt}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        style={{ objectPosition: service.objectPosition || 'center' }}
         loading="lazy"
         width={800}
         height={1000}

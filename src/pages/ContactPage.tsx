@@ -16,7 +16,7 @@ const guestOptions = ["Under 50", "50–100", "100–200", "200–300", "300+"];
 const serviceOptions = [
   "The Spark — Selfie Booth, 2 hrs ($400)",
   "The Lumière — Selfie Booth + Prints, 3 hrs ($600)",
-  "The Ultimate Experience — Selfie Booth + Shout-Out Video, 4 hrs ($700)",
+  "The Ultimate Experience — Selfie Booth + Shout-Out Video, 4 hrs ($800)",
   "360° Gold — 2 hrs ($600)",
   "360° Diamond — 3 hrs + Montage ($750)",
   "Wedding: The Romance ($800)",

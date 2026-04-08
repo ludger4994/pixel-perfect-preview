@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
-import selfieBoothImg from "@/assets/selfie-booth.jpg";
-import threeSixtyImg from "@/assets/360-booth.jpg";
-import txr20Img from "@/assets/txr20-booth.jpg";
+import glamBoothImg from "@/assets/glam-booth-main.jpg";
+import threeSixtyImg from "@/assets/360-booth-main.jpg";
+import luxBoothImg from "@/assets/lux-booth.jpg";
 import coldSparksImg from "@/assets/cold-sparks.jpg";
 import dancingCloudsImg from "@/assets/dancing-clouds.jpg";
 
@@ -11,12 +11,12 @@ const services = [
     title: "Selfie Booth",
     subtitle: "Salsa Booth",
     description: "Sleek, digital, and endlessly fun. Instant sharing that keeps your guests coming back for more.",
-    image: selfieBoothImg,
+    image: glamBoothImg,
     href: "/selfie-booth",
-    alt: "Selfie photo booth rental South Florida wedding",
+    alt: "Glam selfie photo booth rental South Florida",
   },
   {
-    title: "360 Booth",
+    title: "360° Booth",
     subtitle: "The Viral Experience",
     description: "Every angle tells the story. Slow-motion, social-media-ready content your guests will share instantly.",
     image: threeSixtyImg,
@@ -27,7 +27,7 @@ const services = [
     title: "TXR20 Luxury Booth",
     subtitle: "Premium Elegance",
     description: "Studio-quality lighting meets effortless sophistication. The choice for weddings and upscale events.",
-    image: txr20Img,
+    image: luxBoothImg,
     href: "/txr20-booth",
     alt: "TXR20 luxury photo booth rental Miami wedding",
   },
@@ -62,7 +62,6 @@ const FeaturedServices = () => {
           </div>
         </AnimateOnScroll>
 
-        {/* Desktop: 3 + 2 grid, Mobile: horizontal scroll */}
         <div className="hidden md:grid md:grid-cols-3 gap-6 mb-6">
           {services.slice(0, 3).map((service, i) => (
             <ServiceCard key={service.href} service={service} delay={i * 100} />
@@ -74,7 +73,6 @@ const FeaturedServices = () => {
           ))}
         </div>
 
-        {/* Mobile horizontal scroll */}
         <div className="md:hidden flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 snap-x snap-mandatory scrollbar-hide">
           {services.map((service) => (
             <div key={service.href} className="snap-start flex-shrink-0 w-[80vw]">
@@ -98,7 +96,9 @@ const ServiceCard = ({ service, delay }: ServiceCardProps) => (
       <img
         src={service.image}
         alt={service.alt}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${
+          service.href === "/txr20-booth" ? "object-contain bg-foreground/5 p-8" : ""
+        }`}
         loading="lazy"
         width={800}
         height={1000}

@@ -1,5 +1,5 @@
 import ServicePageLayout from "@/components/ServicePageLayout";
-import heroImg from "@/assets/selfie-booth.jpg";
+import heroImg from "@/assets/glam-booth-main.jpg";
 
 const SelfieBoothPage = () => (
   <ServicePageLayout
@@ -7,7 +7,7 @@ const SelfieBoothPage = () => (
     title="The Selfie Booth Experience"
     subtitle="Fun, Stylish, and Instantly Shareable — the modern photo booth your guests actually want."
     heroImage={heroImg}
-    heroAlt="Selfie photo booth rental South Florida wedding"
+    heroAlt="Glam selfie photo booth rental South Florida"
     introParagraphs={[
       "Forget the old-school curtain booth. Our Selfie Booth — affectionately called the Salsa Booth — brings a sleek, open-air experience that's as stylish as it is fun. Guests step up, strike their best pose, and walk away with gorgeous, high-resolution photos they'll actually want to share.",
       "With a stunning digital interface, professional studio lighting, and real-time social sharing, it's the centerpiece that keeps your guests coming back for more. Whether it's a wedding, birthday, or corporate gala, the Selfie Booth adds a layer of entertainment that feels effortless and elevated.",

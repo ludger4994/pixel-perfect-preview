@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import threeSixtyMain from "@/assets/360-booth-main.jpg";
+import glamMain from "@/assets/glam-booth-main.jpg";
+import silverSequin from "@/assets/silver-sequin-backdrop.jpg";
+import flowerWall from "@/assets/flower-wall-backdrop.jpg";
+import eventSequin from "@/assets/event-sequin-backdrop.jpg";
+import luxBooth from "@/assets/lux-booth.jpg";
 
-const galleryPlaceholders = Array.from({ length: 9 }, (_, i) => ({
-  id: i + 1,
-  alt: `Photo booth event gallery image ${i + 1} — South Florida luxury event`,
-}));
+const galleryImages = [
+  { src: threeSixtyMain, alt: "360 photo booth rental South Florida event" },
+  { src: glamMain, alt: "Glam selfie booth rental Miami" },
+  { src: silverSequin, alt: "Silver sequin backdrop photo booth Miami" },
+  { src: flowerWall, alt: "White flower wall backdrop wedding South Florida" },
+  { src: eventSequin, alt: "Real South Florida event silver sequin backdrop" },
+  { src: luxBooth, alt: "TXR20 luxury photo booth product shot" },
+];
 
 const GalleryPreview = () => {
   return (
@@ -21,21 +31,21 @@ const GalleryPreview = () => {
         </AnimateOnScroll>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
-          {galleryPlaceholders.map((item, i) => {
+          {galleryImages.map((item, i) => {
             const isLarge = i === 0 || i === 4;
             return (
               <AnimateOnScroll
-                key={item.id}
+                key={i}
                 delay={i * 80}
                 className={isLarge ? "md:col-span-2 md:row-span-2" : ""}
               >
                 <div className="relative overflow-hidden rounded-lg bg-secondary group cursor-pointer aspect-square">
-                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs">
-                    <div className="text-center">
-                      <p className="text-muted-foreground/50">Client Photo</p>
-                      <p className="text-muted-foreground/30 text-[10px]">Placeholder #{item.id}</p>
-                    </div>
-                  </div>
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
                   <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
                 </div>
               </AnimateOnScroll>
@@ -43,8 +53,12 @@ const GalleryPreview = () => {
           })}
         </div>
 
+        <div className="text-center mt-4">
+          <p className="text-xs text-muted-foreground italic">Real South Florida Events</p>
+        </div>
+
         <AnimateOnScroll delay={400}>
-          <div className="text-center mt-12">
+          <div className="text-center mt-8">
             <Link to="/gallery">
               <Button variant="gold-outline" size="lg">
                 View Full Gallery

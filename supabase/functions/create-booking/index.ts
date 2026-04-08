@@ -3,7 +3,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { z } from 'npm:zod@3'
+import { z } from 'https://esm.sh/zod@3'
 
 const BookingSchema = z.object({
   firstName: z.string().min(1).max(100),

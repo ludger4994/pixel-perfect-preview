@@ -23,12 +23,12 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/photo-booths" element={<ComingSoon />} />
-          <Route path="/selfie-booth" element={<ComingSoon />} />
-          <Route path="/360-booth" element={<ComingSoon />} />
-          <Route path="/txr20-booth" element={<ComingSoon />} />
+          <Route path="/selfie-booth" element={<SelfieBoothPage />} />
+          <Route path="/360-booth" element={<ThreeSixtyBoothPage />} />
+          <Route path="/txr20-booth" element={<TXR20BoothPage />} />
           <Route path="/special-effects" element={<ComingSoon />} />
-          <Route path="/cold-sparks" element={<ComingSoon />} />
-          <Route path="/dancing-on-the-clouds" element={<ComingSoon />} />
+          <Route path="/cold-sparks" element={<ColdSparksPage />} />
+          <Route path="/dancing-on-the-clouds" element={<DancingCloudsPage />} />
           <Route path="/packages" element={<ComingSoon />} />
           <Route path="/gallery" element={<ComingSoon />} />
           <Route path="/reviews" element={<ComingSoon />} />

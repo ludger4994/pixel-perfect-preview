@@ -33,7 +33,7 @@ const selfiePackages: PackageData[] = [
     features: [
       "Salsa Booth (iPad-based selfie booth)",
       "Photos, GIFs & Boomerangs",
-      "Digital sharing — text, email & QR code",
+      "Digital sharing — text, email, QR code & AirDrop",
       "Custom start screen",
       "Live online guest gallery",
       "Props table included",

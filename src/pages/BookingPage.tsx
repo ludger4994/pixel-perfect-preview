@@ -27,6 +27,7 @@ interface CartPackage {
   price: number;
   duration: string;
   serviceType: string;
+  features: string[];
 }
 
 interface CartAddOn {

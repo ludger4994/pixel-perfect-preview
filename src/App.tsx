@@ -42,6 +42,7 @@ const App = () => (
           <Route path="/about" element={<ComingSoon />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ChatWidget />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

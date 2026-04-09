@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
-import AnimateOnScroll from "@/components/AnimateOnScroll";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const faqs = [
   {
@@ -29,23 +29,25 @@ const faqs = [
 
 const FAQPreview = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { ref, isVisible } = useScrollReveal();
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
 
   return (
     <section className="py-24 lg:py-32 bg-card">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
-        <AnimateOnScroll>
+        <div ref={headerRef} className={`reveal ${headerVisible ? 'visible' : ''}`}>
           <div className="text-center mb-16">
             <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4">FAQ</p>
             <h2 className="font-heading text-3xl md:text-5xl text-foreground font-bold">
               Common Questions
             </h2>
           </div>
-        </AnimateOnScroll>
+        </div>
 
-        <div className="space-y-3">
+        <div ref={ref} className="space-y-3">
           {faqs.map((faq, i) => (
-            <AnimateOnScroll key={i} delay={i * 100}>
-              <div className="border border-border/30 rounded-lg overflow-hidden">
+            <div key={i} className={`reveal reveal-delay-${i + 1} ${isVisible ? 'visible' : ''}`}>
+              <div className={`faq-item border border-border/30 rounded-lg overflow-hidden ${openIndex === i ? 'open' : ''}`}>
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   className="w-full flex items-center justify-between p-5 text-left hover:bg-primary/5 transition-colors"
@@ -57,25 +59,25 @@ const FAQPreview = () => {
                     }`}
                   />
                 </button>
-                {openIndex === i && (
+                <div className={`faq-item-body ${openIndex === i ? 'open' : ''}`}>
                   <div className="px-5 pb-5">
                     <p className="text-foreground/60 text-sm leading-relaxed">{faq.answer}</p>
                   </div>
-                )}
+                </div>
               </div>
-            </AnimateOnScroll>
+            </div>
           ))}
         </div>
 
-        <AnimateOnScroll delay={500}>
+        <div className={`reveal reveal-delay-6 ${isVisible ? 'visible' : ''}`}>
           <div className="text-center mt-10">
             <Link to="/faq">
-              <Button variant="gold-outline" size="lg">
+              <Button variant="gold-outline" size="lg" className="btn-premium">
                 See All FAQs
               </Button>
             </Link>
           </div>
-        </AnimateOnScroll>
+        </div>
       </div>
     </section>
   );

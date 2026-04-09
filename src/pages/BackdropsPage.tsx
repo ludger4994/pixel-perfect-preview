@@ -114,12 +114,6 @@ const pillowTopBackdrops: Backdrop[] = [
     description: "Lush greenery with elegant floral accents — organic and sophisticated",
     alt: "Elegant greenery flowers photo booth backdrop South Florida",
   },
-  {
-    label: "Brilliant White",
-    image: brilliantWhiteOriginal,
-    description: "Clean white pillow-top backdrop — simple, bright, and universally flattering",
-    alt: "Brilliant white photo booth backdrop rental",
-  },
 ];
 
 const BackdropsPage = () => {

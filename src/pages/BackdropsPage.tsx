@@ -21,6 +21,7 @@ import elegantGreeneryFlowers from "@/assets/backdrops/elegant-greenery-flowers.
 
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
+import whiteFlowerWall from "@/assets/backdrops/white-flower-wall.png";
 
 interface Backdrop {
   label: string;
@@ -176,12 +177,15 @@ const BackdropsPage = () => {
                 }}
                 delay={0}
               />
-              {/* Placeholder for White Flower Wall — awaiting JPG upload */}
-              <div className="rounded-xl border border-dashed border-primary/20 bg-card/30 flex items-center justify-center aspect-square">
-                <p className="text-foreground/30 text-xs tracking-wide text-center px-4">
-                  White Flower Wall<br />Photo coming soon
-                </p>
-              </div>
+              <BackdropCard
+                backdrop={{
+                  label: "White Flower Wall",
+                  image: whiteFlowerWall,
+                  description: "Lush white rose flower wall — stunning, romantic, and perfect for weddings",
+                  alt: "White flower wall premium photo booth backdrop South Florida",
+                }}
+                delay={80}
+              />
             </div>
           </div>
         </section>

@@ -35,13 +35,13 @@ interface CartAddOn {
 }
 
 const allPackages: CartPackage[] = [
-  { id: "spark", name: "The Spark", price: 400, duration: "2 Hours", serviceType: "selfie-booth" },
-  { id: "lumiere", name: "The Lumière", price: 600, duration: "3 Hours", serviceType: "selfie-booth" },
-  { id: "ultimate", name: "The Ultimate Experience", price: 800, duration: "4 Hours", serviceType: "selfie-booth" },
-  { id: "360-gold", name: "360° Gold", price: 600, duration: "2 Hours", serviceType: "360-booth" },
-  { id: "360-diamond", name: "360° Diamond", price: 750, duration: "3 Hours", serviceType: "360-booth" },
-  { id: "romance", name: "The Romance", price: 800, duration: "3 Hours", serviceType: "wedding" },
-  { id: "grand-affair", name: "The Grand Affair", price: 1200, duration: "4 Hours", serviceType: "wedding" },
+  { id: "spark", name: "The Spark", price: 400, duration: "2 Hours", serviceType: "selfie-booth", features: ["Salsa Booth (iPad-based)", "Photos, GIFs & Boomerangs", "Digital sharing — text, email, QR", "Props table & standard backdrop", "On-site attendant"] },
+  { id: "lumiere", name: "The Lumière", price: 600, duration: "3 Hours", serviceType: "selfie-booth", features: ["Everything in The Spark", "2×6 & 4×6 print strips", "Custom branded template", "Glam filter & AR masks", "All standard backdrops"] },
+  { id: "ultimate", name: "The Ultimate Experience", price: 800, duration: "4 Hours", serviceType: "selfie-booth", features: ["Everything in The Lumière", "Shout-Out Video Station", "Custom start screen & gallery", "Full props table", "4 hours of coverage"] },
+  { id: "360-gold", name: "360° Gold", price: 600, duration: "2 Hours", serviceType: "360-booth", features: ["360° video platform", "4K Ultra HD (GoPro)", "Slow-motion 360° video", "Custom audio & overlay", '43" TV sharing station'] },
+  { id: "360-diamond", name: "360° Diamond", price: 750, duration: "3 Hours", serviceType: "360-booth", features: ["Everything in 360° Gold", "Event Highlight Montage", "3 hours of coverage", "Custom branded overlay", "LED lighting ring"] },
+  { id: "romance", name: "The Romance", price: 800, duration: "3 Hours", serviceType: "wedding", features: ["Lumière Selfie Booth (3 hrs)", "Dancing on the Clouds", "White Rose Flower Wall", "Custom wedding prints", "Glam filter & AR masks"] },
+  { id: "grand-affair", name: "The Grand Affair", price: 1200, duration: "4 Hours", serviceType: "wedding", features: ["Ultimate Selfie + 360° Gold", "Cold Sparks + Cloud Effect", "Shout-Out Video Station", "2 on-site attendants", "Premium backdrop included"] },
 ];
 
 const availableAddOns: CartAddOn[] = [

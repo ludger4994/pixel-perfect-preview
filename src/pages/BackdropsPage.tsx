@@ -118,12 +118,27 @@ const BackdropsPage = () => {
               <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">
                 Premium Backdrops
               </p>
-              <div className="w-16 h-px bg-primary/40 mb-6" />
-            </AnimateOnScroll>
-            <div className="rounded-xl border border-dashed border-primary/20 bg-card/30 p-12 text-center">
-              <p className="text-foreground/40 text-sm tracking-wide">
-                Coming Soon — Premium backdrops will be added here.
+              <div className="w-16 h-px bg-primary/40 mb-2" />
+              <p className="text-foreground/50 text-xs mb-6">
+                Additional cost: <span className="text-primary font-semibold">+$150</span> &nbsp;|&nbsp; LED Sign: <span className="text-primary font-semibold">+$25</span>
               </p>
+            </AnimateOnScroll>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              <BackdropCard
+                backdrop={{
+                  label: "Silver Sequin Shimmer Wall",
+                  image: premiumSilverSequin,
+                  description: "Dazzling silver sequin shimmer wall — perfect for any celebration",
+                  alt: "Premium silver sequin shimmer wall backdrop with neon sign",
+                }}
+                delay={0}
+              />
+              {/* Placeholder for White Flower Wall — awaiting JPG upload */}
+              <div className="rounded-xl border border-dashed border-primary/20 bg-card/30 flex items-center justify-center aspect-square">
+                <p className="text-foreground/30 text-xs tracking-wide text-center px-4">
+                  White Flower Wall<br />Photo coming soon
+                </p>
+              </div>
             </div>
           </div>
         </section>

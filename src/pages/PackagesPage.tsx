@@ -6,6 +6,11 @@ import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import { Check, Minus, Star, Sparkles, Heart } from "lucide-react";
 
+import grayGoldMarble from "@/assets/backdrops/gray-gold-marble.jpg";
+import silverSequin from "@/assets/backdrops/silver-sequin.jpg";
+import pinkFloralWall from "@/assets/backdrops/pink-floral-wall.jpg";
+import goldSequin from "@/assets/backdrops/gold-sequin.jpg";
+
 /* ── Package Data ── */
 
 interface PackageData {

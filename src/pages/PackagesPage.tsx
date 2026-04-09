@@ -609,6 +609,52 @@ const PackagesPage = () => {
           </div>
         )}
 
+        {/* Backdrop Preview */}
+        <section className="py-16 lg:py-20 bg-card/50">
+          <div className="container mx-auto px-4 lg:px-8">
+            <AnimateOnScroll>
+              <div className="text-center mb-10">
+                <p className="text-sm tracking-[0.3em] uppercase text-primary mb-3">Our Backdrop Collection</p>
+                <h2 className="font-heading text-2xl md:text-4xl text-foreground font-bold mb-3">
+                  Complete Your Look
+                </h2>
+                <p className="text-foreground/60 text-sm max-w-xl mx-auto">
+                  Every package includes your choice of standard backdrop. Premium upgrades available.
+                </p>
+              </div>
+            </AnimateOnScroll>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
+              {[
+                { img: grayGoldMarble, label: "Gray & Gold Marble", alt: "Gray and gold marble photo booth backdrop" },
+                { img: silverSequin, label: "Silver Sequin Wall", alt: "Silver sequin shimmer wall backdrop" },
+                { img: pinkFloralWall, label: "Pink Floral Wall", alt: "Pink floral flower wall backdrop" },
+                { img: goldSequin, label: "Gold Sequin Wall", alt: "Gold sequin wall backdrop", badge: "Luxe" },
+              ].map((bd, i) => (
+                <AnimateOnScroll key={bd.label} delay={i * 80}>
+                  <div className="group cursor-pointer">
+                    <div className="relative overflow-hidden bg-[#1a1a1a] border border-primary/15" style={{ borderRadius: 12 }}>
+                      <div className="aspect-square overflow-hidden">
+                        <img src={bd.img} alt={bd.alt} className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                      </div>
+                      {bd.badge && (
+                        <span className="absolute top-2.5 right-2.5 bg-primary text-primary-foreground uppercase tracking-wider" style={{ fontSize: 10, fontWeight: 500, padding: "3px 10px", borderRadius: 20 }}>
+                          {bd.badge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2.5 text-sm text-foreground font-medium text-center">{bd.label}</p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link to="/backdrops" className="text-primary text-sm font-medium hover:underline underline-offset-4 transition-colors">
+                Browse All 8 Backdrops →
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className={`py-24 lg:py-32 ${selectedPkg ? "pb-40" : ""}`}>
           <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">

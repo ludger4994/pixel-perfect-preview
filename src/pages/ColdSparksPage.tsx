@@ -16,7 +16,7 @@ const ColdSparksPage = () => (
       { title: "Completely Safe", description: "Cold spark technology produces no heat, flames, or smoke — safe for any indoor or outdoor venue." },
       { title: "Adjustable Height", description: "Spark fountains adjustable from 3 to 15 feet to match your venue's ceiling height and your vision." },
       { title: "DMX Controlled", description: "Precision timing with professional DMX controllers for perfectly choreographed moments." },
-      { title: "Multiple Machines", description: "Packages include 2-6 machines for symmetrical, dramatic arrangements." },
+      { title: "Multiple Machines", description: "Package only includes 2 machines — 6 fires total for a dramatic, symmetrical arrangement." },
       { title: "Music Sync", description: "Timed to the beat of your chosen song for maximum emotional impact." },
       { title: "Professional Operators", description: "Trained technicians handle all setup, operation, and teardown." },
     ]}

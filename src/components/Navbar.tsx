@@ -55,12 +55,15 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 lg:px-8">
-        <Link to="/" className="flex-shrink-0 bg-background/90 backdrop-blur-sm rounded-lg p-1.5">
-          <img
-            src={logo}
-            alt="Photo Booth Legends"
-            className="w-[90px] lg:w-[140px] h-auto"
-          />
+        <Link to="/" className="flex-shrink-0 relative group">
+          <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 via-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+          <div className="relative bg-background/70 backdrop-blur-md rounded-xl px-3 py-2 border border-primary/10 shadow-[0_2px_12px_-4px_hsl(42_72%_42%/0.15)]">
+            <img
+              src={logo}
+              alt="Photo Booth Legends"
+              className="w-[80px] lg:w-[120px] h-auto drop-shadow-[0_1px_2px_rgba(201,168,76,0.3)]"
+            />
+          </div>
         </Link>
 
         <div className="hidden lg:flex items-center gap-1">

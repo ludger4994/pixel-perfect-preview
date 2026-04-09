@@ -213,10 +213,10 @@ const weddingPackages: PackageData[] = [
 ];
 
 const addOns = [
-  { name: "Cold Sparks", price: 150, description: "Cinematic indoor-safe spark showers" },
-  { name: "Dancing on the Clouds", price: 150, description: "Low-lying ethereal fog effect" },
-  { name: "Full Effect Bundle", price: 275, description: "Both effects — save $25" },
-  { name: "Premium Backdrop Upgrade", price: 75, description: "Silver sequin, flower wall & more" },
+  { name: "Cold Sparks", price: 299, description: "2 machines, 6 fires — cinematic spark showers" },
+  { name: "Dancing on the Clouds", price: 200, description: "Low-lying ethereal fog effect" },
+  { name: "Full Effect Bundle", price: 400, description: "Both effects — save $99" },
+  { name: "Premium Backdrop Upgrade", price: 150, description: "Silver sequin, flower wall & more" },
   { name: "Additional Hour", price: 150, description: "Extend your experience" },
 ];
 

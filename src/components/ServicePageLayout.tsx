@@ -166,7 +166,7 @@ const ServicePageLayout = ({
                 Let's create something extraordinary together. Reach out and let's start planning your perfect experience.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
+                <Link to="/book">
                   <Button variant="gold" size="lg">Book This Experience</Button>
                 </Link>
                 <Link to="/packages">

@@ -12,6 +12,13 @@ import greenBoxwood from "@/assets/backdrops/green-boxwood.jpg";
 import silverCrystal from "@/assets/backdrops/silver-crystal.jpg";
 import goldSequin from "@/assets/backdrops/gold-sequin.jpg";
 import colorSplash from "@/assets/backdrops/color-splash.jpg";
+import brilliantWhiteElegance from "@/assets/backdrops/brilliant-white-elegance.png";
+import solidBlack from "@/assets/backdrops/solid-black.jpg";
+import blackGoldGeometric from "@/assets/backdrops/black-gold-geometric.jpg";
+import deckParty from "@/assets/backdrops/deck-party.jpg";
+import pinkShimmer from "@/assets/backdrops/pink-shimmer.jpg";
+import elegantGreeneryFlowers from "@/assets/backdrops/elegant-greenery-flowers.jpg";
+import brilliantWhiteOriginal from "@/assets/backdrops/brilliant-white-original.jpg";
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
 
@@ -70,6 +77,48 @@ const pillowTopBackdrops: Backdrop[] = [
     image: pinkFloralWall,
     description: "Lush pink and white flower wall — romantic and vibrant",
     alt: "Pink floral flower wall photo booth backdrop",
+  },
+  {
+    label: "Brilliant White Elegance",
+    image: brilliantWhiteElegance,
+    description: "Stunning white backdrop with elegant black framing — timeless and refined",
+    alt: "Brilliant white elegance photo booth backdrop South Florida",
+  },
+  {
+    label: "Solid Black",
+    image: solidBlack,
+    description: "Classic solid black backdrop — sleek, versatile, and always professional",
+    alt: "Solid black photo booth backdrop rental South Florida",
+  },
+  {
+    label: "Black & Gold Geometric",
+    image: blackGoldGeometric,
+    description: "Bold black and gold geometric pattern — modern luxury for any event",
+    alt: "Black and gold geometric photo booth backdrop",
+  },
+  {
+    label: "Deck Party",
+    image: deckParty,
+    description: "Vibrant tropical deck party theme — fun, festive, and full of color",
+    alt: "Deck party themed photo booth backdrop South Florida",
+  },
+  {
+    label: "Pink Shimmer",
+    image: pinkShimmer,
+    description: "Shimmering pink sequin wall — feminine, playful, and eye-catching",
+    alt: "Pink shimmer sequin photo booth backdrop",
+  },
+  {
+    label: "Elegant Greenery & Flowers",
+    image: elegantGreeneryFlowers,
+    description: "Lush greenery with elegant floral accents — organic and sophisticated",
+    alt: "Elegant greenery flowers photo booth backdrop South Florida",
+  },
+  {
+    label: "Brilliant White",
+    image: brilliantWhiteOriginal,
+    description: "Clean white pillow-top backdrop — simple, bright, and universally flattering",
+    alt: "Brilliant white photo booth backdrop rental",
   },
 ];
 

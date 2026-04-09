@@ -18,7 +18,7 @@ import blackGoldGeometric from "@/assets/backdrops/black-gold-geometric.jpg";
 import deckParty from "@/assets/backdrops/deck-party.jpg";
 import pinkShimmer from "@/assets/backdrops/pink-shimmer.jpg";
 import elegantGreeneryFlowers from "@/assets/backdrops/elegant-greenery-flowers.jpg";
-import brilliantWhiteOriginal from "@/assets/backdrops/brilliant-white-original.jpg";
+
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
 

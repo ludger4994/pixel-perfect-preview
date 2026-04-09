@@ -13,6 +13,7 @@ import silverCrystal from "@/assets/backdrops/silver-crystal.jpg";
 import goldSequin from "@/assets/backdrops/gold-sequin.jpg";
 import colorSplash from "@/assets/backdrops/color-splash.jpg";
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
+import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
 
 interface Backdrop {
   label: string;

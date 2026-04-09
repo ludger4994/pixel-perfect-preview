@@ -438,22 +438,22 @@ const PackagesPage = () => {
               {[
                 {
                   name: "Cold Sparks",
-                  price: "$150",
+                  price: "$299",
                   note: "add-on",
-                  features: ["Ice-cold spark showers — no heat, no fire, no smoke", "100% safe for indoor venues and guests", "Operated by professional attendant"],
+                  features: ["2 cold spark machines included", "6 fires total", "Ice-cold spark showers — no heat, no fire, no smoke", "100% safe for indoor venues and guests", "Operated by professional attendant"],
                 },
                 {
                   name: "Dancing on the Clouds",
-                  price: "$150",
+                  price: "$200",
                   note: "add-on",
                   features: ["Low-lying fog effect — stays at floor level", "Safe CO2-based fog — dissipates naturally", "Operated by professional attendant"],
                 },
                 {
                   name: "The Full Effect Bundle",
-                  price: "$275",
-                  note: "save $25",
+                  price: "$400",
+                  note: "save $99",
                   badge: "Best Value",
-                  features: ["Cold Sparks + Dancing on the Clouds together", "The most cinematic visual moment of your event", "Both effects operated by our professional team"],
+                  features: ["Cold Sparks + Dancing on the Clouds together", "2 cold spark machines — 6 fires total", "The most cinematic visual moment of your event", "Both effects operated by our professional team"],
                 },
               ].map((fx, i) => (
                 <AnimateOnScroll key={fx.name} delay={i * 100}>

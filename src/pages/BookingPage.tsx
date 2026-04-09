@@ -306,6 +306,9 @@ const BookingPage = () => {
                               : "border-border/30 bg-card hover:border-border/50"
                           }`}
                         >
+                          {pkg.serviceType === "selfie-booth" && (
+                            <p className="text-xs tracking-[0.15em] uppercase text-primary mb-1">Selfie Booth</p>
+                          )}
                           <h3 className="font-heading text-lg text-foreground font-bold">{pkg.name}</h3>
                           <div className="flex items-baseline gap-2 mt-1">
                             <span className="font-heading text-2xl text-primary font-bold">${pkg.price}</span>

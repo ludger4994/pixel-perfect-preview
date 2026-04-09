@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -18,93 +17,62 @@ import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 interface Backdrop {
   label: string;
   image: string;
-  category: string;
-  badge?: string;
   description: string;
   alt: string;
-  premium?: boolean;
 }
 
-const allBackdrops: Backdrop[] = [
+const pillowTopBackdrops: Backdrop[] = [
   {
     label: "Gray & Gold Marble",
     image: grayGoldMarble,
-    category: "Premium Specialty",
     description: "Sophisticated gray marble with gold veining — elegant and timeless",
     alt: "Gray and gold marble photo booth backdrop South Florida",
   },
   {
-    label: "Silver Sequin Wall",
-    image: silverSequin,
-    category: "Shimmer & Glam",
-    description: "Classic silver sequin shimmer — catches light beautifully in photos",
-    alt: "Silver sequin shimmer wall photo booth backdrop South Florida",
-  },
-  {
     label: "Silver Crystal",
     image: silverCrystal,
-    category: "Shimmer & Glam",
     description: "Sparkling crystal facets — dazzling and photo-ready",
     alt: "Silver crystal backdrop photo booth rental",
   },
   {
-    label: "Gold Sequin Wall",
-    image: goldSequin,
-    category: "Shimmer & Glam",
-    badge: "Luxe",
-    description: "Rich gold sequin shimmer — glamorous and bold",
-    alt: "Gold sequin wall photo booth backdrop South Florida",
-    premium: true,
-  },
-  {
-    label: "Pink Floral Wall",
-    image: pinkFloralWall,
-    category: "Floral & Greenery",
-    description: "Lush pink and white flower wall — romantic and vibrant",
-    alt: "Pink floral flower wall photo booth backdrop",
-  },
-  {
-    label: "Green Boxwood Hedge",
-    image: greenBoxwood,
-    category: "Floral & Greenery",
-    description: "Fresh green boxwood hedge — natural, versatile, and always elegant",
-    alt: "Green boxwood hedge wall photo booth backdrop",
-  },
-  {
     label: "Teal & Gold Marble",
     image: tealGoldMarble,
-    category: "Premium Specialty",
     description: "Dreamy teal marble with gold accents — unique and eye-catching",
     alt: "Teal and gold marble photo booth backdrop",
   },
   {
+    label: "Green Boxwood Hedge",
+    image: greenBoxwood,
+    description: "Fresh green boxwood hedge — natural, versatile, and always elegant",
+    alt: "Green boxwood hedge wall photo booth backdrop",
+  },
+  {
     label: "Color Splash",
     image: colorSplash,
-    category: "Signature",
     description: "Vibrant ink splash burst — bold, fun, and full of energy",
     alt: "Color splash backdrop photo booth rental",
   },
-];
-
-const categories = ["All", "Shimmer & Glam", "Floral & Greenery", "Premium Specialty", "Signature"];
-
-const categoryGroups = [
-  { name: "Shimmer & Glam Walls", filter: "Shimmer & Glam" },
-  { name: "Floral & Greenery Walls", filter: "Floral & Greenery" },
-  { name: "Premium Specialty Backdrops", filter: "Premium Specialty" },
-  { name: "Signature", filter: "Signature" },
+  {
+    label: "Silver Sequin Wall",
+    image: silverSequin,
+    description: "Classic silver sequin shimmer — catches light beautifully in photos",
+    alt: "Silver sequin shimmer wall photo booth backdrop South Florida",
+  },
+  {
+    label: "Gold Sequin Wall",
+    image: goldSequin,
+    description: "Rich gold sequin shimmer — glamorous and bold",
+    alt: "Gold sequin wall photo booth backdrop South Florida",
+  },
+  {
+    label: "Pink Floral Wall",
+    image: pinkFloralWall,
+    description: "Lush pink and white flower wall — romantic and vibrant",
+    alt: "Pink floral flower wall photo booth backdrop",
+  },
 ];
 
 const BackdropsPage = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filteredBackdrops =
-    activeFilter === "All"
-      ? allBackdrops
-      : allBackdrops.filter((b) => b.category === activeFilter);
-
-  const showGrouped = activeFilter === "All";
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -120,75 +88,42 @@ const BackdropsPage = () => {
               <p className="text-lg text-foreground/60 max-w-2xl mx-auto mb-6">
                 Every backdrop is designed to make your guests look stunning and your event feel extraordinary. Included with select packages or available as a premium add-on.
               </p>
-              {/* Gold divider */}
-              <div className="w-24 h-px bg-primary mx-auto mb-8" />
-              {/* Filter pills */}
-              <div className="flex flex-wrap justify-center gap-2">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveFilter(cat)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase transition-all duration-300 border ${
-                      activeFilter === cat
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-transparent text-foreground/60 border-foreground/20 hover:border-primary/50 hover:text-foreground"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+              <div className="w-24 h-px bg-primary mx-auto" />
             </AnimateOnScroll>
           </div>
         </section>
 
-        {/* Backdrop Grid */}
+        {/* Pillow Top Backdrops */}
         <section className="pb-16 lg:pb-20">
           <div className="container mx-auto px-4 lg:px-8">
-            {showGrouped ? (
-              categoryGroups.map((group) => {
-                const items = allBackdrops.filter((b) => b.category === group.filter);
-                if (items.length === 0) return null;
-                return (
-                  <div key={group.name} className="mb-12">
-                    <AnimateOnScroll>
-                      <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">
-                        {group.name}
-                      </p>
-                      <div className="w-16 h-px bg-primary/40 mb-6" />
-                    </AnimateOnScroll>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                      {items.map((bd, i) => (
-                        <BackdropCard key={bd.label} backdrop={bd} delay={i * 80} />
-                      ))}
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                {filteredBackdrops.map((bd, i) => (
-                  <BackdropCard key={bd.label} backdrop={bd} delay={i * 80} />
-                ))}
-              </div>
-            )}
+            <AnimateOnScroll>
+              <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">
+                Pillow Top Backdrops
+              </p>
+              <div className="w-16 h-px bg-primary/40 mb-6" />
+            </AnimateOnScroll>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {pillowTopBackdrops.map((bd, i) => (
+                <BackdropCard key={bd.label} backdrop={bd} delay={i * 80} />
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Pricing Note */}
-        <section className="py-12 lg:py-16">
-          <div className="container mx-auto px-4 lg:px-8 max-w-3xl text-center">
+        {/* Premium Backdrops */}
+        <section className="pb-16 lg:pb-20">
+          <div className="container mx-auto px-4 lg:px-8">
             <AnimateOnScroll>
-              <div className="rounded-xl border border-primary/15 bg-[hsl(var(--card))]/60 p-8">
-                <p className="text-foreground/80 text-sm leading-relaxed mb-4">
-                  <span className="font-semibold text-foreground">Standard Backdrops</span> — Included at no extra cost with The Lumière ($600), The Ultimate Experience ($700), and all Wedding Packages.
-                </p>
-                <p className="text-foreground/80 text-sm leading-relaxed">
-                  <span className="font-semibold text-foreground">Premium Backdrop Upgrade</span> — Silver Sequin Shimmer Wall, White Rose Flower Wall, and Gold Sequin Wall are available as a premium add-on for{" "}
-                  <span className="text-primary font-semibold">+$75</span> with any package.
-                </p>
-              </div>
+              <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">
+                Premium Backdrops
+              </p>
+              <div className="w-16 h-px bg-primary/40 mb-6" />
             </AnimateOnScroll>
+            <div className="rounded-xl border border-dashed border-primary/20 bg-card/30 p-12 text-center">
+              <p className="text-foreground/40 text-sm tracking-wide">
+                Coming Soon — Premium backdrops will be added here.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -244,7 +179,7 @@ const BackdropCard = ({ backdrop, delay }: { backdrop: Backdrop; delay: number }
   <AnimateOnScroll delay={delay}>
     <div className="group cursor-pointer">
       <div
-        className="relative overflow-hidden bg-[#1a1a1a] border border-primary/15"
+        className="relative overflow-hidden bg-[hsl(var(--card))] border border-primary/15"
         style={{ borderRadius: 12 }}
       >
         <div className="aspect-square overflow-hidden">
@@ -255,23 +190,8 @@ const BackdropCard = ({ backdrop, delay }: { backdrop: Backdrop; delay: number }
             loading="lazy"
           />
         </div>
-        {backdrop.badge && (
-          <span
-            className="absolute top-2.5 right-2.5 bg-primary text-primary-foreground uppercase tracking-wider"
-            style={{
-              fontSize: 10,
-              fontWeight: 500,
-              padding: "3px 10px",
-              borderRadius: 20,
-              letterSpacing: "0.07em",
-            }}
-          >
-            {backdrop.badge}
-          </span>
-        )}
       </div>
       <p className="mt-2.5 text-sm text-foreground font-medium">{backdrop.label}</p>
-      <p className="text-[11px] text-primary uppercase tracking-[0.15em]">{backdrop.category}</p>
     </div>
   </AnimateOnScroll>
 );

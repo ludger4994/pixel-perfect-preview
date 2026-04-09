@@ -41,6 +41,7 @@ const App = () => (
           <Route path="/reviews" element={<ComingSoon />} />
           <Route path="/faq" element={<ComingSoon />} />
           <Route path="/about" element={<ComingSoon />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ChatWidget />

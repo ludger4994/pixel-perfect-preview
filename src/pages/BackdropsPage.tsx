@@ -21,6 +21,7 @@ import elegantGreeneryFlowers from "@/assets/backdrops/elegant-greenery-flowers.
 
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
+import whiteFlowerWall from "@/assets/backdrops/white-flower-wall.png";
 
 interface Backdrop {
   label: string;

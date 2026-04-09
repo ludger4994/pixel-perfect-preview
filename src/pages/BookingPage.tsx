@@ -311,6 +311,14 @@ const BookingPage = () => {
                             <span className="font-heading text-2xl text-primary font-bold">${pkg.price}</span>
                             <span className="text-xs text-muted-foreground">· {pkg.duration}</span>
                           </div>
+                          <ul className="mt-3 space-y-1">
+                            {pkg.features.map((f) => (
+                              <li key={f} className="text-xs text-foreground/60 flex items-center gap-1.5">
+                                <Check className="w-3 h-3 text-primary flex-shrink-0" />
+                                {f}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       ))}
                     </div>

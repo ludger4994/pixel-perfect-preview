@@ -158,6 +158,27 @@
   100% { background-position: 200% 0; }
 }
 
+/* Chat widget tokens */
+:root {
+  --chat-text-muted: #b8aa8a;
+  --chat-text-dim: #6e6354;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,161,53,0.4); }
+  50%      { box-shadow: 0 0 0 8px rgba(201,161,53,0); }
+}
+
+@keyframes typingDot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-6px); }
+}
+
 .shimmer-gold {
   background: linear-gradient(
     90deg,

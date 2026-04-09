@@ -121,6 +121,275 @@ export type Database = {
         }
         Relationships: []
       }
+      booths: {
+        Row: {
+          active: boolean | null
+          booth_name: string
+          booth_type: string
+          created_at: string | null
+          id: string
+          ideal_for: string | null
+          one_hour_flat_rate: number | null
+          personality: string | null
+          premium_level: string | null
+          short_description: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          booth_name: string
+          booth_type: string
+          created_at?: string | null
+          id?: string
+          ideal_for?: string | null
+          one_hour_flat_rate?: number | null
+          personality?: string | null
+          premium_level?: string | null
+          short_description?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          booth_name?: string
+          booth_type?: string
+          created_at?: string | null
+          id?: string
+          ideal_for?: string | null
+          one_hour_flat_rate?: number | null
+          personality?: string | null
+          premium_level?: string | null
+          short_description?: string | null
+        }
+        Relationships: []
+      }
+      business_settings: {
+        Row: {
+          booking_link: string | null
+          business_name: string | null
+          created_at: string | null
+          id: string
+          instagram: string | null
+          service_area: string | null
+          setup_policy: string | null
+          sms_from_number: string | null
+          support_phone: string | null
+        }
+        Insert: {
+          booking_link?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          instagram?: string | null
+          service_area?: string | null
+          setup_policy?: string | null
+          sms_from_number?: string | null
+          support_phone?: string | null
+        }
+        Update: {
+          booking_link?: string | null
+          business_name?: string | null
+          created_at?: string | null
+          id?: string
+          instagram?: string | null
+          service_area?: string | null
+          setup_policy?: string | null
+          sms_from_number?: string | null
+          support_phone?: string | null
+        }
+        Relationships: []
+      }
+      chatbot_backdrops: {
+        Row: {
+          active: boolean | null
+          addon_price: number | null
+          backdrop_name: string
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          included_with: string | null
+          premium_notes: string | null
+          size: string | null
+          style: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          addon_price?: number | null
+          backdrop_name: string
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          included_with?: string | null
+          premium_notes?: string | null
+          size?: string | null
+          style?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          addon_price?: number | null
+          backdrop_name?: string
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          included_with?: string | null
+          premium_notes?: string | null
+          size?: string | null
+          style?: string | null
+        }
+        Relationships: []
+      }
+      faq_items: {
+        Row: {
+          active: boolean | null
+          answer: string
+          category: string | null
+          created_at: string | null
+          id: string
+          question: string
+        }
+        Insert: {
+          active?: boolean | null
+          answer: string
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          question: string
+        }
+        Update: {
+          active?: boolean | null
+          answer?: string
+          category?: string | null
+          created_at?: string | null
+          id?: string
+          question?: string
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          backdrop_interest: boolean | null
+          created_at: string | null
+          email: string | null
+          event_date: string | null
+          event_type: string | null
+          full_name: string | null
+          guest_count: string | null
+          id: string
+          location: string | null
+          notes: string | null
+          phone: string | null
+          preferred_booth: string | null
+          recommendation: string | null
+          requested_hours: string | null
+          sms_sent: boolean | null
+          source: string | null
+          vibe_preference: string | null
+        }
+        Insert: {
+          backdrop_interest?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          event_date?: string | null
+          event_type?: string | null
+          full_name?: string | null
+          guest_count?: string | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_booth?: string | null
+          recommendation?: string | null
+          requested_hours?: string | null
+          sms_sent?: boolean | null
+          source?: string | null
+          vibe_preference?: string | null
+        }
+        Update: {
+          backdrop_interest?: boolean | null
+          created_at?: string | null
+          email?: string | null
+          event_date?: string | null
+          event_type?: string | null
+          full_name?: string | null
+          guest_count?: string | null
+          id?: string
+          location?: string | null
+          notes?: string | null
+          phone?: string | null
+          preferred_booth?: string | null
+          recommendation?: string | null
+          requested_hours?: string | null
+          sms_sent?: boolean | null
+          source?: string | null
+          vibe_preference?: string | null
+        }
+        Relationships: []
+      }
+      packages: {
+        Row: {
+          active: boolean | null
+          booth_id: string | null
+          created_at: string | null
+          features: Json | null
+          hours: number
+          id: string
+          package_name: string
+          price: number
+        }
+        Insert: {
+          active?: boolean | null
+          booth_id?: string | null
+          created_at?: string | null
+          features?: Json | null
+          hours: number
+          id?: string
+          package_name: string
+          price: number
+        }
+        Update: {
+          active?: boolean | null
+          booth_id?: string | null
+          created_at?: string | null
+          features?: Json | null
+          hours?: number
+          id?: string
+          package_name?: string
+          price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "packages_booth_id_fkey"
+            columns: ["booth_id"]
+            isOneToOne: false
+            referencedRelation: "booths"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sms_templates: {
+        Row: {
+          active: boolean | null
+          created_at: string | null
+          id: string
+          template_body: string
+          template_name: string
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string | null
+          id?: string
+          template_body: string
+          template_name: string
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string | null
+          id?: string
+          template_body?: string
+          template_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -20,13 +20,13 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         {heroImages.map((img, i) => (
           <img
             key={i}
             src={img}
             alt={`Photo booth event experience ${i + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+            className={`absolute inset-0 w-full h-full object-cover object-center ken-burns transition-opacity duration-1000 ${
               i === currentImage ? "opacity-100" : "opacity-0"
             }`}
             width={1920}
@@ -37,30 +37,54 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center max-w-4xl pt-20">
-        <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6 animate-fade-up">
-          More Than a Photo Booth.{" "}
-          <span className="text-gradient-gold">An Experience</span> Your Guests
-          Will Never Forget.
-        </h1>
-        <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-          South Florida's Premier Event Experience Brand — Weddings, Birthdays,
-          Corporate Events & More.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up" style={{ animationDelay: "0.4s" }}>
-          <Link to="/book">
-            <Button variant="gold" size="xl">
-              Book Now
-            </Button>
-          </Link>
-          <Link to="/packages">
-            <Button variant="outline" size="xl">
-              View Our Packages
-            </Button>
-          </Link>
+        <div className="reveal visible reveal-delay-1">
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6">
+            More Than a Photo Booth.{" "}
+            <span className="text-gradient-gold">An Experience</span> Your Guests
+            Will Never Forget.
+          </h1>
         </div>
-        <p className="mt-10 text-sm text-primary/80 tracking-widest uppercase animate-fade-up" style={{ animationDelay: "0.6s" }}>
-          ★ Serving South Florida's Most Unforgettable Events ★
-        </p>
+        <div className="reveal visible reveal-delay-2">
+          <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10">
+            South Florida's Premier Event Experience Brand — Weddings, Birthdays,
+            Corporate Events & More.
+          </p>
+        </div>
+        <div className="reveal visible reveal-delay-3">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book">
+              <Button variant="gold" size="xl" className="btn-premium">
+                Book Now
+              </Button>
+            </Link>
+            <Link to="/packages">
+              <Button variant="outline" size="xl" className="btn-premium">
+                View Our Packages
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="reveal visible reveal-delay-4">
+          <p className="mt-10 text-sm text-primary/80 tracking-widest uppercase">
+            ★ Serving South Florida's Most Unforgettable Events ★
+          </p>
+        </div>
+      </div>
+
+      {/* Scroll chevron */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+        <span className="text-[10px] tracking-[0.15em] uppercase text-primary/60">
+          Scroll
+        </span>
+        <svg
+          className="chevron-bounce w-5 h-5 text-primary"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.5}
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
     </section>
   );

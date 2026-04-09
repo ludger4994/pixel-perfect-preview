@@ -189,3 +189,185 @@
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
+
+/* ── Scroll Reveal Base ─────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ── Gold Underline Draw Animation ─────────────── */
+.gold-line-draw {
+  display: block;
+  width: 0;
+  height: 1.5px;
+  background: hsl(var(--gold));
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 1rem auto 0;
+}
+.gold-line-draw.visible {
+  width: 60px;
+}
+
+/* ── Scroll Progress Bar ─────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(var(--gold)), hsl(var(--gold-light)));
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* ── Ken Burns Hero ──────────────────────────────── */
+@keyframes kenBurns {
+  0%   { transform: scale(1.0); }
+  100% { transform: scale(1.06); }
+}
+.ken-burns {
+  animation: kenBurns 10s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+/* ── Scroll Chevron Bounce ───────────────────────── */
+@keyframes chevronBounce {
+  0%, 100% { transform: translateY(0);   opacity: 0.6; }
+  50%       { transform: translateY(8px); opacity: 1;   }
+}
+.chevron-bounce {
+  animation: chevronBounce 1.8s ease-in-out infinite;
+}
+
+/* ── Gold Pulse Badge ─────────────────────────────── */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(201,161,53,0.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(201,161,53,0);   }
+}
+.pulse-gold {
+  animation: goldPulse 2.5s ease-in-out infinite;
+}
+
+/* ── Star Fill Animation ──────────────────────────── */
+@keyframes starFill {
+  from { opacity: 0; transform: scale(0.5) rotate(-20deg); }
+  to   { opacity: 1; transform: scale(1)   rotate(0deg);   }
+}
+.star-animate {
+  opacity: 0;
+  animation: starFill 0.4s ease forwards;
+}
+.star-animate:nth-child(1) { animation-delay: 0.05s; }
+.star-animate:nth-child(2) { animation-delay: 0.15s; }
+.star-animate:nth-child(3) { animation-delay: 0.25s; }
+.star-animate:nth-child(4) { animation-delay: 0.35s; }
+.star-animate:nth-child(5) { animation-delay: 0.45s; }
+
+/* ── Card Hover Lift ──────────────────────────────── */
+.card-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+.card-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+  border-color: rgba(201,161,53,0.45);
+}
+
+/* ── Image Zoom Hover ─────────────────────────────── */
+.img-zoom-wrap {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.img-zoom-wrap img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-zoom-wrap:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Button Hover Scale ───────────────────────────── */
+.btn-premium {
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-premium:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(201,161,53,0.35);
+}
+
+/* ── Mobile Sticky Book Bar ───────────────────────── */
+#mobile-book-bar {
+  display: none;
+}
+@media (max-width: 768px) {
+  #mobile-book-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+    background: hsl(var(--background));
+    border-top: 1px solid rgba(201,161,53,0.3);
+    padding: 12px 20px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* ── FAQ Gold Border Expand ───────────────────────── */
+.faq-item {
+  border-left: 2px solid transparent;
+  transition: border-color 0.3s ease, padding-left 0.3s ease;
+}
+.faq-item.open {
+  border-left-color: hsl(var(--gold));
+  padding-left: 12px;
+}
+.faq-item-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq-item-body.open {
+  max-height: 400px;
+}
+
+/* ── Reduced Motion ───────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .ken-burns,
+  .chevron-bounce,
+  .pulse-gold,
+  .star-animate,
+  .card-hover-lift,
+  .img-zoom-wrap img,
+  .btn-premium,
+  .gold-line-draw {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .gold-line-draw {
+    width: 60px;
+  }
+}

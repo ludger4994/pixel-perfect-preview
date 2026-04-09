@@ -15,6 +15,7 @@ import PackagesPage from "./pages/PackagesPage.tsx";
 import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
+import AdminPage from "./pages/AdminPage.tsx";
 import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();

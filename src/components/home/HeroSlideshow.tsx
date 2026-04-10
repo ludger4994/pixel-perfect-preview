@@ -1,47 +1,29 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-import slide01 from "@/assets/hero-selfie-booth.jpg";
-import slide02 from "@/assets/glam-booth-main.jpg";
-import slide03 from "@/assets/hero-party.jpg";
-import slide04 from "@/assets/silver-sequin-backdrop.jpg";
-import slide05 from "@/assets/360-booth.jpg";
-import slide06 from "@/assets/360-booth-main.jpg";
+import img01 from "@/assets/slideshow/asset_015_CpK2ZazATnx.jpg";
+import img02 from "@/assets/slideshow/asset_019_CfyfPqjAA2s.jpg";
+import img03 from "@/assets/slideshow/asset_024_C9YDrF1xvUB.jpg";
+import img04 from "@/assets/slideshow/asset_025_DHRxqKbRsd8.jpg";
+import img05 from "@/assets/slideshow/asset_028_C5bi7RUxPix.jpg";
+import img06 from "@/assets/slideshow/asset_043_CrdqpD7AqwR.jpg";
+import img07 from "@/assets/slideshow/asset_049_CzjiAL_r_le.jpg";
+import img08 from "@/assets/slideshow/asset_059_CwyDpC_OpAj.jpg";
+import img09 from "@/assets/slideshow/asset_060_DGivoL_Rajt.jpg";
+import img10 from "@/assets/slideshow/asset_068_DGszExjxQk4.jpg";
+import img11 from "@/assets/slideshow/asset_070_Ck-pXuDgDCE.jpg";
+import img12 from "@/assets/slideshow/asset_078_CmUNogiAkBh.jpg";
+import img13 from "@/assets/slideshow/asset_081_Cro6efLrWjn.jpg";
+import img14 from "@/assets/slideshow/asset_087_CrapZbFg4zR.jpg";
+import img15 from "@/assets/slideshow/asset_098_C_B0NdAx4FW.jpg";
+import img16 from "@/assets/slideshow/asset_099_DGZXYLERMef.jpg";
 
 const slides = [
-  {
-    src: slide01,
-    alt: "Luxury photo booth experience South Florida — Photo Booth Legends",
-    position: "center 30%",
-  },
-  {
-    src: slide02,
-    alt: "Selfie booth rental South Florida wedding — Photo Booth Legends",
-    position: "center center",
-  },
-  {
-    src: slide03,
-    alt: "Photo booth party experience South Florida",
-    position: "center top",
-  },
-  {
-    src: slide04,
-    alt: "Silver sequin backdrop with neon sign photo booth rental",
-    position: "center center",
-  },
-  {
-    src: slide05,
-    alt: "360 photo booth guests South Florida event",
-    position: "center center",
-  },
-  {
-    src: slide06,
-    alt: "360 photo booth red carpet setup South Florida",
-    position: "center 40%",
-  },
+  img01, img02, img03, img04, img05, img06, img07, img08,
+  img09, img10, img11, img12, img13, img14, img15, img16,
 ];
 
-const SLIDE_DURATION = 5000;
-const TRANSITION_DURATION = 1200;
+const SLIDE_DURATION = 3000;
+const TRANSITION_DURATION = 800;
 
 const HeroSlideshow = () => {
   const [current, setCurrent] = useState(0);
@@ -78,11 +60,11 @@ const HeroSlideshow = () => {
   return (
     <div
       className="relative w-full overflow-hidden"
-      style={{ height: "clamp(400px, 70vh, 800px)" }}
+      style={{ height: "clamp(250px, 45vh, 480px)" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {slides.map((slide, i) => {
+      {slides.map((src, i) => {
         const isActive = i === current;
         const isPrev = i === prev;
 
@@ -100,15 +82,15 @@ const HeroSlideshow = () => {
             }}
           >
             <img
-              src={slide.src}
-              alt={slide.alt}
+              src={src}
+              alt={`Photo Booth Legends event ${i + 1}`}
               loading={i === 0 ? "eager" : "lazy"}
               style={{
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                objectPosition: slide.position,
-                transform: isActive ? "scale(1.04)" : "scale(1.0)",
+                objectPosition: "center center",
+                transform: isActive ? "scale(1.03)" : "scale(1.0)",
                 transition: isActive
                   ? `transform ${SLIDE_DURATION + TRANSITION_DURATION}ms ease-in-out`
                   : "none",
@@ -123,14 +105,14 @@ const HeroSlideshow = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.65) 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.6) 100%)",
           zIndex: 3,
         }}
       />
 
       {/* Dot navigation */}
       <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5"
         style={{ zIndex: 10 }}
       >
         {slides.map((_, i) => (
@@ -140,13 +122,13 @@ const HeroSlideshow = () => {
             aria-label={`Go to slide ${i + 1}`}
             className="slideshow-dot"
             style={{
-              width: i === current ? "24px" : "8px",
-              height: "8px",
-              borderRadius: "4px",
+              width: i === current ? "18px" : "6px",
+              height: "6px",
+              borderRadius: "3px",
               background:
                 i === current
                   ? "hsl(42, 72%, 42%)"
-                  : "rgba(255,255,255,0.4)",
+                  : "rgba(255,255,255,0.35)",
               border: "none",
               cursor: "pointer",
               padding: 0,
@@ -157,19 +139,14 @@ const HeroSlideshow = () => {
 
       {/* Slide counter */}
       <div
-        className="absolute top-5 right-6 flex items-center gap-1.5"
-        style={{ zIndex: 10, opacity: 0.7 }}
+        className="absolute top-3 right-4 flex items-center gap-1"
+        style={{ zIndex: 10, opacity: 0.6 }}
       >
-        <span
-          className="font-body"
-          style={{ color: "hsl(42, 72%, 42%)", fontSize: "13px", fontWeight: 500 }}
-        >
+        <span style={{ color: "hsl(42, 72%, 42%)", fontSize: "11px", fontWeight: 500 }}>
           {String(current + 1).padStart(2, "0")}
         </span>
-        <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>
-          /
-        </span>
-        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px" }}>
+        <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px" }}>/</span>
+        <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "10px" }}>
           {String(slides.length).padStart(2, "0")}
         </span>
       </div>

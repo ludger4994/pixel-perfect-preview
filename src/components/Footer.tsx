@@ -62,6 +62,10 @@ const Footer = () => {
                 <Phone className="w-4 h-4" />
                 (954) 548-5809
               </a>
+              <a href="tel:7863844038" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Phone className="w-4 h-4" />
+                (786) 384-4038
+              </a>
               <a
                 href="https://www.instagram.com/photoboothlegends"
                 target="_blank"

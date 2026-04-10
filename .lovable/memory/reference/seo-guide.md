@@ -12,11 +12,22 @@ User uploaded a comprehensive SEO implementation guide (981 lines).
 - Packages, Contact, Booking, Backdrops: SEOHead added
 - sitemap.xml and robots.txt with sitemap reference created
 
-## Remaining Phases
-- Phase 2: Build new event pages (Weddings, Corporate, Special Effects hub)
-- Phase 3: Build audience pages (Birthdays, Quinceañeras, Sweet 16, School Events, Brand Activations)
-- Phase 4: Build 11 city/location pages + Service Areas hub
-- Phase 5: Build FAQ (full page), Gallery, Reviews, About, Blog
+## Phase 2 DONE — Event + Effect Pages
+- Weddings, Corporate Events, Special Effects hub built
+- FAQ (20+ Qs), Gallery, Reviews, About pages built
+
+## Phase 3 DONE — Audience Pages
+- Birthdays & Private Parties, Quinceañeras, Sweet 16, Baby Showers, School Events, Brand Activations
+
+## Phase 4 DONE — Location Pages
+- 11 city pages: Miami, Fort Lauderdale, Boca Raton, West Palm Beach, Hollywood FL, Coral Springs, Pembroke Pines, Miramar, Doral, Kendall, Homestead
+- Service Areas hub page
+- Reusable CityPageLayout and EventPageLayout components
+
+## Remaining
+- Phase 5: Blog content hub (ongoing)
+- Internal linking improvements between pages
+- GBP, Bing, citations (external)
 
 ## Key Rules
 - Every page owns a unique keyword cluster — no cannibalization
@@ -25,10 +36,5 @@ User uploaded a comprehensive SEO implementation guide (981 lines).
 - Event page H1 format: "[Event Type] Photo Booth Rental in South Florida"
 - Title format: "[Primary Keyword] | Photo Booth Legends" (under 60 chars)
 - Meta desc under 160 chars
-- FAQPage schema on any page with FAQ section
-- BreadcrumbList schema on all interior pages
-- Entity statement on every page: "Photo Booth Legends is a photo booth rental and event experience company based in South Florida."
+- Entity statement on every page
 - Internal linking rules: every service → /packages + /contact + 2 event + 2 city pages
-
-## File Reference
-Original guide saved conceptually — refer to user-uploads://PhotoBoothLegends_SingleSite_SEO_Implementation.md

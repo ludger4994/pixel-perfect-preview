@@ -23,6 +23,26 @@ import AboutPage from "./pages/AboutPage.tsx";
 import WeddingsPage from "./pages/WeddingsPage.tsx";
 import CorporateEventsPage from "./pages/CorporateEventsPage.tsx";
 import SpecialEffectsPage from "./pages/SpecialEffectsPage.tsx";
+// Event pages
+import BirthdaysPage from "./pages/BirthdaysPage.tsx";
+import QuinceanerásPage from "./pages/QuinceanerásPage.tsx";
+import Sweet16Page from "./pages/Sweet16Page.tsx";
+import BabyShowersPage from "./pages/BabyShowersPage.tsx";
+import SchoolEventsPage from "./pages/SchoolEventsPage.tsx";
+import BrandActivationsPage from "./pages/BrandActivationsPage.tsx";
+// City pages
+import MiamiPage from "./pages/cities/MiamiPage.tsx";
+import FortLauderdalePage from "./pages/cities/FortLauderdalePage.tsx";
+import BocaRatonPage from "./pages/cities/BocaRatonPage.tsx";
+import WestPalmBeachPage from "./pages/cities/WestPalmBeachPage.tsx";
+import HollywoodPage from "./pages/cities/HollywoodPage.tsx";
+import CoralSpringsPage from "./pages/cities/CoralSpringsPage.tsx";
+import PembrokePinesPage from "./pages/cities/PembrokePinesPage.tsx";
+import MiramarPage from "./pages/cities/MiramarPage.tsx";
+import DoralPage from "./pages/cities/DoralPage.tsx";
+import KendallPage from "./pages/cities/KendallPage.tsx";
+import HomesteadPage from "./pages/cities/HomesteadPage.tsx";
+import ServiceAreasPage from "./pages/ServiceAreasPage.tsx";
 import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();
@@ -68,6 +88,26 @@ const App = () => (
           <Route path="/about" element={<AboutPage />} />
           <Route path="/weddings" element={<WeddingsPage />} />
           <Route path="/corporate-events" element={<CorporateEventsPage />} />
+          {/* Event pages */}
+          <Route path="/birthdays-private-parties" element={<BirthdaysPage />} />
+          <Route path="/quinceaneras" element={<QuinceanerásPage />} />
+          <Route path="/sweet-16" element={<Sweet16Page />} />
+          <Route path="/baby-showers" element={<BabyShowersPage />} />
+          <Route path="/school-events" element={<SchoolEventsPage />} />
+          <Route path="/brand-activations" element={<BrandActivationsPage />} />
+          {/* City pages */}
+          <Route path="/photo-booth-rental-miami" element={<MiamiPage />} />
+          <Route path="/photo-booth-rental-fort-lauderdale" element={<FortLauderdalePage />} />
+          <Route path="/photo-booth-rental-boca-raton" element={<BocaRatonPage />} />
+          <Route path="/photo-booth-rental-west-palm-beach" element={<WestPalmBeachPage />} />
+          <Route path="/photo-booth-rental-hollywood-fl" element={<HollywoodPage />} />
+          <Route path="/photo-booth-rental-coral-springs" element={<CoralSpringsPage />} />
+          <Route path="/photo-booth-rental-pembroke-pines" element={<PembrokePinesPage />} />
+          <Route path="/photo-booth-rental-miramar" element={<MiramarPage />} />
+          <Route path="/photo-booth-rental-doral" element={<DoralPage />} />
+          <Route path="/photo-booth-rental-kendall" element={<KendallPage />} />
+          <Route path="/photo-booth-rental-homestead" element={<HomesteadPage />} />
+          <Route path="/service-areas" element={<ServiceAreasPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

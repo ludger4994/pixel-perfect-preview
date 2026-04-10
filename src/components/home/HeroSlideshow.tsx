@@ -88,7 +88,7 @@ const HeroSlideshow = () => {
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
+                objectFit: "contain",
                 objectPosition: "center center",
                 transform: isActive ? "scale(1.03)" : "scale(1.0)",
                 transition: isActive

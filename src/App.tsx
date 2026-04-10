@@ -5,7 +5,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
-import ComingSoon from "./pages/ComingSoon.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import SelfieBoothPage from "./pages/SelfieBoothPage.tsx";
 import ThreeSixtyBoothPage from "./pages/ThreeSixtyBoothPage.tsx";
@@ -17,6 +16,13 @@ import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
+import FAQPage from "./pages/FAQPage.tsx";
+import GalleryPage from "./pages/GalleryPage.tsx";
+import ReviewsPage from "./pages/ReviewsPage.tsx";
+import AboutPage from "./pages/AboutPage.tsx";
+import WeddingsPage from "./pages/WeddingsPage.tsx";
+import CorporateEventsPage from "./pages/CorporateEventsPage.tsx";
+import SpecialEffectsPage from "./pages/SpecialEffectsPage.tsx";
 import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();
@@ -51,14 +57,17 @@ const App = () => (
           <Route path="/txr20-booth" element={<TXR20BoothPage />} />
           <Route path="/cold-sparks" element={<ColdSparksPage />} />
           <Route path="/dancing-on-the-clouds" element={<DancingCloudsPage />} />
+          <Route path="/special-effects" element={<SpecialEffectsPage />} />
           <Route path="/packages" element={<PackagesPage />} />
           <Route path="/book" element={<BookingPage />} />
           <Route path="/backdrops" element={<BackdropsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/gallery" element={<ComingSoon />} />
-          <Route path="/reviews" element={<ComingSoon />} />
-          <Route path="/faq" element={<ComingSoon />} />
-          <Route path="/about" element={<ComingSoon />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/weddings" element={<WeddingsPage />} />
+          <Route path="/corporate-events" element={<CorporateEventsPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

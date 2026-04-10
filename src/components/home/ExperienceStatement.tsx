@@ -10,6 +10,7 @@ const ExperienceStatement = () => {
           <div className="space-y-2 mb-8">
             <div className="w-16 h-px bg-primary mx-auto" />
             <p className="text-sm tracking-[0.3em] uppercase text-primary">Our Philosophy</p>
+            <h2 className="font-heading text-lg text-foreground mt-2">Photo Booth Experiences That Transform Your Event</h2>
           </div>
         </div>
         <span className={`gold-line-draw ${isVisible ? 'visible' : ''}`} />

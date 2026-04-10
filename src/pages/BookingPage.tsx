@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SEOHead from "@/components/SEOHead";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
@@ -236,6 +237,11 @@ const BookingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Book Your Experience | Photo Booth Legends | 954-548-5809"
+        description="Book your luxury photo booth experience with Photo Booth Legends. Select your package, pick your date, and secure your South Florida event."
+        canonical="https://photoboothlegends.com/book"
+      />
       <Navbar />
       <main>
         {/* Hero */}

@@ -12,8 +12,8 @@ const FinalCTA = () => {
       <div ref={ref} className="relative container mx-auto px-4 lg:px-8 text-center max-w-3xl">
         <div className={`reveal ${isVisible ? 'visible' : ''}`}>
           <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-foreground font-bold mb-6">
-            Ready to Make Your Event{" "}
-            <span className="text-gradient-gold">Unforgettable?</span>
+            Ready to Create an{" "}
+            <span className="text-gradient-gold">Unforgettable Experience?</span>
           </h2>
           <p className="text-foreground/60 text-lg mb-10 max-w-xl mx-auto">
             Book your experience today and let Photo Booth Legends handle the magic.

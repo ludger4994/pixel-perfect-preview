@@ -47,7 +47,7 @@ const ReviewsPreview = () => {
           <div className="text-center mb-16">
             <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4">Testimonials</p>
             <h2 className="font-heading text-3xl md:text-5xl text-foreground font-bold">
-              What Our Clients Say
+              What Our Clients Are Saying
             </h2>
           </div>
         </div>

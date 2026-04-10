@@ -41,7 +41,7 @@ const PackagesPreview = () => {
           <div className="text-center mb-4">
             <p className="text-sm tracking-[0.3em] uppercase text-primary mb-4">Packages</p>
             <h2 className="font-heading text-3xl md:text-5xl text-foreground font-bold mb-4">
-              Our Packages
+              Packages Designed for Every Event and Budget
             </h2>
             <p className="text-foreground/60 max-w-2xl mx-auto">
               Flexible experiences designed for every event. From intimate celebrations to grand affairs — there's a perfect package for you.

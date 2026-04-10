@@ -5,8 +5,9 @@ const ServiceArea = () => {
   const { ref, isVisible } = useScrollReveal();
 
   const cities = [
-    "Miami", "Fort Lauderdale", "Boca Raton", "Coral Springs",
-    "Pembroke Pines", "Doral", "Hialeah", "Miramar", "Hollywood",
+    "Miami", "Fort Lauderdale", "Hollywood", "Boca Raton", "Delray Beach",
+    "Boynton Beach", "West Palm Beach", "Coral Springs",
+    "Pembroke Pines", "Miramar", "Doral", "Kendall", "Homestead",
   ];
 
   return (
@@ -18,10 +19,10 @@ const ServiceArea = () => {
             <p className="text-sm tracking-[0.3em] uppercase text-primary">Service Area</p>
           </div>
           <h2 className="font-heading text-3xl md:text-4xl text-foreground font-bold mb-6">
-            Proudly Serving South Florida
+            Proudly Serving South Florida — Miami to West Palm Beach
           </h2>
           <p className="text-foreground/60 leading-relaxed mb-10 max-w-2xl mx-auto">
-            Proudly serving weddings, birthdays, corporate events, quinceañeras, and private parties across South Florida — including Miami, Fort Lauderdale, Boca Raton, Coral Springs, Pembroke Pines, Doral, Hialeah, Miramar, Hollywood, and surrounding areas.
+            Photo Booth Legends proudly serves events throughout South Florida, including Miami, Fort Lauderdale, Hollywood, Boca Raton, Delray Beach, Boynton Beach, West Palm Beach, Coral Springs, Pembroke Pines, Miramar, Doral, Kendall, and Homestead. From Miami-Dade County north through Broward County and into Palm Beach County — if you're planning an event in South Florida, we're here for you.
           </p>
         </div>
         <div className={`reveal reveal-delay-2 ${isVisible ? 'visible' : ''}`}>

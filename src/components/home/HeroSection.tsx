@@ -38,16 +38,15 @@ const HeroSection = () => {
 
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center max-w-4xl pt-20">
         <div className="reveal visible reveal-delay-1">
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6">
-            More Than a Photo Booth.{" "}
-            <span className="text-gradient-gold">An Experience</span> Your Guests
-            Will Never Forget.
-          </h1>
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6">
+              South Florida's Premier{" "}
+              <span className="text-gradient-gold">Luxury Photo Booth</span>{" "}
+              Experience
+            </h1>
         </div>
         <div className="reveal visible reveal-delay-2">
           <p className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10">
-            South Florida's Premier Event Experience Brand — Weddings, Birthdays,
-            Corporate Events & More.
+            Photo Booth Legends is South Florida's premier photo booth and event experience company — selfie booths, 360° booths, cold sparks &amp; dancing on the clouds for weddings, birthdays, quinceañeras &amp; corporate events. Serving Miami, Fort Lauderdale, Boca Raton &amp; West Palm Beach.
           </p>
         </div>
         <div className="reveal visible reveal-delay-3">

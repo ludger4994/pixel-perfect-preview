@@ -11,3 +11,4 @@ Mobile-first, editorial luxury aesthetic. No generic AI look.
 - [Brand details](mem://features/brand) — Full brand positioning, services, target audiences
 - [Site map](mem://features/sitemap) — All pages and their status (built vs coming soon)
 - [Design tokens](mem://design/tokens) — Gold/champagne/blush palette, CSS variables, animations
+- [SEO guide](mem://reference/seo-guide) — Full SEO strategy: page map, keywords, schema, title/meta templates for 35+ pages. Phase 1 done.

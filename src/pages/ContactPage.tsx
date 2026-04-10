@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SEOHead from "@/components/SEOHead";
 import { Phone, Instagram, CheckCircle } from "lucide-react";
 
 const eventTypes = [
@@ -109,6 +110,11 @@ const ContactPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Book Your Experience | Photo Booth Legends | 954-548-5809"
+        description="Contact Photo Booth Legends to book your luxury photo booth experience. Tell us about your event and we'll respond within 24 hours. Call 954-548-5809."
+        canonical="https://photoboothlegends.com/contact"
+      />
       <Navbar />
       <main>
         <section className="pt-32 pb-16 lg:pb-24">

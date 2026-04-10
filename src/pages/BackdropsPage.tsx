@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SEOHead from "@/components/SEOHead";
 
 import grayGoldMarble from "@/assets/backdrops/gray-gold-marble.jpg";
 import pinkFloralWall from "@/assets/backdrops/pink-floral-wall.jpg";
@@ -120,6 +121,11 @@ const pillowTopBackdrops: Backdrop[] = [
 const BackdropsPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Photo Booth Backdrop Collection | Photo Booth Legends South Florida"
+        description="Browse Photo Booth Legends' backdrop collection — flower walls, sequin walls, marble prints & more. Included with select packages or available as a premium add-on."
+        canonical="https://photoboothlegends.com/backdrops"
+      />
       <Navbar />
       <main>
         {/* Header */}

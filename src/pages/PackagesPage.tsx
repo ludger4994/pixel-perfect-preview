@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
+import SEOHead from "@/components/SEOHead";
 import { Check, Minus, Star, Sparkles, Heart } from "lucide-react";
 
 import grayGoldMarble from "@/assets/backdrops/gray-gold-marble.jpg";
@@ -366,6 +367,11 @@ const PackagesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Photo Booth Packages South Florida | Photo Booth Legends"
+        description="Browse Photo Booth Legends' premium packages — selfie booth, 360° booth & luxury experiences starting at $400. Serving all of South Florida."
+        canonical="https://photoboothlegends.com/packages"
+      />
       <Navbar />
       <main>
         {/* Hero */}

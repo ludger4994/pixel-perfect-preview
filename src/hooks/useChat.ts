@@ -4,10 +4,9 @@ import type { ChatMessage, ConversationStage, LeadData } from "@/types/chat";
 const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
 const API_KEY = "sb_publishable_LKNMPBRqW-CwQTEEG3P_qQ_5Xp_G17m";
 
-const HEADERS = {
+const HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
   apikey: API_KEY,
-  Authorization: `Bearer ${API_KEY}`,
 };
 
 const LEAD_FIELDS: { key: keyof LeadData; label: string; prompt: string }[] = [

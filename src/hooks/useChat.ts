@@ -68,9 +68,9 @@ export function useChat() {
     };
 
     try {
-      const resp = await fetch(CHATBOT_URL, {
+      const resp = await fetch(LEAD_SAVE_URL, {
         method: "POST",
-        headers: HEADERS,
+        headers: LEAD_HEADERS,
         body: JSON.stringify(payload),
       });
       if (!resp.ok) throw new Error("Failed to save lead");

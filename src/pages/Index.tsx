@@ -20,11 +20,11 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <HeroSlideshow />
         <ExperienceStatement />
         <FeaturedServices />
         <WhyChooseUs />
         <PackagesPreview />
+        <HeroSlideshow />
         <GalleryPreview />
         <ReviewsPreview />
         <InstagramSection />

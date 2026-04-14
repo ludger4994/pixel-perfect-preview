@@ -37,9 +37,9 @@ const FinalCTA = () => {
 
         <div className={`reveal reveal-delay-4 ${isVisible ? 'visible' : ''}`}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-foreground/50">
-            <a href="tel:7863844038" className="flex items-center gap-2 hover:text-primary transition-colors font-heading tracking-[0.05em]" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.75rem)' }}>
+            <a href="tel:9545485809" className="flex items-center gap-2 hover:text-primary transition-colors font-heading tracking-[0.05em]" style={{ fontSize: 'clamp(1.25rem, 3vw, 1.75rem)' }}>
               <Phone className="w-4 h-4" />
-              786-384-4038
+              954-548-5809
             </a>
             <a
               href="https://www.instagram.com/photoboothlegends"

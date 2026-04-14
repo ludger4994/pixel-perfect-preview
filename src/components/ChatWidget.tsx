@@ -65,7 +65,7 @@ const ChatWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999]" style={{ fontFamily: "var(--font-body)" }}>
+    <div className="fixed bottom-20 right-6 z-[9999] lg:bottom-6" style={{ fontFamily: "var(--font-body)" }}>
       {/* Prompt Bubble */}
       {!isOpen && promptText && (
         <PromptBubble

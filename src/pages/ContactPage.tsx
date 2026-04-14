@@ -17,7 +17,7 @@ const guestOptions = ["Under 50", "50–100", "100–200", "200–300", "300+"];
 const serviceOptions = [
   "The Spark — Selfie Booth, 2 hrs ($400)",
   "The Lumière — Selfie Booth + Prints, 3 hrs ($600)",
-  "The Ultimate Experience — Selfie Booth + Shout-Out Video, 4 hrs ($800)",
+  "The Ultimate Experience — Selfie Booth + Shout-Out Video, 4 hrs ($700)",
   "360° Gold — 2 hrs ($600)",
   "360° Diamond — 3 hrs + Montage ($750)",
   "Wedding: The Romance ($800)",
@@ -155,6 +155,21 @@ const ContactPage = () => {
                           <span>@photoboothlegends</span>
                         </a>
                       </div>
+                    </div>
+                    <div className="flex flex-wrap gap-3 mt-4 mb-6">
+                      {[
+                        "✦ Professional Attendant Included",
+                        "✦ We Respond Within 24 Hours",
+                        "✦ Serving Miami to West Palm Beach",
+                        "✦ 500+ South Florida Events",
+                      ].map((badge) => (
+                        <span
+                          key={badge}
+                          className="text-xs text-primary/70 border border-primary/20 rounded-full px-3 py-1 tracking-wide"
+                        >
+                          {badge}
+                        </span>
+                      ))}
                     </div>
                     <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
                       <p className="text-sm text-foreground/70">

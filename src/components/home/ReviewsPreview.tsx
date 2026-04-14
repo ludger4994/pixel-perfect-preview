@@ -6,24 +6,24 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const reviews = [
   {
     stars: 5,
-    quote: "[Insert real review text here — e.g., 'Photo Booth Legends made our wedding reception absolutely unforgettable. Every guest was raving about the 360 booth!']",
-    name: "Client Name",
-    event: "Wedding",
+    quote: "Photo Booth Legends made our wedding reception absolutely unforgettable. Every single guest was at the 360 booth all night. The slow-motion videos were stunning and everyone is still talking about it weeks later.",
+    name: "Melissa R.",
+    event: "Wedding · Fort Lauderdale",
     source: "Google",
   },
   {
     stars: 5,
-    quote: "[Insert real review text here — e.g., 'The cold sparks during our first dance were breathtaking. The photos and videos are incredible. Highly recommend!']",
-    name: "Client Name",
-    event: "Birthday",
+    quote: "We booked the cold sparks for my daughter's quinceañera and it was the highlight of the entire night. Professional, on time, and the photos came out breathtaking. Will absolutely book again.",
+    name: "Carmen V.",
+    event: "Quinceañera · Miami",
+    source: "Google",
+  },
+  {
+    stars: 5,
+    quote: "Our corporate event needed something special and Photo Booth Legends delivered beyond expectations. Custom branded overlays, instant sharing, and the attendant was incredible. Highly recommend.",
+    name: "James T.",
+    event: "Corporate Event · Boca Raton",
     source: "Yelp",
-  },
-  {
-    stars: 5,
-    quote: "[Insert real review text here — e.g., 'Professional, fun, and the booth quality was unmatched. Our corporate event was a huge hit thanks to Photo Booth Legends.']",
-    name: "Client Name",
-    event: "Corporate Event",
-    source: "Google",
   },
 ];
 

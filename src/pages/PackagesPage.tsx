@@ -81,7 +81,7 @@ const selfiePackages: PackageData[] = [
   {
     id: "ultimate",
     name: "The Ultimate Experience",
-    price: 800,
+    price: 700,
     duration: "4 Hours",
     badge: "Ultimate",
     badgeColor: "bg-amber-600/80 text-foreground",
@@ -269,7 +269,7 @@ const comparisonFeatures = [
 const colHeaders = [
   { name: "Spark", price: "$400", dur: "2hr" },
   { name: "Lumière", price: "$600", dur: "3hr" },
-  { name: "Ultimate", price: "$800", dur: "4hr" },
+  { name: "Ultimate", price: "$700", dur: "4hr" },
   { name: "360° Gold", price: "$600", dur: "2hr" },
   { name: "360° Diamond", price: "$750", dur: "3hr" },
 ];

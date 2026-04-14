@@ -4,44 +4,44 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import SEOHead from "@/components/SEOHead";
-import { BookOpen } from "lucide-react";
 
-const blogTopics = [
+import threeSixtyImg from "@/assets/360-booth-main.jpg";
+import glamBoothImg from "@/assets/glam-booth-main.jpg";
+import dancingCloudsImg from "@/assets/dancing-clouds.jpg";
+import silverSequinImg from "@/assets/silver-sequin-backdrop.jpg";
+
+const posts = [
+  {
+    title: "What Is a 360 Photo Booth? Everything You Need to Know",
+    slug: "what-is-360-photo-booth",
+    excerpt: "360 photo booths have become the most requested event entertainment in South Florida. Here's exactly how they work, what guests experience, and why they go viral every time.",
+    category: "Education",
+    date: "April 2025",
+    image: threeSixtyImg,
+  },
   {
     title: "How Much Does a Photo Booth Rental Cost in South Florida?",
-    excerpt: "A complete pricing breakdown for selfie booths, 360° booths, and luxury booth experiences across Miami-Dade, Broward, and Palm Beach County.",
-    category: "Pricing",
-    href: "/packages",
+    slug: "photo-booth-rental-cost-south-florida",
+    excerpt: "Complete pricing guide for photo booth rentals in Miami, Fort Lauderdale, and across South Florida — selfie booths, 360 booths, and luxury options explained.",
+    category: "Pricing Guide",
+    date: "March 2025",
+    image: glamBoothImg,
   },
   {
-    title: "What Is a 360 Photo Booth and How Does It Work?",
-    excerpt: "Everything you need to know about the 360° photo booth experience — from GoPro 4K capture to slow-motion video output and instant sharing.",
-    category: "Education",
-    href: "/360-booth",
-  },
-  {
-    title: "Are Cold Sparks Safe for Indoor Events?",
-    excerpt: "Cold sparks produce no heat, no fire, and no smoke — making them 100% safe for any indoor venue. Here's the science behind the effect.",
-    category: "FAQ",
-    href: "/cold-sparks",
-  },
-  {
-    title: "The Best Photo Booth for Weddings in South Florida",
-    excerpt: "Comparing selfie booths, 360° booths, and the TXR20 luxury booth — which one is right for your wedding day?",
+    title: "Dancing on the Clouds vs Cold Sparks — Which Is Right for Your Wedding?",
+    slug: "dancing-clouds-vs-cold-sparks-wedding",
+    excerpt: "Both are stunning. Both are in high demand. But which special effect is right for YOUR South Florida wedding? We break down exactly when to use each one.",
     category: "Weddings",
-    href: "/weddings",
+    date: "February 2025",
+    image: dancingCloudsImg,
   },
   {
-    title: "How Far in Advance Should I Book a Photo Booth?",
-    excerpt: "Peak season fills up fast. Here's when to book to guarantee your date — and what happens if you wait too long.",
-    category: "Planning",
-    href: "/faq",
-  },
-  {
-    title: "What Is Dancing on the Clouds at a Wedding?",
-    excerpt: "The CO2 low-fog effect explained — how it works, how long it lasts, and why it's the most requested wedding special effect in South Florida.",
-    category: "Effects",
-    href: "/dancing-on-the-clouds",
+    title: "The Complete Guide to Event Backdrops — Flower Walls, Sequin Walls, and More",
+    slug: "event-backdrop-guide",
+    excerpt: "From silver sequin shimmer walls to white rose flower walls — here's everything you need to know about choosing the perfect event backdrop in South Florida.",
+    category: "Events",
+    date: "January 2025",
+    image: silverSequinImg,
   },
 ];
 
@@ -71,22 +71,32 @@ const BlogPage = () => {
 
         <section className="pb-24 lg:pb-32">
           <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogTopics.map((post, i) => (
+            <div className="grid md:grid-cols-2 gap-6">
+              {posts.map((post, i) => (
                 <AnimateOnScroll key={i} delay={i * 80}>
-                  <Link to={post.href} className="group block h-full">
-                    <div className="bg-card border border-border/30 rounded-lg p-6 h-full flex flex-col hover:border-primary/30 transition-colors">
-                      <div className="flex items-center gap-2 mb-4">
-                        <BookOpen className="w-4 h-4 text-primary" />
-                        <span className="text-xs text-primary font-medium uppercase tracking-wider">{post.category}</span>
+                  <Link to={`/blog/${post.slug}`} className="group block h-full">
+                    <div className="bg-card border border-border/30 rounded-lg overflow-hidden h-full flex flex-col hover:border-primary/30 transition-colors">
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
                       </div>
-                      <h2 className="font-heading text-lg text-foreground font-bold mb-3 group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h2>
-                      <p className="text-foreground/60 text-sm leading-relaxed flex-1">
-                        {post.excerpt}
-                      </p>
-                      <span className="text-primary text-sm font-medium mt-4 inline-block">Read more →</span>
+                      <div className="p-6 flex flex-col flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="text-xs text-primary font-medium uppercase tracking-wider bg-primary/10 px-2 py-1 rounded">{post.category}</span>
+                          <span className="text-xs text-muted-foreground">{post.date}</span>
+                        </div>
+                        <h2 className="font-heading text-lg text-foreground font-bold mb-3 group-hover:text-primary transition-colors">
+                          {post.title}
+                        </h2>
+                        <p className="text-foreground/60 text-sm leading-relaxed flex-1">
+                          {post.excerpt}
+                        </p>
+                        <span className="text-primary text-sm font-medium mt-4 inline-block">Read More →</span>
+                      </div>
                     </div>
                   </Link>
                 </AnimateOnScroll>

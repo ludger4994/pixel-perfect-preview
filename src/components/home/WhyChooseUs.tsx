@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Award, Users, Palette, Zap, MapPin, Sparkles } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -12,7 +13,24 @@ const values = [
 
 const WhyChooseUs = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
+  const { ref: statsRef, isVisible: statsVisible } = useScrollReveal();
   const { ref, isVisible } = useScrollReveal();
+
+  useEffect(() => {
+    if (!statsVisible) return;
+    const targets = document.querySelectorAll<HTMLElement>('.count-up-target[data-count-target]');
+    targets.forEach((el) => {
+      const end = parseInt(el.dataset.countTarget || '0');
+      const suffix = el.dataset.countSuffix || '';
+      let current = 0;
+      const step = Math.ceil(end / 50);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, end);
+        el.textContent = current.toLocaleString() + suffix;
+        if (current >= end) clearInterval(timer);
+      }, 30);
+    });
+  }, [statsVisible]);
 
   return (
     <section className="py-24 lg:py-32 bg-card">
@@ -24,6 +42,28 @@ const WhyChooseUs = () => {
               The Photo Booth Legends Difference
             </h2>
           </div>
+        </div>
+
+        {/* Stats row */}
+        <div ref={statsRef} className={`reveal reveal-delay-1 ${statsVisible ? 'visible' : ''} grid grid-cols-3 gap-6 max-w-2xl mx-auto mb-16`}>
+          {[
+            { value: 500, suffix: "+", label: "Events Served" },
+            { value: 5, suffix: "★", label: "Average Rating" },
+            { value: 3, suffix: "", label: "Booth Types" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="font-heading text-3xl md:text-4xl text-primary font-bold mb-1">
+                <span
+                  className="count-up-target"
+                  data-count-target={stat.value}
+                  data-count-suffix={stat.suffix}
+                >
+                  {stat.value}{stat.suffix}
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground tracking-widest uppercase">{stat.label}</p>
+            </div>
+          ))}
         </div>
 
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">

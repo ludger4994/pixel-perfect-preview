@@ -31,6 +31,7 @@ const HeroSection = () => {
             }`}
             width={1920}
             height={1080}
+            loading={i === 0 ? "eager" : "lazy"}
           />
         ))}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />

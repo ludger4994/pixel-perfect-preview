@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import type { ChatMessage, ConversationStage, LeadData } from "@/types/chat";
 
-const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot-v2";
+const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rc2hxYXVrdGhlYXdmcXVpYnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjA3MzAsImV4cCI6MjA5MTY5NjczMH0.LhqtzHdCm8g0sstg6ZMLkzwE58ipUOGKz1i6QrFJip4";
 
 const HEADERS: Record<string, string> = {

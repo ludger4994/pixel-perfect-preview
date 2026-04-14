@@ -70,6 +70,9 @@ const Footer = () => {
                 { label: "Miami", href: "/photo-booth-rental-miami" },
                 { label: "Fort Lauderdale", href: "/photo-booth-rental-fort-lauderdale" },
                 { label: "Boca Raton", href: "/photo-booth-rental-boca-raton" },
+                { label: "West Palm Beach", href: "/photo-booth-rental-west-palm-beach" },
+                { label: "Hollywood, FL", href: "/photo-booth-rental-hollywood-fl" },
+                { label: "Coral Springs", href: "/photo-booth-rental-coral-springs" },
               ].map((link) => (
                 <Link key={link.href} to={link.href} className="block text-sm text-muted-foreground hover:text-primary transition-colors">
                   {link.label}

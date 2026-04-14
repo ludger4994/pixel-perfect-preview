@@ -1,6 +1,26 @@
 import { Instagram } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
+import img1 from "@/assets/glam-booth-main.jpg";
+import img2 from "@/assets/360-booth-main.jpg";
+import img3 from "@/assets/silver-sequin-backdrop.jpg";
+import img4 from "@/assets/hero-party.jpg";
+import img5 from "@/assets/flower-wall-backdrop.jpg";
+import img6 from "@/assets/360-booth.jpg";
+import img7 from "@/assets/cold-sparks.jpg";
+import img8 from "@/assets/dancing-clouds.jpg";
+
+const igImages = [
+  { src: img1, alt: "Selfie booth experience South Florida event" },
+  { src: img2, alt: "360 photo booth rental South Florida" },
+  { src: img3, alt: "Silver sequin backdrop birthday party" },
+  { src: img4, alt: "Photo booth party experience South Florida" },
+  { src: img5, alt: "White flower wall backdrop wedding" },
+  { src: img6, alt: "360 booth guests with props" },
+  { src: img7, alt: "Cold sparks first dance effect" },
+  { src: img8, alt: "Dancing on the clouds wedding" },
+];
+
 const InstagramSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
   const { ref, isVisible } = useScrollReveal();
@@ -32,19 +52,24 @@ const InstagramSection = () => {
         </div>
 
         <div ref={ref} className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-3 max-w-4xl mx-auto">
-          {Array.from({ length: 8 }).map((_, i) => (
+          {igImages.map((item, i) => (
             <div key={i} className={`reveal reveal-delay-${(i % 6) + 1} ${isVisible ? 'visible' : ''}`}>
-              <div className="aspect-square bg-secondary rounded-md overflow-hidden group cursor-pointer relative img-zoom-wrap">
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/30">
-                  <div className="text-center text-[10px]">
-                    <Instagram className="w-4 h-4 mx-auto mb-1" />
-                    <p>IG Post</p>
-                  </div>
+              <a
+                href="https://www.instagram.com/photoboothlegends"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+                aria-label="View @photoboothlegends on Instagram"
+              >
+                <div className="aspect-square overflow-hidden rounded-md img-zoom-wrap">
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <Instagram className="w-6 h-6 text-primary" />
-                </div>
-              </div>
+              </a>
             </div>
           ))}
         </div>

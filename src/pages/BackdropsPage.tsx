@@ -19,6 +19,7 @@ import blackGoldGeometric from "@/assets/backdrops/black-gold-geometric.jpg";
 import deckParty from "@/assets/backdrops/deck-party.jpg";
 import pinkShimmer from "@/assets/backdrops/pink-shimmer.jpg";
 import elegantGreeneryFlowers from "@/assets/backdrops/elegant-greenery-flowers.jpg";
+import discoLights from "@/assets/backdrops/disco-lights.png";
 
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
@@ -115,6 +116,12 @@ const pillowTopBackdrops: Backdrop[] = [
     image: elegantGreeneryFlowers,
     description: "Lush greenery with elegant floral accents — organic and sophisticated",
     alt: "Elegant greenery flowers photo booth backdrop South Florida",
+  },
+  {
+    label: "Disco Lights",
+    image: discoLights,
+    description: "Vibrant disco mosaic with dazzling light bursts — perfect for high-energy celebrations",
+    alt: "Disco lights photo booth backdrop South Florida",
   },
 ];
 

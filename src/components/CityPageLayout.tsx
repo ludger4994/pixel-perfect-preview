@@ -53,6 +53,11 @@ const CityPageLayout = ({
           "telephone": "954-548-5809",
           "url": canonical,
         }}
+        breadcrumbs={[
+          { name: "Home", href: "/" },
+          { name: "Service Areas", href: "/service-areas" },
+          { name: `Photo Booth Rental ${city}`, href: `/${slug}` },
+        ]}
       />
       <Navbar />
       <main>

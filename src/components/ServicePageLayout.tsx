@@ -155,6 +155,35 @@ const ServicePageLayout = ({
           </div>
         </section>
 
+        {/* Internal Links */}
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+            <AnimateOnScroll>
+              <h2 className="font-heading text-2xl md:text-3xl text-foreground font-bold mb-8 text-center">
+                Explore More
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Link to="/weddings" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Wedding Photo Booth Rental</p>
+                  <p className="text-sm text-muted-foreground">Elevate your wedding with a luxury photo booth experience</p>
+                </Link>
+                <Link to="/corporate-events" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Corporate Event Photo Booth</p>
+                  <p className="text-sm text-muted-foreground">Custom branded experiences for corporate events</p>
+                </Link>
+                <Link to="/photo-booth-rental-miami" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Photo Booth Rental Miami</p>
+                  <p className="text-sm text-muted-foreground">Serving events throughout Miami-Dade County</p>
+                </Link>
+                <Link to="/photo-booth-rental-fort-lauderdale" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Photo Booth Rental Fort Lauderdale</p>
+                  <p className="text-sm text-muted-foreground">Premium booth experiences in Broward County</p>
+                </Link>
+              </div>
+            </AnimateOnScroll>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-24 lg:py-32">
           <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">
@@ -173,6 +202,9 @@ const ServicePageLayout = ({
                   <Button variant="outline" size="lg">View Packages</Button>
                 </Link>
               </div>
+              <p className="mt-6 text-foreground/50 text-sm">
+                Call us: <a href="tel:9545485809" className="text-primary hover:underline">(954) 548-5809</a>
+              </p>
             </AnimateOnScroll>
           </div>
         </section>

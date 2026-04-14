@@ -13,19 +13,31 @@ const photoBoothLinks = [
 const specialEffectsLinks = [
   { label: "Cold Sparks", href: "/cold-sparks" },
   { label: "Dancing on the Clouds", href: "/dancing-on-the-clouds" },
+  { label: "All Special Effects", href: "/special-effects" },
+];
+
+const eventLinks = [
+  { label: "Weddings", href: "/weddings" },
+  { label: "Corporate Events", href: "/corporate-events" },
+  { label: "Birthdays & Parties", href: "/birthdays-private-parties" },
+  { label: "Quinceañeras", href: "/quinceaneras" },
+  { label: "Sweet 16", href: "/sweet-16" },
+  { label: "Baby Showers", href: "/baby-showers" },
+  { label: "School Events", href: "/school-events" },
+  { label: "Brand Activations", href: "/brand-activations" },
 ];
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Photo Booths", href: "#", children: photoBoothLinks },
   { label: "Special Effects", href: "#", children: specialEffectsLinks },
+  { label: "Events", href: "#", children: eventLinks },
   { label: "Packages", href: "/packages" },
-  { label: "Wedding & Effects", href: "/packages#wedding" },
   { label: "Backdrops", href: "/backdrops" },
   { label: "Gallery", href: "/gallery" },
   { label: "Reviews", href: "/reviews" },
   { label: "FAQ", href: "/faq" },
-  { label: "About", href: "/about" },
+  { label: "Service Areas", href: "/service-areas" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -96,7 +108,7 @@ const Navbar = () => {
 
               {link.children && openDropdown === link.label && (
                 <div className="absolute top-full left-0 pt-2">
-                  <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-lg p-2 min-w-[220px] shadow-gold">
+                  <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-lg p-2 min-w-[220px] shadow-gold max-h-[70vh] overflow-y-auto">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}

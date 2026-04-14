@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border/30">
       <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div className="space-y-4">
             <img src={logo} alt="Photo Booth Legends" className="w-[100px] h-auto" />
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -26,6 +26,7 @@ const Footer = () => {
                 { label: "FAQ", href: "/faq" },
                 { label: "About", href: "/about" },
                 { label: "Contact", href: "/contact" },
+                { label: "Blog", href: "/blog" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -47,9 +48,31 @@ const Footer = () => {
                 { label: "TXR20 Luxury Booth", href: "/txr20-booth" },
                 { label: "Cold Sparks", href: "/cold-sparks" },
                 { label: "Dancing on the Clouds", href: "/dancing-on-the-clouds" },
+                { label: "Special Effects", href: "/special-effects" },
               ].map((s) => (
                 <Link key={s.href} to={s.href} className="block text-sm text-muted-foreground hover:text-primary transition-colors">
                   {s.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-heading text-lg text-foreground mb-4">Events & Areas</h4>
+            <div className="space-y-2">
+              {[
+                { label: "Weddings", href: "/weddings" },
+                { label: "Corporate Events", href: "/corporate-events" },
+                { label: "Birthdays", href: "/birthdays-private-parties" },
+                { label: "Quinceañeras", href: "/quinceaneras" },
+                { label: "Sweet 16", href: "/sweet-16" },
+                { label: "Service Areas", href: "/service-areas" },
+                { label: "Miami", href: "/photo-booth-rental-miami" },
+                { label: "Fort Lauderdale", href: "/photo-booth-rental-fort-lauderdale" },
+                { label: "Boca Raton", href: "/photo-booth-rental-boca-raton" },
+              ].map((link) => (
+                <Link key={link.href} to={link.href} className="block text-sm text-muted-foreground hover:text-primary transition-colors">
+                  {link.label}
                 </Link>
               ))}
             </div>

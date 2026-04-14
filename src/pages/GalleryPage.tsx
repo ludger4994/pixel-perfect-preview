@@ -25,6 +25,11 @@ import glamModes from "@/assets/glam-feature-modes.jpg";
 import glamSharing from "@/assets/glam-feature-sharing.jpg";
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import luxBooth from "@/assets/lux-booth.jpg";
+import slide01 from "@/assets/slideshow/asset_015_CpK2ZazATnx.jpg";
+import slide02 from "@/assets/slideshow/asset_019_CfyfPqjAA2s.jpg";
+import slide03 from "@/assets/slideshow/asset_024_C9YDrF1xvUB.jpg";
+import slide04 from "@/assets/slideshow/asset_025_DHRxqKbRsd8.jpg";
+import slide05 from "@/assets/slideshow/asset_028_C5bi7RUxPix.jpg";
 
 type GalleryImage = {
   src: string;
@@ -51,6 +56,11 @@ const galleryImages: GalleryImage[] = [
   { src: glamSharing, alt: "Selfie booth instant sharing station — Photo Booth Legends", category: ["selfie"] },
   { src: eventSequin, alt: "Real client event silver sequin backdrop — Photo Booth Legends South Florida", category: ["backdrops", "events"] },
   { src: luxBooth, alt: "TXR20 luxury photo booth with umbrella diffuser — Photo Booth Legends", category: ["selfie"] },
+  { src: slide01, alt: "Photo Booth Legends event South Florida", category: ["events"] },
+  { src: slide02, alt: "Photo booth guests celebrating South Florida", category: ["events"] },
+  { src: slide03, alt: "Luxury photo booth event experience", category: ["events"] },
+  { src: slide04, alt: "Photo booth moments South Florida celebration", category: ["events"] },
+  { src: slide05, alt: "Photo Booth Legends South Florida party", category: ["events"] },
 ];
 
 const tabs = [

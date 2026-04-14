@@ -127,22 +127,81 @@ export function useChat() {
         return;
       }
 
-      // Normal ask flow
+      // Normal ask flow — stream from chat-response edge function
       setIsLoading(true);
 
+      // Build conversation history for the AI
+      const aiMessages = messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+      aiMessages.push({ role: "user", content: text });
+
       try {
-        const resp = await fetch(CHATBOT_URL, {
+        const resp = await fetch(CHAT_RESPONSE_URL, {
           method: "POST",
-          headers: HEADERS,
-          body: JSON.stringify({ action: "ask", message: text }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ messages: aiMessages, sessionData: lead }),
         });
 
         if (!resp.ok) throw new Error(`Chat error: ${resp.status}`);
 
-        const data = await resp.json();
-        const answer = data.answer || data.response || "I'm sorry, I didn't catch that. Could you rephrase?";
+        // Stream SSE response
+        const reader = resp.body?.getReader();
+        if (!reader) throw new Error("No response body");
 
-        addMessage("assistant", answer);
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let assistantText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          let newlineIdx: number;
+          while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
+            let line = buffer.slice(0, newlineIdx);
+            buffer = buffer.slice(newlineIdx + 1);
+            if (line.endsWith("\r")) line = line.slice(0, -1);
+            if (!line.startsWith("data: ")) continue;
+            const jsonStr = line.slice(6).trim();
+            if (jsonStr === "[DONE]") break;
+            try {
+              const parsed = JSON.parse(jsonStr);
+              const delta = parsed.choices?.[0]?.delta?.content;
+              if (delta) {
+                assistantText += delta;
+                setMessages((prev) => {
+                  const last = prev[prev.length - 1];
+                  if (last?.role === "assistant" && last.id === "__streaming__") {
+                    return prev.map((m, i) =>
+                      i === prev.length - 1 ? { ...m, content: assistantText } : m
+                    );
+                  }
+                  return [
+                    ...prev,
+                    { id: "__streaming__", role: "assistant", content: assistantText, timestamp: new Date() },
+                  ];
+                });
+              }
+            } catch {
+              // partial JSON, wait for more
+            }
+          }
+        }
+
+        // Finalize the streaming message with a real ID
+        if (assistantText) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === "__streaming__" ? { ...m, id: crypto.randomUUID() } : m
+            )
+          );
+        }
       } catch (e: any) {
         console.error("Chat error:", e);
         addMessage(

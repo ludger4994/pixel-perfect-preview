@@ -156,6 +156,22 @@ const ContactPage = () => {
                         </a>
                       </div>
                     </div>
+                    <div className="flex flex-wrap gap-3 mt-4 mb-6">
+                      {[
+                        "✦ Professional Attendant Included",
+                        "✦ We Respond Within 24 Hours",
+                        "✦ Serving Miami to West Palm Beach",
+                        "✦ 500+ South Florida Events",
+                      ].map((badge) => (
+                        <span
+                          key={badge}
+                          className="text-xs text-primary/70 border border-primary/20 rounded-full px-3 py-1 tracking-wide"
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
+                    </div>
                     <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
                       <p className="text-sm text-foreground/70">
                         <span className="text-primary font-semibold">Response time:</span> Within 24 hours

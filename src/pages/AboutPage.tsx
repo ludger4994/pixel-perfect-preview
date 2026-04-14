@@ -39,6 +39,9 @@ const AboutPage = () => {
                   Photo Booth Legends is a photo booth rental and event experience company based in South Florida. We specialize in creating luxury, memorable experiences for weddings, birthdays, quinceañeras, corporate events, brand activations, and private celebrations from Miami to West Palm Beach.
                 </p>
                 <p>
+                  Photo Booth Legends is a photo booth rental and event experience company based in South Florida, proudly serving events from Miami to West Palm Beach. We offer luxury selfie booth rentals, 360° photo booth rentals, TXR20 Luxury Booth rentals, cold sparks, dancing on the clouds, and a premium backdrop collection for weddings, birthdays, quinceañeras, corporate events, and celebrations of every kind.
+                </p>
+                <p>
                   We're not just a vendor — we're an experience. Every event we serve gets the same level of care, professionalism, and attention to detail. From the moment we set up to the final breakdown, our goal is to make your guests say "that was incredible."
                 </p>
                 <p>

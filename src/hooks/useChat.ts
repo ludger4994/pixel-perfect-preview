@@ -1,13 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import type { ChatMessage, ConversationStage, LeadData } from "@/types/chat";
 
-const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rc2hxYXVrdGhlYXdmcXVpYnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjA3MzAsImV4cCI6MjA5MTY5NjczMH0.LhqtzHdCm8g0sstg6ZMLkzwE58ipUOGKz1i6QrFJip4";
+const CHAT_RESPONSE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-response`;
 
-const HEADERS: Record<string, string> = {
+// External endpoint kept only for lead saves
+const LEAD_SAVE_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
+const LEAD_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rc2hxYXVrdGhlYXdmcXVpYnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjA3MzAsImV4cCI6MjA5MTY5NjczMH0.LhqtzHdCm8g0sstg6ZMLkzwE58ipUOGKz1i6QrFJip4";
+
+const LEAD_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
-  apikey: API_KEY,
-  Authorization: `Bearer ${API_KEY}`,
+  apikey: LEAD_API_KEY,
+  Authorization: `Bearer ${LEAD_API_KEY}`,
 };
 
 const LEAD_FIELDS: { key: keyof LeadData; label: string; prompt: string }[] = [
@@ -65,9 +68,9 @@ export function useChat() {
     };
 
     try {
-      const resp = await fetch(CHATBOT_URL, {
+      const resp = await fetch(LEAD_SAVE_URL, {
         method: "POST",
-        headers: HEADERS,
+        headers: LEAD_HEADERS,
         body: JSON.stringify(payload),
       });
       if (!resp.ok) throw new Error("Failed to save lead");
@@ -124,22 +127,81 @@ export function useChat() {
         return;
       }
 
-      // Normal ask flow
+      // Normal ask flow — stream from chat-response edge function
       setIsLoading(true);
 
+      // Build conversation history for the AI
+      const aiMessages = messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
+      aiMessages.push({ role: "user", content: text });
+
       try {
-        const resp = await fetch(CHATBOT_URL, {
+        const resp = await fetch(CHAT_RESPONSE_URL, {
           method: "POST",
-          headers: HEADERS,
-          body: JSON.stringify({ action: "ask", message: text }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ messages: aiMessages, sessionData: lead }),
         });
 
         if (!resp.ok) throw new Error(`Chat error: ${resp.status}`);
 
-        const data = await resp.json();
-        const answer = data.answer || data.response || "I'm sorry, I didn't catch that. Could you rephrase?";
+        // Stream SSE response
+        const reader = resp.body?.getReader();
+        if (!reader) throw new Error("No response body");
 
-        addMessage("assistant", answer);
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let assistantText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          let newlineIdx: number;
+          while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
+            let line = buffer.slice(0, newlineIdx);
+            buffer = buffer.slice(newlineIdx + 1);
+            if (line.endsWith("\r")) line = line.slice(0, -1);
+            if (!line.startsWith("data: ")) continue;
+            const jsonStr = line.slice(6).trim();
+            if (jsonStr === "[DONE]") break;
+            try {
+              const parsed = JSON.parse(jsonStr);
+              const delta = parsed.choices?.[0]?.delta?.content;
+              if (delta) {
+                assistantText += delta;
+                setMessages((prev) => {
+                  const last = prev[prev.length - 1];
+                  if (last?.role === "assistant" && last.id === "__streaming__") {
+                    return prev.map((m, i) =>
+                      i === prev.length - 1 ? { ...m, content: assistantText } : m
+                    );
+                  }
+                  return [
+                    ...prev,
+                    { id: "__streaming__", role: "assistant", content: assistantText, timestamp: new Date() },
+                  ];
+                });
+              }
+            } catch {
+              // partial JSON, wait for more
+            }
+          }
+        }
+
+        // Finalize the streaming message with a real ID
+        if (assistantText) {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === "__streaming__" ? { ...m, id: crypto.randomUUID() } : m
+            )
+          );
+        }
       } catch (e: any) {
         console.error("Chat error:", e);
         addMessage(

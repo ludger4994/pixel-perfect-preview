@@ -171,7 +171,6 @@ const ContactPage = () => {
                         </span>
                       ))}
                     </div>
-                    </div>
                     <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
                       <p className="text-sm text-foreground/70">
                         <span className="text-primary font-semibold">Response time:</span> Within 24 hours

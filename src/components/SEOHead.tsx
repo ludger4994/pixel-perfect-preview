@@ -1,13 +1,19 @@
 import { useEffect } from "react";
 
+interface BreadcrumbItem {
+  name: string;
+  href: string;
+}
+
 interface SEOHeadProps {
   title: string;
   description: string;
   canonical?: string;
   schema?: object;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const SEOHead = ({ title, description, canonical, schema }: SEOHeadProps) => {
+const SEOHead = ({ title, description, canonical, schema, breadcrumbs }: SEOHeadProps) => {
   useEffect(() => {
     document.title = title;
 
@@ -48,12 +54,34 @@ const SEOHead = ({ title, description, canonical, schema }: SEOHeadProps) => {
       script.textContent = JSON.stringify(schema);
     }
 
+    // BreadcrumbList schema
+    let bcScript = document.getElementById("breadcrumb-schema") as HTMLScriptElement | null;
+    if (breadcrumbs && breadcrumbs.length > 0) {
+      if (!bcScript) {
+        bcScript = document.createElement("script");
+        bcScript.id = "breadcrumb-schema";
+        bcScript.type = "application/ld+json";
+        document.head.appendChild(bcScript);
+      }
+      bcScript.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((item, i) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "name": item.name,
+          "item": `https://photoboothlegends.com${item.href}`,
+        })),
+      });
+    }
+
     return () => {
-      // Cleanup page-specific schema on unmount
       const s = document.getElementById("page-schema");
       if (s) s.remove();
+      const bc = document.getElementById("breadcrumb-schema");
+      if (bc) bc.remove();
     };
-  }, [title, description, canonical, schema]);
+  }, [title, description, canonical, schema, breadcrumbs]);
 
   return null;
 };

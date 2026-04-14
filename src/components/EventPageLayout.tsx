@@ -251,6 +251,35 @@ const EventPageLayout = ({
           </section>
         )}
 
+        {/* Internal Links */}
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
+            <AnimateOnScroll>
+              <h2 className="font-heading text-2xl md:text-3xl text-foreground font-bold mb-8 text-center">
+                Explore More Experiences
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Link to="/selfie-booth" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Selfie Booth Rental</p>
+                  <p className="text-sm text-muted-foreground">Custom branded photos, GIFs & instant sharing</p>
+                </Link>
+                <Link to="/360-booth" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">360° Photo Booth</p>
+                  <p className="text-sm text-muted-foreground">Cinematic slow-motion video from every angle</p>
+                </Link>
+                <Link to="/photo-booth-rental-miami" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Photo Booth Rental Miami</p>
+                  <p className="text-sm text-muted-foreground">Serving events throughout Miami-Dade County</p>
+                </Link>
+                <Link to="/photo-booth-rental-boca-raton" className="p-4 rounded-lg border border-border/30 hover:border-primary/30 transition-colors">
+                  <p className="text-foreground font-medium">Photo Booth Rental Boca Raton</p>
+                  <p className="text-sm text-muted-foreground">Luxury experiences in Palm Beach County</p>
+                </Link>
+              </div>
+            </AnimateOnScroll>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-24 lg:py-32 bg-gradient-radial-gold">
           <div className="container mx-auto px-4 lg:px-8 text-center max-w-3xl">

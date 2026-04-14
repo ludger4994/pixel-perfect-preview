@@ -43,6 +43,7 @@ import DoralPage from "./pages/cities/DoralPage.tsx";
 import KendallPage from "./pages/cities/KendallPage.tsx";
 import HomesteadPage from "./pages/cities/HomesteadPage.tsx";
 import ServiceAreasPage from "./pages/ServiceAreasPage.tsx";
+import BlogPage from "./pages/BlogPage.tsx";
 import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();
@@ -108,6 +109,7 @@ const App = () => (
           <Route path="/photo-booth-rental-kendall" element={<KendallPage />} />
           <Route path="/photo-booth-rental-homestead" element={<HomesteadPage />} />
           <Route path="/service-areas" element={<ServiceAreasPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

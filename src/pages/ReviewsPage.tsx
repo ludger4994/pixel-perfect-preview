@@ -58,6 +58,18 @@ const ReviewsPage = () => {
         title="Reviews & Testimonials | Photo Booth Legends South Florida"
         description="Read what South Florida clients say about Photo Booth Legends. Real reviews from weddings, birthdays, corporate events, and quinceañeras."
         canonical="https://photoboothlegends.com/reviews"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Photo Booth Legends",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "6",
+            "bestRating": "5",
+            "worstRating": "5"
+          }
+        }}
       />
       <Navbar />
       <main>

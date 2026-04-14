@@ -1,17 +1,35 @@
-import { useState, useCallback, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import type { ChatMessage, SessionData, LeadData, ConversationStage } from "@/types/chat";
+import { useState, useCallback } from "react";
+import type { ChatMessage, ConversationStage, LeadData } from "@/types/chat";
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-response`;
+const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
+const API_KEY = "sb_publishable_LKNMPBRqW-CwQTEEG3P_qQ_5Xp_G17m";
+
+const HEADERS = {
+  "Content-Type": "application/json",
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+};
+
+const LEAD_FIELDS: { key: keyof LeadData; label: string; prompt: string }[] = [
+  { key: "full_name", label: "name", prompt: "What's your name?" },
+  { key: "email", label: "email", prompt: "What's your email address?" },
+  { key: "phone", label: "phone", prompt: "What's the best phone number to reach you?" },
+  { key: "event_type", label: "event type", prompt: "What type of event are you planning? (Wedding, Birthday, Corporate, Quinceañera, etc.)" },
+  { key: "event_date", label: "event date", prompt: "When is your event? (Date)" },
+  { key: "location", label: "city", prompt: "What city is your event in?" },
+  { key: "preferred_booth", label: "venue", prompt: "Do you have a venue picked out yet? If so, what's the name?" },
+  { key: "guest_count", label: "package interest", prompt: "Which booth or package are you interested in? (Selfie Booth, 360 Booth, TXR20 Luxury Booth, or not sure yet)" },
+  { key: "requested_hours", label: "guest count", prompt: "Approximately how many guests are you expecting?" },
+  { key: "vibe_preference", label: "add-ons", prompt: "Any add-ons you're interested in? (Cold Sparks, Dancing on Clouds, Flower Wall, Shimmer Wall, or none)" },
+  { key: "notes", label: "notes", prompt: "Anything else you'd like us to know? (Or type 'no' to skip)" },
+];
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [stage, setStage] = useState<ConversationStage>("greeting");
   const [lead, setLead] = useState<LeadData>({});
-  const abortRef = useRef<AbortController | null>(null);
-
-  const sessionData: SessionData = { stage, lead, hasRecommended: false };
+  const [leadStep, setLeadStep] = useState(-1); // -1 = not capturing
 
   const addMessage = useCallback(
     (role: "user" | "assistant", content: string): ChatMessage => {
@@ -27,121 +45,138 @@ export function useChat() {
     []
   );
 
+  const submitLead = useCallback(async (finalLead: LeadData) => {
+    const payload = {
+      action: "save_lead",
+      lead: {
+        name: finalLead.full_name || "",
+        email: finalLead.email || "",
+        phone: finalLead.phone || "",
+        event_date: finalLead.event_date || "",
+        city: finalLead.location || "",
+        venue: finalLead.preferred_booth || "",
+        event_type: finalLead.event_type || "",
+        package_interest: finalLead.guest_count || "",
+        guest_count: parseInt(finalLead.requested_hours || "0") || 0,
+        add_ons: finalLead.vibe_preference || "",
+        notes: finalLead.notes || "",
+        source: "website_chatbot",
+      },
+    };
+
+    try {
+      const resp = await fetch(CHATBOT_URL, {
+        method: "POST",
+        headers: HEADERS,
+        body: JSON.stringify(payload),
+      });
+      if (!resp.ok) throw new Error("Failed to save lead");
+      setStage("complete");
+      return true;
+    } catch (err) {
+      console.error("Lead save error:", err);
+      throw err;
+    }
+  }, []);
+
   const sendMessage = useCallback(
     async (text: string) => {
-      const userMsg = { role: "user" as const, content: text };
+      // Add user message
       setMessages((prev) => [
         ...prev,
         { id: crypto.randomUUID(), role: "user", content: text, timestamp: new Date() },
       ]);
-      setIsLoading(true);
 
-      const apiMessages = [
-        ...messages.map((m) => ({ role: m.role, content: m.content })),
-        userMsg,
-      ];
+      // If we're in lead capture mode, store the answer and advance
+      if (leadStep >= 0) {
+        const field = LEAD_FIELDS[leadStep];
+        const value = text.toLowerCase() === "no" && field.key === "notes" ? "" : text;
 
-      let assistantContent = "";
+        const updatedLead = { ...lead, [field.key]: value };
+        setLead(updatedLead);
 
-      try {
-        const controller = new AbortController();
-        abortRef.current = controller;
+        const nextStep = leadStep + 1;
 
-        const resp = await fetch(CHAT_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({ messages: apiMessages, sessionData }),
-          signal: controller.signal,
-        });
-
-        if (!resp.ok || !resp.body) {
-          throw new Error(`Chat error: ${resp.status}`);
-        }
-
-        const reader = resp.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = "";
-        let assistantId = crypto.randomUUID();
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-
-          let newlineIdx: number;
-          while ((newlineIdx = buffer.indexOf("\n")) !== -1) {
-            let line = buffer.slice(0, newlineIdx);
-            buffer = buffer.slice(newlineIdx + 1);
-            if (line.endsWith("\r")) line = line.slice(0, -1);
-            if (!line.startsWith("data: ")) continue;
-            const jsonStr = line.slice(6).trim();
-            if (jsonStr === "[DONE]") break;
-            try {
-              const parsed = JSON.parse(jsonStr);
-              const delta = parsed.choices?.[0]?.delta?.content;
-              if (delta) {
-                assistantContent += delta;
-                setMessages((prev) => {
-                  const last = prev[prev.length - 1];
-                  if (last?.id === assistantId) {
-                    return prev.map((m) =>
-                      m.id === assistantId ? { ...m, content: assistantContent } : m
-                    );
-                  }
-                  return [
-                    ...prev,
-                    { id: assistantId, role: "assistant", content: assistantContent, timestamp: new Date() },
-                  ];
-                });
-              }
-            } catch {
-              // partial JSON, will be completed in next chunk
-            }
+        if (nextStep < LEAD_FIELDS.length) {
+          setLeadStep(nextStep);
+          setTimeout(() => {
+            addMessage("assistant", LEAD_FIELDS[nextStep].prompt);
+          }, 400);
+        } else {
+          // All fields collected — submit
+          setIsLoading(true);
+          setLeadStep(-1);
+          try {
+            await submitLead(updatedLead);
+            addMessage(
+              "assistant",
+              "Thank you! ✨ Your request has been submitted. A member of our team will be in touch shortly to help plan your event. We can't wait to make it legendary! 🎉"
+            );
+          } catch {
+            addMessage(
+              "assistant",
+              "I'm sorry, there was a problem submitting your request. Please call us at 954-548-5809 and we'll take care of you!"
+            );
+          } finally {
+            setIsLoading(false);
           }
         }
-      } catch (e: any) {
-        if (e.name !== "AbortError") {
-          console.error("Chat stream error:", e);
-          addMessage(
-            "assistant",
-            "I'm sorry, I had trouble with that. Please call us at 954-548-5809."
-          );
+        return;
+      }
+
+      // Normal ask flow
+      setIsLoading(true);
+
+      try {
+        const resp = await fetch(CHATBOT_URL, {
+          method: "POST",
+          headers: HEADERS,
+          body: JSON.stringify({ action: "ask", message: text }),
+        });
+
+        if (!resp.ok) throw new Error(`Chat error: ${resp.status}`);
+
+        const data = await resp.json();
+        const answer = data.answer || data.response || "I'm sorry, I didn't catch that. Could you rephrase?";
+
+        addMessage("assistant", answer);
+
+        // Detect booking/quote intent to start lead capture
+        const lower = text.toLowerCase();
+        const bookingKeywords = ["book", "quote", "reserve", "get a quote", "schedule", "interested in booking"];
+        if (bookingKeywords.some((kw) => lower.includes(kw))) {
+          setStage("capturing_name");
+          setLeadStep(0);
+          setTimeout(() => {
+            addMessage(
+              "assistant",
+              "I'd love to help you book! Let me collect a few details so our team can put together the perfect package for you. 🎉\n\n" +
+                LEAD_FIELDS[0].prompt
+            );
+          }, 800);
         }
+      } catch (e: any) {
+        console.error("Chat error:", e);
+        addMessage(
+          "assistant",
+          "I'm sorry, I had trouble with that. Please call us at 954-548-5809 and we'll be happy to help!"
+        );
       } finally {
         setIsLoading(false);
-        abortRef.current = null;
       }
     },
-    [messages, sessionData, addMessage]
+    [messages, lead, leadStep, addMessage, submitLead]
   );
 
-  const submitLead = useCallback(async (leadData: LeadData) => {
-    const { data, error } = await supabase
-      .from("leads")
-      .insert([leadData as any])
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    // Try to send SMS (will gracefully fail if Twilio not configured)
-    try {
-      await supabase.functions.invoke("send-lead-sms", {
-        body: {
-          leadId: data.id,
-          templateName: "package_recommendation",
-        },
-      });
-    } catch (smsErr) {
-      console.warn("SMS send failed (Twilio may not be configured):", smsErr);
-    }
-
-    setStage("complete");
-    return data;
-  }, []);
+  // Allow starting lead capture externally (e.g. from a "Get a Quote" button)
+  const startLeadCapture = useCallback(() => {
+    setStage("capturing_name");
+    setLeadStep(0);
+    addMessage(
+      "assistant",
+      "Let's get you a personalized quote! I just need a few details. 🎉\n\n" + LEAD_FIELDS[0].prompt
+    );
+  }, [addMessage]);
 
   return {
     messages,
@@ -153,5 +188,6 @@ export function useChat() {
     sendMessage,
     addMessage,
     submitLead,
+    startLeadCapture,
   };
 }

@@ -1,13 +1,16 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import type { ChatMessage, ConversationStage, LeadData } from "@/types/chat";
 
-const CHATBOT_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rc2hxYXVrdGhlYXdmcXVpYnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjA3MzAsImV4cCI6MjA5MTY5NjczMH0.LhqtzHdCm8g0sstg6ZMLkzwE58ipUOGKz1i6QrFJip4";
+const CHAT_RESPONSE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat-response`;
 
-const HEADERS: Record<string, string> = {
+// External endpoint kept only for lead saves
+const LEAD_SAVE_URL = "https://nkshqauktheawfquibto.supabase.co/functions/v1/website-chatbot";
+const LEAD_API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rc2hxYXVrdGhlYXdmcXVpYnRvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMjA3MzAsImV4cCI6MjA5MTY5NjczMH0.LhqtzHdCm8g0sstg6ZMLkzwE58ipUOGKz1i6QrFJip4";
+
+const LEAD_HEADERS: Record<string, string> = {
   "Content-Type": "application/json",
-  apikey: API_KEY,
-  Authorization: `Bearer ${API_KEY}`,
+  apikey: LEAD_API_KEY,
+  Authorization: `Bearer ${LEAD_API_KEY}`,
 };
 
 const LEAD_FIELDS: { key: keyof LeadData; label: string; prompt: string }[] = [

@@ -140,21 +140,6 @@ export function useChat() {
         const answer = data.answer || data.response || "I'm sorry, I didn't catch that. Could you rephrase?";
 
         addMessage("assistant", answer);
-
-        // Detect booking/quote intent to start lead capture
-        const lower = text.toLowerCase();
-        const bookingKeywords = ["book", "quote", "reserve", "get a quote", "schedule", "interested in booking"];
-        if (bookingKeywords.some((kw) => lower.includes(kw))) {
-          setStage("capturing_name");
-          setLeadStep(0);
-          setTimeout(() => {
-            addMessage(
-              "assistant",
-              "I'd love to help you book! Let me collect a few details so our team can put together the perfect package for you. 🎉\n\n" +
-                LEAD_FIELDS[0].prompt
-            );
-          }, 800);
-        }
       } catch (e: any) {
         console.error("Chat error:", e);
         addMessage(

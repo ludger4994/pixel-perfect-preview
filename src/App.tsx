@@ -82,6 +82,7 @@ const App = () => (
           <Route path="/special-effects" element={<SpecialEffectsPage />} />
           <Route path="/packages" element={<PackagesPage />} />
           <Route path="/book" element={<BookingPage />} />
+          <Route path="/booking" element={<BookingFormPage />} />
           <Route path="/backdrops" element={<BackdropsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />

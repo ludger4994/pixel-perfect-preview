@@ -15,6 +15,7 @@ import PackagesPage from "./pages/PackagesPage.tsx";
 import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
+import BookingFormPage from "./pages/BookingFormPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import FAQPage from "./pages/FAQPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
@@ -81,6 +82,7 @@ const App = () => (
           <Route path="/special-effects" element={<SpecialEffectsPage />} />
           <Route path="/packages" element={<PackagesPage />} />
           <Route path="/book" element={<BookingPage />} />
+          <Route path="/booking" element={<BookingFormPage />} />
           <Route path="/backdrops" element={<BackdropsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />

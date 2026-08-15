@@ -15,6 +15,7 @@ import PackagesPage from "./pages/PackagesPage.tsx";
 import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
+import BookingFormPage from "./pages/BookingFormPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import FAQPage from "./pages/FAQPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";

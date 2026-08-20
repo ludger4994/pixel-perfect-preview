@@ -1,0 +1,1 @@
+ALTER TABLE public.cold_sparks_bookings ADD COLUMN IF NOT EXISTS dancing_on_clouds boolean NOT NULL DEFAULT false;

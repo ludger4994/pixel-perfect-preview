@@ -224,6 +224,53 @@
 }
 .pbl-sparks .term strong{ color:var(--text); font-weight:700; }
 
+.pbl-sparks .add-on-field{ margin:34px 0 8px; }
+.pbl-sparks .add-on-label{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  cursor:pointer;
+  margin-bottom:0;
+}
+.pbl-sparks .add-on-label input[type=checkbox]{
+  width:24px;
+  height:24px;
+  accent-color:var(--gold);
+  flex-shrink:0;
+  cursor:pointer;
+  margin-top:2px;
+}
+.pbl-sparks .add-on-card{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:16px 18px;
+  border:1.5px solid var(--field-border);
+  border-radius:var(--radius);
+  background:var(--field-bg);
+  transition:border-color .2s ease, background .2s ease;
+  flex:1;
+}
+.pbl-sparks .add-on-label input[type=checkbox]:checked ~ .add-on-card{
+  border-color:var(--gold);
+  background:rgba(201,162,75,0.08);
+}
+.pbl-sparks .add-on-title{
+  font-size:17px;
+  font-weight:700;
+  color:var(--gold-bright);
+}
+.pbl-sparks .add-on-desc{
+  font-size:14px;
+  color:var(--text-dim);
+  line-height:1.5;
+  font-weight:400;
+}
+.pbl-sparks .add-on-label input[type=checkbox]:focus-visible ~ .add-on-card{
+  outline:2px solid var(--gold-bright);
+  outline-offset:2px;
+}
+
 .pbl-sparks .error-msg{
   color:var(--error);
   font-size:13px;

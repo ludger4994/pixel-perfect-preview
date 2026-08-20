@@ -55,6 +55,7 @@ const MOMENTS = [
 const ColdSparksFormPage = () => {
   const [f, setF] = useState<Fields>(initial);
   const [moments, setMoments] = useState<string[]>([]);
+  const [dancingOnClouds, setDancingOnClouds] = useState(false);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [agree3, setAgree3] = useState(false);
@@ -121,6 +122,7 @@ const ColdSparksFormPage = () => {
     const { error } = await supabase.functions.invoke("cold-sparks-booking", {
       body: {
         ...f,
+        dancingOnClouds,
         moments,
         agree1,
         agree2,
@@ -153,6 +155,7 @@ const ColdSparksFormPage = () => {
     fd.append("Event Start Time", f.eventStart);
     fd.append("Cold Spark Requested Time", f.sparkTime);
     fd.append("Machines", f.machines === "Other" ? f.machinesOther : f.machines);
+    fd.append("Dancing on Clouds", dancingOnClouds ? "Yes" : "No");
     fd.append("Moments", moments.join(", "));
     if (moments.includes("Other") && f.momentOther) fd.append("Other Moment", f.momentOther);
     fd.append("Venue Approval", f.approval);
@@ -281,6 +284,21 @@ const ColdSparksFormPage = () => {
                 onChange={set("machinesOther")}
               />
               <div className="error-msg">Select a machine count.</div>
+            </div>
+
+            <div className="field add-on-field">
+              <label className="add-on-label">
+                <input
+                  type="checkbox"
+                  name="dancingOnClouds"
+                  checked={dancingOnClouds}
+                  onChange={(e) => setDancingOnClouds(e.target.checked)}
+                />
+                <span className="add-on-card">
+                  <span className="add-on-title">Add Dancing on Clouds</span>
+                  <span className="add-on-desc">Low-lying fog effect for your first dance or grand entrance — pairs beautifully with Cold Sparks.</span>
+                </span>
+              </label>
             </div>
 
             <div className={cls("moments")}>

@@ -136,6 +136,41 @@ const ColdSparksFormPage = () => {
       return;
     }
 
+    // Mirror the submission to FormSubmit.co for instant email delivery (same flow as /booking).
+    const fd = new FormData();
+    fd.append("_subject", `New Cold Sparks Rental Inquiry — ${refId}`);
+    fd.append("_template", "table");
+    fd.append("_captcha", "false");
+    fd.append("_honey", "");
+    fd.append("Reference", refId);
+    fd.append("Full Name", f.fullName);
+    fd.append("Phone", f.phone);
+    fd.append("Email", f.email);
+    fd.append("Event Type", f.eventType);
+    fd.append("Event Date", f.eventDate);
+    fd.append("Venue Name", f.venueName);
+    fd.append("Venue Address", f.venueAddress);
+    fd.append("Event Start Time", f.eventStart);
+    fd.append("Cold Spark Requested Time", f.sparkTime);
+    fd.append("Machines", f.machines === "Other" ? f.machinesOther : f.machines);
+    fd.append("Moments", moments.join(", "));
+    if (moments.includes("Other") && f.momentOther) fd.append("Other Moment", f.momentOther);
+    fd.append("Venue Approval", f.approval);
+    fd.append("Venue Contact Name", f.venueContactName || "—");
+    fd.append("Venue Contact Info", f.venueContactInfo || "—");
+    fd.append("Client Signature", f.signature);
+    fd.append("Date Signed", f.signDate);
+
+    try {
+      await fetch("https://formsubmit.co/photoboothlegends@gmail.com", {
+        method: "POST",
+        body: fd,
+        mode: "no-cors",
+      });
+    } catch (err) {
+      console.error("Email notification error:", err);
+    }
+
     setSubmitting(false);
     setDone(refId);
   };

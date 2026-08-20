@@ -155,6 +155,7 @@ const ColdSparksFormPage = () => {
     fd.append("Event Start Time", f.eventStart);
     fd.append("Cold Spark Requested Time", f.sparkTime);
     fd.append("Machines", f.machines === "Other" ? f.machinesOther : f.machines);
+    fd.append("Dancing on Clouds", dancingOnClouds ? "Yes" : "No");
     fd.append("Moments", moments.join(", "));
     if (moments.includes("Other") && f.momentOther) fd.append("Other Moment", f.momentOther);
     fd.append("Venue Approval", f.approval);

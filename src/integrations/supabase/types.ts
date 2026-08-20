@@ -238,6 +238,87 @@ export type Database = {
         }
         Relationships: []
       }
+      cold_sparks_bookings: {
+        Row: {
+          agree_accurate: boolean
+          agree_safety: boolean
+          agree_venue_approval: boolean
+          approval: string
+          created_at: string
+          email: string
+          event_date: string
+          event_start: string
+          event_type: string
+          full_name: string
+          id: string
+          machines: string
+          machines_other: string | null
+          moment_other: string | null
+          moments: string[]
+          phone: string
+          reference: string
+          sign_date: string
+          signature: string
+          spark_time: string
+          venue_address: string
+          venue_contact_info: string | null
+          venue_contact_name: string | null
+          venue_name: string
+        }
+        Insert: {
+          agree_accurate?: boolean
+          agree_safety?: boolean
+          agree_venue_approval?: boolean
+          approval: string
+          created_at?: string
+          email: string
+          event_date: string
+          event_start: string
+          event_type: string
+          full_name: string
+          id?: string
+          machines: string
+          machines_other?: string | null
+          moment_other?: string | null
+          moments?: string[]
+          phone: string
+          reference: string
+          sign_date: string
+          signature: string
+          spark_time: string
+          venue_address: string
+          venue_contact_info?: string | null
+          venue_contact_name?: string | null
+          venue_name: string
+        }
+        Update: {
+          agree_accurate?: boolean
+          agree_safety?: boolean
+          agree_venue_approval?: boolean
+          approval?: string
+          created_at?: string
+          email?: string
+          event_date?: string
+          event_start?: string
+          event_type?: string
+          full_name?: string
+          id?: string
+          machines?: string
+          machines_other?: string | null
+          moment_other?: string | null
+          moments?: string[]
+          phone?: string
+          reference?: string
+          sign_date?: string
+          signature?: string
+          spark_time?: string
+          venue_address?: string
+          venue_contact_info?: string | null
+          venue_contact_name?: string | null
+          venue_name?: string
+        }
+        Relationships: []
+      }
       faq_items: {
         Row: {
           active: boolean | null

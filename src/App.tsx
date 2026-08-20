@@ -16,6 +16,7 @@ import BackdropsPage from "./pages/BackdropsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import BookingPage from "./pages/BookingPage.tsx";
 import BookingFormPage from "./pages/BookingFormPage.tsx";
+import ColdSparksFormPage from "./pages/ColdSparksFormPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
 import FAQPage from "./pages/FAQPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
@@ -83,6 +84,8 @@ const App = () => (
           <Route path="/packages" element={<PackagesPage />} />
           <Route path="/book" element={<BookingPage />} />
           <Route path="/booking" element={<BookingFormPage />} />
+          <Route path="/booking/cold-sparks" element={<ColdSparksFormPage />} />
+
           <Route path="/backdrops" element={<BackdropsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/gallery" element={<GalleryPage />} />

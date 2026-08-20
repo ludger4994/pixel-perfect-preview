@@ -122,6 +122,7 @@ const ColdSparksFormPage = () => {
     const { error } = await supabase.functions.invoke("cold-sparks-booking", {
       body: {
         ...f,
+        dancingOnClouds,
         moments,
         agree1,
         agree2,

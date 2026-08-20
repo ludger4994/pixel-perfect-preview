@@ -55,6 +55,7 @@ const MOMENTS = [
 const ColdSparksFormPage = () => {
   const [f, setF] = useState<Fields>(initial);
   const [moments, setMoments] = useState<string[]>([]);
+  const [dancingOnClouds, setDancingOnClouds] = useState(false);
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
   const [agree3, setAgree3] = useState(false);

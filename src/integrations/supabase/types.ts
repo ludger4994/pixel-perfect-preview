@@ -245,6 +245,7 @@ export type Database = {
           agree_venue_approval: boolean
           approval: string
           created_at: string
+          dancing_on_clouds: boolean
           email: string
           event_date: string
           event_start: string
@@ -271,6 +272,7 @@ export type Database = {
           agree_venue_approval?: boolean
           approval: string
           created_at?: string
+          dancing_on_clouds?: boolean
           email: string
           event_date: string
           event_start: string
@@ -297,6 +299,7 @@ export type Database = {
           agree_venue_approval?: boolean
           approval?: string
           created_at?: string
+          dancing_on_clouds?: boolean
           email?: string
           event_date?: string
           event_start?: string

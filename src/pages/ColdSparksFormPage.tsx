@@ -286,6 +286,21 @@ const ColdSparksFormPage = () => {
               <div className="error-msg">Select a machine count.</div>
             </div>
 
+            <div className="field add-on-field">
+              <label className="add-on-label">
+                <input
+                  type="checkbox"
+                  name="dancingOnClouds"
+                  checked={dancingOnClouds}
+                  onChange={(e) => setDancingOnClouds(e.target.checked)}
+                />
+                <span className="add-on-card">
+                  <span className="add-on-title">Add Dancing on Clouds</span>
+                  <span className="add-on-desc">Low-lying fog effect for your first dance or grand entrance — pairs beautifully with Cold Sparks.</span>
+                </span>
+              </label>
+            </div>
+
             <div className={cls("moments")}>
               <label>When would you like the Cold Sparks activated?<span className="req">*</span></label>
               <div className="chip-group" id="momentGroup">

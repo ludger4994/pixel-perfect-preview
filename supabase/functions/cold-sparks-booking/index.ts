@@ -73,6 +73,7 @@ Deno.serve(async (req) => {
       spark_time: d.sparkTime,
       machines: d.machines,
       machines_other: d.machinesOther || null,
+      dancing_on_clouds: d.dancingOnClouds,
       moments: d.moments,
       moment_other: d.momentOther || null,
       approval: d.approval,

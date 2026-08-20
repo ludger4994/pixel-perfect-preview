@@ -139,7 +139,7 @@ Deno.serve(async (req) => {
         },
         body: JSON.stringify({
           from: Deno.env.get('RESEND_FROM') || 'Photo Booth Legends <onboarding@resend.dev>',
-          to: ['Photoboothlegends@gmail.com'],
+          to: ['Photoboothlegend@gmail.com'],
           reply_to: d.email,
           subject: `Cold Sparks Form — ${d.fullName} — ${d.eventDate}`,
           html,

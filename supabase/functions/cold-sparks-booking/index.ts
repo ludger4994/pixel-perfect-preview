@@ -18,6 +18,7 @@ const Schema = z.object({
   sparkTime: z.string().trim().min(1).max(20),
   machines: z.string().trim().min(1).max(60),
   machinesOther: z.string().trim().max(120).optional().default(''),
+  dancingOnClouds: z.boolean().default(false),
   moments: z.array(z.string().max(80)).min(1).max(12),
   momentOther: z.string().trim().max(200).optional().default(''),
   approval: z.string().trim().min(1).max(60),

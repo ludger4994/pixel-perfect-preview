@@ -106,6 +106,7 @@ Deno.serve(async (req) => {
       ['Event start time', d.eventStart],
       ['Cold spark requested time', d.sparkTime],
       ['Machines', d.machines + (d.machinesOther ? ` (${d.machinesOther})` : '')],
+      ['Dancing on clouds', d.dancingOnClouds ? 'Yes' : 'No'],
       ['Moments', d.moments.join(', ') + (d.momentOther ? ` (${d.momentOther})` : '')],
       ['Venue approved', d.approval],
       ['Venue contact name', d.venueContactName || '—'],

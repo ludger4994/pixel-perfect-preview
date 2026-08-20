@@ -1,0 +1,1 @@
+CREATE POLICY "Service role manages cold spark bookings" ON public.cold_sparks_bookings FOR ALL TO service_role USING (true) WITH CHECK (true);

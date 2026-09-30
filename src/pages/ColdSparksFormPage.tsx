@@ -138,37 +138,37 @@ const ColdSparksFormPage = () => {
       return;
     }
 
-    // Mirror the submission to FormSubmit.co for instant email delivery (same flow as /booking).
-    const fd = new FormData();
-    fd.append("_subject", `New Cold Sparks Rental Inquiry — ${refId}`);
-    fd.append("_template", "table");
-    fd.append("_captcha", "false");
-    fd.append("_honey", "");
-    fd.append("Reference", refId);
-    fd.append("Full Name", f.fullName);
-    fd.append("Phone", f.phone);
-    fd.append("Email", f.email);
-    fd.append("Event Type", f.eventType);
-    fd.append("Event Date", f.eventDate);
-    fd.append("Venue Name", f.venueName);
-    fd.append("Venue Address", f.venueAddress);
-    fd.append("Event Start Time", f.eventStart);
-    fd.append("Cold Spark Requested Time", f.sparkTime);
-    fd.append("Machines", f.machines === "Other" ? f.machinesOther : f.machines);
-    fd.append("Dancing on Clouds", dancingOnClouds ? "Yes" : "No");
-    fd.append("Moments", moments.join(", "));
-    if (moments.includes("Other") && f.momentOther) fd.append("Other Moment", f.momentOther);
-    fd.append("Venue Approval", f.approval);
-    fd.append("Venue Contact Name", f.venueContactName || "—");
-    fd.append("Venue Contact Info", f.venueContactInfo || "—");
-    fd.append("Client Signature", f.signature);
-    fd.append("Date Signed", f.signDate);
+    // Email notification via Web3Forms (same flow as /booking).
+    const payload: Record<string, string> = {
+      access_key: "b723116d-9c4c-4b2c-b438-3f8b9e045c37",
+      subject: `New Cold Sparks Rental Inquiry — ${refId}`,
+      from_name: "Photo Booth Legends Website",
+      Reference: refId,
+      "Full Name": f.fullName,
+      Phone: f.phone,
+      Email: f.email,
+      "Event Type": f.eventType,
+      "Event Date": f.eventDate,
+      "Venue Name": f.venueName,
+      "Venue Address": f.venueAddress,
+      "Event Start Time": f.eventStart,
+      "Cold Spark Requested Time": f.sparkTime,
+      Machines: f.machines === "Other" ? f.machinesOther : f.machines,
+      "Dancing on Clouds": dancingOnClouds ? "Yes" : "No",
+      Moments: moments.join(", "),
+      "Venue Approval": f.approval,
+      "Venue Contact Name": f.venueContactName || "—",
+      "Venue Contact Info": f.venueContactInfo || "—",
+      "Client Signature": f.signature,
+      "Date Signed": f.signDate,
+    };
+    if (moments.includes("Other") && f.momentOther) payload["Other Moment"] = f.momentOther;
 
     try {
-      await fetch("https://formsubmit.co/photoboothlegends@gmail.com", {
+      await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: fd,
-        mode: "no-cors",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       });
     } catch (err) {
       console.error("Email notification error:", err);

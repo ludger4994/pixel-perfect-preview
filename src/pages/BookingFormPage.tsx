@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import SEOHead from "@/components/SEOHead";
 import "./booking-form.css";
 
@@ -28,9 +28,51 @@ const backdrops = [
   { id: "bd10", value: "White Floral Wall", img: bdWhiteFloral, desc: "All-white flower wall — timeless and elegant for bridal and formal events." },
 ];
 
+const PHONE = "786-384-4038";
+
 const BookingFormPage = () => {
   const [keychain, setKeychain] = useState(false);
   const [sending, setSending] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    setSending(true);
+    setResult(null);
+    const fd = new FormData(form);
+    const payload: Record<string, string | boolean> = {
+      access_key: "b723116d-9c4c-4b2c-b438-3f8b9e045c37",
+      subject: "New Photo Booth Legends Booking Inquiry",
+      from_name: "Photo Booth Legends Website",
+    };
+    fd.forEach((value, key) => {
+      if (key === "botcheck") return;
+      const v = String(value);
+      payload[key] = payload[key] && typeof payload[key] === "string" ? `${payload[key]}, ${v}` : v;
+    });
+    payload.botcheck = (form.elements.namedItem("botcheck") as HTMLInputElement)?.checked ?? false;
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.message || "Failed");
+      form.reset();
+      setKeychain(false);
+      setResult({ ok: true, msg: "Thank you! Your booking request was received. We'll contact you within 24 hours." });
+    } catch (err) {
+      console.error("Booking submit error:", err);
+      setResult({
+        ok: false,
+        msg: `Something went wrong sending your request. Please text or call us at ${PHONE} and we'll get you booked.`,
+      });
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="pbl-booking">
@@ -48,18 +90,8 @@ const BookingFormPage = () => {
         </p>
         <div className="divider"></div>
 
-        <form
-          id="bookingForm"
-          action="https://formsubmit.co/photoboothlegends@gmail.com"
-          method="POST"
-          encType="multipart/form-data"
-          onSubmit={() => setSending(true)}
-        >
-          {/* FormSubmit config */}
-          <input type="hidden" name="_subject" value="New Photo Booth Legends Booking Inquiry" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="text" name="_honey" className="hp" tabIndex={-1} autoComplete="off" />
+        <form id="bookingForm" onSubmit={handleSubmit} noValidate={false}>
+          <input type="checkbox" name="botcheck" className="hp" tabIndex={-1} autoComplete="off" />
 
           <fieldset>
             <legend>Your Info</legend>
@@ -215,11 +247,14 @@ const BookingFormPage = () => {
               />
             </div>
             <div className="field" style={{ marginBottom: 0 }}>
-              <label htmlFor="inviteFile">Invite attachment (optional)</label>
-              <div className="filefield">
-                <input type="file" id="inviteFile" name="Invite Attachment" accept="image/*,.pdf" />
-              </div>
-              <div className="helper">Upload your event invite so we can match the design colors and style.</div>
+              <label htmlFor="inspirationLink">Link to inspiration photos (Instagram, Pinterest, etc.)</label>
+              <input
+                type="url"
+                id="inspirationLink"
+                name="Inspiration Photos Link"
+                placeholder="https://"
+              />
+              <div className="helper">Optional — share a link so we can match your colors and style.</div>
             </div>
           </fieldset>
 
@@ -234,6 +269,22 @@ const BookingFormPage = () => {
           <button type="submit" id="submitBtn" disabled={sending}>
             {sending ? "Sending…" : "Submit Booking Request"}
           </button>
+          {result && (
+            <p
+              role="status"
+              aria-live="polite"
+              style={{
+                marginTop: 16,
+                padding: "14px 16px",
+                borderRadius: 8,
+                textAlign: "center",
+                border: `1px solid ${result.ok ? "#C9A84C" : "#b4443c"}`,
+                color: result.ok ? "#8a6d24" : "#b4443c",
+              }}
+            >
+              {result.msg}
+            </p>
+          )}
           <p className="foot">Photo Booth Legends · South Florida · We usually reply within 24 hours</p>
         </form>
       </div>

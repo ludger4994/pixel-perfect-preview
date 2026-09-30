@@ -28,7 +28,7 @@ const backdrops = [
   { id: "bd10", value: "White Floral Wall", img: bdWhiteFloral, desc: "All-white flower wall — timeless and elegant for bridal and formal events." },
 ];
 
-const PHONE = "786-384-4038";
+const PHONE = "954-548-5809";
 
 const BookingFormPage = () => {
   const [keychain, setKeychain] = useState(false);

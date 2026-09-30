@@ -134,7 +134,7 @@ const ColdSparksFormPage = () => {
     if (error) {
       console.error("Submit error:", error);
       setSubmitting(false);
-      setStatus("Something went wrong. Please try again or call (786) 384-4038.");
+      setStatus("Something went wrong. Please try again or call (954) 548-5809.");
       return;
     }
 

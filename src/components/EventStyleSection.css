@@ -1,0 +1,28 @@
+.event-style-section {
+  --style-cream: #f7f2e9;
+  --style-white: #fff;
+  --style-taupe: #756655;
+  --style-heading: #443b30;
+  --style-gold: #d2b985;
+  --style-selected: #eee1c5;
+  --style-error: #a6352d;
+  background: var(--style-cream); color: var(--style-taupe); padding: 26px 22px; margin: 24px 0;
+}
+.event-style-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: var(--style-heading); margin: 0 0 10px; letter-spacing: 0; }
+.event-style-section p { font: 12px/1.7 'DM Sans', sans-serif; margin: 0 0 20px; }
+.event-style-section .style-field { margin-bottom: 20px; }
+.event-style-section label, .event-style-section .style-question { display: block; font: 13px/1.6 'DM Sans', sans-serif; letter-spacing: 0; color: var(--style-taupe); margin-bottom: 7px; }
+.event-style-section input[type=text], .event-style-section input[type=url] { width: 100%; background: var(--style-white); border: 1px solid var(--style-gold); color: var(--style-heading); padding: 11px 12px; border-radius: 4px; font: 14px/1.5 'DM Sans', sans-serif; }
+.event-style-section input::placeholder { color: var(--style-taupe); opacity: .8; }
+.event-style-section input:focus-visible { outline: 2px solid var(--style-gold); outline-offset: 2px; }
+.event-style-section .style-options { display: flex; gap: 12px; flex-wrap: wrap; }
+.event-style-section .style-options label { display: flex; gap: 7px; align-items: center; margin: 0; padding: 8px 12px; border: 1px solid var(--style-gold); border-radius: 4px; cursor: pointer; }
+.event-style-section .style-options label:has(:checked) { background: var(--style-selected); }
+.event-style-section input[type=radio] { accent-color: var(--style-taupe); }
+.event-style-section .style-flowers { margin-top: 20px; }
+.event-style-section input[type=file] { width: 100%; font: 12px/1.6 'DM Sans', sans-serif; }
+.event-style-section input[type=file]::file-selector-button { background: var(--style-white); border: 1px solid var(--style-gold); color: var(--style-heading); border-radius: 4px; padding: 9px 12px; margin-right: 10px; }
+.event-style-section .style-note { margin: 0; font-style: italic; }
+.event-style-section .style-error { color: var(--style-error); }
+.event-style-section .style-photo-list { padding-left: 20px; font: 12px/1.8 'DM Sans', sans-serif; overflow-wrap: anywhere; }
+@media(max-width:520px) { .event-style-section { padding: 22px 16px; } .event-style-section h2 { font-size: 22px; } }

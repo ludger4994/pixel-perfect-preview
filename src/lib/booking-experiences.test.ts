@@ -1,28 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { canSelectBackdrop, experiences, serviceFields, visibleQuestions } from './booking-experiences';
-describe('booking experience rules', () => {
-  it('offers all eleven services and preserves multiple selections in submission', () => {
-    expect(experiences).toHaveLength(11);
-    expect(serviceFields(['selfie', 'sparks'], { selfie: { 'Photo Delivery': 'Digital only' }, sparks: { 'Venue Approval': 'Yes' } })).toEqual({ 'Selfie Booth: Photo Delivery': 'Digital only', 'Cold Sparks: Venue Approval': 'Yes' });
-  });
-  it('allows traditional backdrops for compatible photo services', () => {
-    expect(['selfie', 'lux', 'photo-keychain'].map(id => canSelectBackdrop(id))).toEqual([true, true, true]);
-  });
-  it('never offers traditional backdrops for 360, special effects or standalone services', () => {
-    expect(['360', 'sparks', 'clouds', 'flower-wall', 'standalone-keychain', 'telephone', 'video-guestbook'].map(id => canSelectBackdrop(id))).toEqual([false, false, false, false, false, false, false]);
-    expect(serviceFields(['360'], { '360': { Backdrop: 'Gold Sequin' } })).toEqual({});
-  });
-  it('offers retro backdrops only for compatible open setups', () => {
-    expect(canSelectBackdrop('retro', { Setup: 'Open setup with backdrop' })).toBe(true);
-    expect(canSelectBackdrop('retro', { Setup: 'Standalone without backdrop' })).toBe(false);
-  });
-  it('excludes answers for deselected services', () => {
-    expect(serviceFields(['selfie'], { sparks: { 'Venue Approval': 'Yes' } })).toEqual({});
-  });
-  it('only includes conditional charm details when charms are selected', () => {
-    const service = experiences.find(item => item.id === 'photo-keychain');
-    if (!service) throw new Error('Missing keychain service');
-    expect(visibleQuestions(service, { Charms: 'No' }).some(q => q.key === 'Charm Details')).toBe(false);
-    expect(serviceFields(['photo-keychain'], { 'photo-keychain': { Charms: 'Yes', 'Charm Details': 'Heart' } })['Photobooth Keychain Station: Charm Details']).toBe('Heart');
-  });
+import { automaticAddons, canSelectBackdrop, cleanAnswers, compatibleAddons, experiences, groupedServices, selectedAddons, serviceFields } from './booking-experiences';
+describe('exact booking product rules', () => {
+  it.each(experiences)('$name has an independent questionnaire', service => { expect(service.questions.length).toBeGreaterThanOrEqual(5); expect(groupedServices([service.id], { [service.id]: { [service.questions[0].key]: 'Yes' } })[0].id).toBe(service.id); });
+  it('preserves the eleven exact names', () => { expect(experiences.map(s => s.name)).toEqual(['Photobooth Keychain Station','Standalone Keychain Station','Selfie Booth','Lux Booth (DSLR Booth)','360 Photo Booth','Cold Sparks','Dancing on the Clouds','Flower Wall — Standalone','Retro Photobooth — Standalone','Telephone Audio Guest Book','Video Guest Book']); });
+  it('shows compatible backdrops only on Yes except Lux', () => { expect(['photo-keychain','selfie','retro'].map(id => canSelectBackdrop(id, { 'Backdrop Preference': 'Yes' }))).toEqual([true,true,true]); expect(canSelectBackdrop('lux')).toBe(true); expect(canSelectBackdrop('selfie', { 'Backdrop Preference': 'Not Sure' })).toBe(false); });
+  it('never shows traditional backdrops on incompatible services', () => { for (const id of ['360','sparks','clouds','standalone-keychain','flower-wall','telephone','video-guestbook']) expect(canSelectBackdrop(id, { 'Backdrop Preference': 'Yes' })).toBe(false); });
+  it('drops print size when Selfie switches to digital only', () => { expect(cleanAnswers('selfie', { Experience: 'Digital Only', 'Print Size': '4×6' })).toEqual({ Experience: 'Digital Only' }); expect(cleanAnswers('selfie', { Experience: 'Digital With Prints', 'Print Size': '4×6' })['Print Size']).toBe('4×6'); });
+  it('drops retro print size without Prints Included', () => { expect(cleanAnswers('retro', { Experience: 'Digital Only', 'Print Size': '2×6' })).toEqual({ Experience: 'Digital Only' }); });
+  it('keeps multi-service answers grouped and excludes removed services', () => { const answers={ selfie:{ Experience:'Digital With Prints' },'360':{ Music:'Latin' },sparks:{ 'Venue Approval':'Pending' } }; expect(groupedServices(['selfie','360','sparks'],answers).map(s => s.answers)).toEqual([{Experience:'Digital With Prints'},{Music:'Latin'},{'Venue Approval':'Pending'}]); expect(serviceFields(['360'],answers)).toEqual({'360 Photo Booth: Music':'Latin'}); });
+  it('only shows a song request for Specific Song', () => { expect(cleanAnswers('360',{ Music:'Latin','Song Request':'Example' })).toEqual({ Music:'Latin' }); expect(cleanAnswers('360',{ Music:'Specific Song','Song Request':'Example' })['Song Request']).toBe('Example'); });
+  it('deduplicates decorative panel upgrades across guest books', () => { const ids=['telephone','video-guestbook'];const answers={ telephone:{Setup:'Telephone With Decorative White Panel Wall'},'video-guestbook':{Setup:'Decorative White Panel Wall'} };expect(automaticAddons(ids,answers)).toEqual(['white-panel']);expect(selectedAddons(ids,answers,['white-panel']).map(a=>a.name)).toEqual(['Decorative White Panel Wall']); });
+  it('removes incompatible dependent upgrades', () => { expect(selectedAddons(['360'],{},['telephone-enclosure'])).toEqual([]); });
+  it('keeps cross-effects as services, not duplicate add-ons', () => { expect(compatibleAddons(['clouds']).find(a=>a.id==='sparks')?.service).toBe('sparks');expect(selectedAddons(['clouds','sparks'],{},['sparks','clouds'])).toEqual([]); });
 });

@@ -3,7 +3,8 @@ import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { z } from 'npm:zod@3';
 import { EventStyleSchema } from '../_shared/event-style.ts';
 
-const Schema = z.object({ id: z.string().uuid(), fields: z.record(z.string().max(100), z.string().max(5000)), eventStyle: EventStyleSchema, botcheck: z.boolean().default(false) }).refine(d => !d.botcheck);
+const ServiceSchema = z.object({ id: z.string().max(50), name: z.string().max(100), answers: z.record(z.string().max(100), z.string().max(2000)) });
+const Schema = z.object({ id: z.string().uuid(), fields: z.record(z.string().max(100), z.string().max(5000)), services: z.array(ServiceSchema).max(11).optional(), addons: z.array(z.string().max(100)).max(30).optional(), eventStyle: EventStyleSchema, botcheck: z.boolean().default(false) }).refine(d => !d.botcheck);
 const reply = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 Deno.serve(async req => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
@@ -41,7 +42,7 @@ Deno.serve(async req => {
     if (!parsed.success) return reply({ error: 'Invalid inquiry details' }, 400);
     const d = parsed.data;
     if (!d.fields['Full Name']?.trim() || !z.string().email().safeParse(d.fields.Email).success || !d.fields.Phone?.trim() || !d.fields['Event Type'] || !/^\d{4}-\d{2}-\d{2}$/.test(d.fields['Event Date'] || '') || !d.fields['Venue / Location']?.trim()) return reply({ error: 'Missing event details' }, 400);
-    const { error } = await db.from('booking_inquiries').upsert({ id: d.id, fields: d.fields, event_style: d.eventStyle });
+    const { error } = await db.from('booking_inquiries').upsert({ id: d.id, fields: { ...d.fields, ...(d.services ? { Services: d.services, Addons: d.addons || [] } : {}) }, event_style: d.eventStyle });
     if (error) throw error;
     const photoLinks: string[] = [];
     for (const photo of d.eventStyle.photos) {

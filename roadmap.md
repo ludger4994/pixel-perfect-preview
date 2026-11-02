@@ -1,4 +1,6 @@
 # Booking page replacement
+- [x] Add searchable checkbox product dropdown, exact eleven questionnaires, dependent add-ons, and structured service submissions.
+- [x] Test all products individually, selection changes, conditional questions, mobile dropdown, and real multi-service persistence/readback; email success simulated because delivery remains blocked below.
 - [x] Replace /booking completely with cream/champagne navigation, five steps, eleven services, conditional questionnaires, review and confirmation.
 - [x] Verify service rules, real inquiry persistence, desktop/mobile presentation, and confirmation/reset with a simulated email success; actual email receipt remains blocked below.
 

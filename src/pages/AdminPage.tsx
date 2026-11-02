@@ -5,12 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Lock, Settings, Users, MessageSquare, Phone, Package, Image } from "lucide-react";
-
-const ADMIN_PASSWORD = "pbl2024admin"; // Simple password gate
+import { lovable } from '@/integrations/lovable';
+import BookingSubmissionsTab from '@/components/BookingSubmissionsTab';
 
 const AdminPage = () => {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [authMessage, setAuthMessage] = useState('');
+  const [authBusy, setAuthBusy] = useState(false);
   const [activeTab, setActiveTab] = useState("leads");
   const [leads, setLeads] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>(null);
@@ -19,6 +22,19 @@ const AdminPage = () => {
   const [backdrops, setBackdrops] = useState<any[]>([]);
   const [faqs, setFaqs] = useState<any[]>([]);
   const [smsTemplates, setSmsTemplates] = useState<any[]>([]);
+
+  useEffect(() => {
+    const checkAccess = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setAuthed(false); return; }
+      const { data, error } = await supabase.rpc('has_role', { _user_id: user.id, _role: 'admin' });
+      setAuthed(!error && data === true);
+      if (error || !data) setAuthMessage('Your account is signed in but has not been granted administrator access.');
+    };
+    void checkAccess();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => { setTimeout(() => { void checkAccess(); }, 0); });
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (!authed) return;
@@ -44,13 +60,12 @@ const AdminPage = () => {
     if (sm.data) setSmsTemplates(sm.data);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuthed(true);
-    } else {
-      toast.error("Incorrect password");
-    }
+    setAuthBusy(true); setAuthMessage('');
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) setAuthMessage('Sign-in failed. Please check your email and password.');
+    setAuthBusy(false);
   };
 
   const exportCSV = () => {
@@ -78,21 +93,31 @@ const AdminPage = () => {
             <Lock className="w-8 h-8 mx-auto mb-2" style={{ color: "hsl(var(--primary))" }} />
             <h1 className="font-heading text-xl text-foreground">Admin Access</h1>
           </div>
+          <Input type="email" aria-label="Email" placeholder="Email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)} />
           <Input
             type="password"
+            aria-label="Password"
+            autoComplete="current-password"
+            required
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" className="w-full" variant="default">
-            Enter
+          <Button type="submit" className="w-full" variant="default" disabled={authBusy}>
+            {authBusy ? 'Signing in…' : 'Sign in'}
           </Button>
+          {(['google', 'lovable'] as const).map(provider => <Button key={provider} type="button" className="w-full" variant="outline" onClick={async () => {
+            const { error } = await lovable.auth.signInWithOAuth(provider, { redirect_uri: window.location.origin + '/admin' });
+            if (error) setAuthMessage('Sign-in could not be started. Please try again.');
+          }}>{provider === 'google' ? 'Sign in with Google' : 'Sign in with Lovable'}</Button>)}
+          {authMessage && <p role="status" className="text-sm text-muted-foreground">{authMessage}</p>}
         </form>
       </div>
     );
   }
 
   const tabs = [
+    { id: 'bookings', label: 'Bookings', icon: Package },
     { id: "leads", label: "Leads", icon: Users },
     { id: "settings", label: "Settings", icon: Settings },
     { id: "booths", label: "Booths", icon: Package },
@@ -107,7 +132,7 @@ const AdminPage = () => {
         <h1 className="font-heading text-lg" style={{ color: "hsl(var(--primary))" }}>
           PBL Admin
         </h1>
-        <div className="flex gap-1 ml-4">
+        <div className="flex flex-wrap gap-1 ml-4">
           {tabs.map((t) => (
             <button
               key={t.id}
@@ -122,10 +147,12 @@ const AdminPage = () => {
               {t.label}
             </button>
           ))}
+          <Button size="sm" variant="ghost" onClick={() => { void supabase.auth.signOut(); setAuthed(false); }}>Sign out</Button>
         </div>
       </div>
 
       <div className="p-6 max-w-6xl mx-auto">
+        {activeTab === 'bookings' && <BookingSubmissionsTab />}
         {activeTab === "leads" && <LeadsTab leads={leads} onExport={exportCSV} />}
         {activeTab === "settings" && settings && <SettingsTab settings={settings} onRefresh={loadAll} />}
         {activeTab === "booths" && <BoothsTab booths={booths} packages={packages} />}

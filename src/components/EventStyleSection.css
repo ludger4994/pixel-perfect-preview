@@ -1,11 +1,4 @@
 .event-style-section {
-  --style-cream: #f7f2e9;
-  --style-white: #fff;
-  --style-taupe: #756655;
-  --style-heading: #443b30;
-  --style-gold: #d2b985;
-  --style-selected: #eee1c5;
-  --style-error: #a6352d;
   background: var(--style-cream); color: var(--style-taupe); padding: 26px 22px; margin: 24px 0;
 }
 .event-style-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 24px; color: var(--style-heading); margin: 0 0 10px; letter-spacing: 0; }

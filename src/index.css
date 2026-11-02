@@ -44,6 +44,13 @@
     --blush: 350 30% 80%;
     --ice-blue: 200 60% 65%;
     --surface-elevated: 0 0% 10%;
+    --style-cream: #f7f2e9;
+    --style-white: #fff;
+    --style-taupe: #756655;
+    --style-heading: #443b30;
+    --style-gold: #d2b985;
+    --style-selected: #eee1c5;
+    --style-error: #a6352d;
 
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'DM Sans', system-ui, sans-serif;

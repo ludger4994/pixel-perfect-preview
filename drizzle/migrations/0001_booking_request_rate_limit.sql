@@ -1,0 +1,6 @@
+CREATE TABLE public.booking_request_limits (ip_hash text PRIMARY KEY, window_start timestamptz NOT NULL DEFAULT now(), request_count integer NOT NULL DEFAULT 1);
+GRANT ALL ON public.booking_request_limits TO service_role;
+ALTER TABLE public.booking_request_limits ENABLE ROW LEVEL SECURITY;
+CREATE FUNCTION public.allow_booking_request(ip_hash text) RETURNS boolean LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$ DECLARE total integer; BEGIN INSERT INTO public.booking_request_limits AS limits(ip_hash, window_start, request_count) VALUES (allow_booking_request.ip_hash, now(), 1) ON CONFLICT ON CONSTRAINT booking_request_limits_pkey DO UPDATE SET request_count = CASE WHEN limits.window_start < now() - interval '1 hour' THEN 1 ELSE limits.request_count + 1 END, window_start = CASE WHEN limits.window_start < now() - interval '1 hour' THEN now() ELSE limits.window_start END RETURNING request_count INTO total; RETURN total <= 30; END $$;
+REVOKE ALL ON FUNCTION public.allow_booking_request(text) FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.allow_booking_request(text) TO service_role;

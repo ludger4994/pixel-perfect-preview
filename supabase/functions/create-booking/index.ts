@@ -1,7 +1,5 @@
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
-}
+import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { EventStyleSchema } from '../_shared/event-style.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { z } from 'https://esm.sh/zod@3'
 
@@ -22,6 +20,7 @@ const BookingSchema = z.object({
   addOnsTotal: z.number().min(0),
   totalPrice: z.number().min(0),
   notes: z.string().max(2000).optional(),
+  eventStyle: EventStyleSchema.optional(),
   paypalOrderId: z.string().optional(),
   paypalStatus: z.string().optional(),
   serviceType: z.string().min(1),
@@ -43,8 +42,9 @@ Deno.serve(async (req) => {
     }
 
     const data = parsed.data
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')
+    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    if (!supabaseUrl || !supabaseKey) throw new Error('Service unavailable')
     const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Insert booking
@@ -67,6 +67,7 @@ Deno.serve(async (req) => {
         add_ons_total: data.addOnsTotal,
         total_price: data.totalPrice,
         notes: data.notes || null,
+        event_style: data.eventStyle || {},
         status: data.paypalOrderId ? 'confirmed' : 'pending',
         paypal_order_id: data.paypalOrderId || null,
         paypal_status: data.paypalStatus || null,

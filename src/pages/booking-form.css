@@ -69,7 +69,7 @@
 .booking-product-picker > label { display: block; font-size: 14px; margin-bottom: 8px; }
 .booking-product-picker > p { font-size: 12px; line-height: 1.8; margin-bottom: 14px; }
 .pbl-booking .booking-product-trigger { width: 100%; min-height: 56px; height: auto; justify-content: space-between; text-align: left; padding: 16px; background: hsl(var(--booking-white)); border-color: hsl(var(--border)); }
-.booking-product-options { position: absolute; top: 100px; left: 0; right: 0; z-index: 20; border: 1px solid hsl(var(--booking-gold)); background: hsl(var(--booking-white)); border-radius: 6px; box-shadow: var(--booking-shadow); padding: 12px; }
+.booking-product-options { position: relative; z-index: 20; margin-top: 8px; border: 1px solid hsl(var(--booking-gold)); background: hsl(var(--booking-white)); border-radius: 6px; box-shadow: var(--booking-shadow); padding: 12px; }
 .booking-product-search { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid hsl(var(--border)); padding-bottom: 10px; }
 .booking-product-list { max-height: 330px; overflow-y: auto; padding-top: 10px; }
 .booking-product-list label { display: flex; align-items: center; gap: 12px; padding: 13px 10px; cursor: pointer; font-size: 13px; border-radius: 4px; }

@@ -1,7 +1,8 @@
-# Event styling
 # Booking page replacement
-- [ ] Replace /booking completely with cream/champagne navigation, five steps, eleven services, conditional questionnaires, review and confirmation.
-- [ ] Verify service rules, complete submission flow, and desktop/mobile presentation.
+- [x] Replace /booking completely with cream/champagne navigation, five steps, eleven services, conditional questionnaires, review and confirmation.
+- [x] Verify service rules, real inquiry persistence, desktop/mobile presentation, and confirmation/reset with a simulated email success; actual email receipt remains blocked below.
+
+# Event styling
 
 - [x] Shared optional decor section in both booking forms with conditional flowers and photo uploads.
 - [x] Save inquiry styling and reuse it for coordinated backdrop suggestions.

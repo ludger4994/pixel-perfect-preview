@@ -3,7 +3,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { emptyEventStyle, eventStyleFields, type EventStyle } from '@/lib/event-style';
 import { Button } from '@/components/ui/button';
 
-type Submission = { id: string; fields: Record<string, string>; style: EventStyle; created: string; kind: string };
+type Service = { id: string; name: string; answers: Record<string, string> };
+type Submission = { id: string; fields: Record<string, string>; services?: Service[]; addons?: string[]; style: EventStyle; created: string; kind: string };
 export default function BookingSubmissionsTab() {
   const [rows, setRows] = useState<Submission[]>([]);
   const [error, setError] = useState('');
@@ -15,7 +16,10 @@ export default function BookingSubmissionsTab() {
     ]);
     if (inquiries.error || bookings.error) setError('Booking details could not be loaded.');
     setRows([
-      ...(inquiries.data || []).map(r => ({ id: r.id, fields: r.fields as Record<string, string>, style: { ...emptyEventStyle, ...r.event_style as object } as EventStyle, created: r.created_at, kind: 'Inquiry' })),
+      ...(inquiries.data || []).map(r => {
+        const raw = r.fields as Record<string, unknown>;
+        return { id: r.id, fields: Object.fromEntries(Object.entries(raw).filter((entry): entry is [string, string] => typeof entry[1] === 'string')), services: Array.isArray(raw.Services) ? raw.Services as Service[] : [], addons: Array.isArray(raw.Addons) ? raw.Addons as string[] : [], style: { ...emptyEventStyle, ...r.event_style as object } as EventStyle, created: r.created_at, kind: 'Inquiry' };
+      }),
       ...(bookings.data || []).map(r => ({ id: r.id, fields: { 'Full Name': `${r.first_name} ${r.last_name || ''}`, Email: r.email, Phone: r.phone, 'Event Date': r.event_date, 'Event Type': r.event_type, Package: r.package_name, Venue: r.venue || '', Notes: r.notes || '' }, style: { ...emptyEventStyle, ...r.event_style as object } as EventStyle, created: r.created_at, kind: 'Package booking' })),
     ].sort((a, b) => b.created.localeCompare(a.created)));
     setLoading(false);
@@ -30,6 +34,8 @@ export default function BookingSubmissionsTab() {
       <dl className="grid sm:grid-cols-2 gap-4 py-5 text-sm">
         {Object.entries({ ...row.fields, ...eventStyleFields(row.style) }).filter(([, v]) => v).map(([key, value]) => <div key={key}><dt className="text-muted-foreground">{key}</dt><dd className="text-foreground break-words whitespace-pre-wrap">{value}</dd></div>)}
       </dl>
+      {row.services?.map(service => <section key={service.id} className="border-t border-border py-4"><h3 className="font-heading text-lg">{service.name}</h3><dl className="grid sm:grid-cols-2 gap-4 py-4 text-sm">{Object.entries(service.answers).map(([key, value]) => <div key={key}><dt className="text-muted-foreground">{key}</dt><dd className="break-words">{value}</dd></div>)}</dl></section>)}
+      {Boolean(row.addons?.length) && <p className="text-sm pb-4">Add-ons: {row.addons?.join(', ')}</p>}
       <div className="flex flex-wrap gap-2 pb-4">{row.style.photos.map(photo => <Button key={photo.path} variant="outline" size="sm" onClick={async () => {
         const tab = window.open('about:blank', '_blank');
         if (tab) tab.opener = null;

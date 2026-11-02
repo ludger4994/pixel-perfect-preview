@@ -52,6 +52,15 @@
     --style-selected: #eee1c5;
     --style-error: #a6352d;
 
+    /* Complete booking experience — scoped light theme */
+    --booking-cream: 40 52% 94%;
+    --booking-white: 0 0% 100%;
+    --booking-gold: 36 37% 65%;
+    --booking-taupe: 31 13% 36%;
+    --booking-champagne: 36 42% 88%;
+    --booking-error: 8 47% 39%;
+    --booking-shadow: 0 8px 32px hsl(var(--booking-taupe) / .05);
+
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'DM Sans', system-ui, sans-serif;
 

@@ -1,305 +1,104 @@
-import { useState, type FormEvent } from "react";
-import SEOHead from "@/components/SEOHead";
-import { Button } from "@/components/ui/button";
-import EventStyleSection from "@/components/EventStyleSection";
-import { emptyEventStyle, eventStyleFields, normalizeEventStyle } from "@/lib/event-style";
-import { supabase } from "@/integrations/supabase/client";
-import "./booking-form.css";
+import { useRef, useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Check, Camera, KeyRound, Sparkles, Flower2, Phone, Video, Search, X, ShieldCheck, Loader2 } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
+import { Button } from '@/components/ui/button';
+import BookingNavigation from '@/components/BookingNavigation';
+import BookingPersonalize from '@/components/BookingPersonalize';
+import EventStyleSection from '@/components/EventStyleSection';
+import { emptyEventStyle, eventStyleFields, normalizeEventStyle } from '@/lib/event-style';
+import { experiences, serviceFields } from '@/lib/booking-experiences';
+import { supabase } from '@/integrations/supabase/client';
+import './booking-form.css';
 
-import bdBlack from "@/assets/booking/backdrop-black.jpg";
-import bdPinkSequin from "@/assets/booking/backdrop-pink-sequin.jpg";
-import bdGeometric from "@/assets/booking/backdrop-black-gold-geometric.jpg";
-import bdMarble from "@/assets/booking/backdrop-black-gold-marble.jpg";
-import bdGoldSequin from "@/assets/booking/backdrop-gold-sequin.jpg";
-import bdFloral from "@/assets/booking/backdrop-pink-purple-floral.jpg";
-import bdSilverSequin from "@/assets/booking/backdrop-silver-black-sequin.jpg";
-import bdHedge from "@/assets/booking/backdrop-hedge.jpg";
-import bdTeal from "@/assets/booking/backdrop-teal-gold-marble.jpg";
-import bdRainbow from "@/assets/booking/backdrop-rainbow-ink-splash.jpg";
-import bdWhiteFloral from "@/assets/booking/backdrop-white-floral-wall.jpg";
+const steps = ['Your Event', 'Your Experiences', 'Personalize', 'Special Touches', 'Review & Submit'];
+const icons = { camera: Camera, key: KeyRound, sparkles: Sparkles, flower: Flower2, phone: Phone, video: Video };
+const initialEvent: Record<string, string> = { 'Full Name': '', Phone: '', Email: '', 'Event Type': '', 'Event Date': '', 'Start Time': '', 'End Time': '', 'Hours of Coverage': '', 'Venue / Location': '', 'Venue Address': '', 'Indoor or Outdoor Event': '', 'Estimated Guest Count': '', 'Venue Access': '' };
+const addOns = [{ name: 'Backdrop Upgrade', description: 'An elevated setting for your portraits.', compatible: true, icon: Flower2 }, { name: 'Props', description: 'Playful details for memorable photos.', compatible: true, icon: Sparkles }, { name: 'Guest Book', description: 'A collection of photos and handwritten wishes.', compatible: true, icon: KeyRound }, { name: 'Unlimited Prints', description: 'A printed memory for every guest.', compatible: true, icon: Camera }];
 
-const backdrops = [
-  { id: "bd0", value: "Black", img: bdBlack, desc: "Sleek matte black — a clean, classic backdrop that works with any theme." },
-  { id: "bd1", value: "Pink Sequin", img: bdPinkSequin, desc: "Shimmering pink fringe sequin — playful and eye-catching for celebrations." },
-  { id: "bd2", value: "Black & Gold Geometric", img: bdGeometric, desc: "Black backdrop with a gold geometric line pattern — modern and upscale." },
-  { id: "bd3", value: "Black & Gold Marble", img: bdMarble, desc: "Dramatic black and gold marbled design — elegant for upscale events." },
-  { id: "bd4", value: "Gold Sequin", img: bdGoldSequin, desc: "All-gold fringe sequin — glamorous shimmer for milestone celebrations." },
-  { id: "bd5", value: "Pink & Purple Floral", img: bdFloral, desc: "Lush pink and purple flower wall — romantic and soft for weddings and quinceañeras." },
-  { id: "bd6", value: "Silver/Black Sequin", img: bdSilverSequin, desc: "Shimmering silver-black fringe sequin — sleek and reflective under lights." },
-  { id: "bd7", value: "Hedge", img: bdHedge, desc: "Fresh green hedge wall — a natural, garden-inspired look." },
-  { id: "bd8", value: "Teal & Gold Marble", img: bdTeal, desc: "Teal and gold marbled swirl — a colorful, upscale alternative to black and gold." },
-  { id: "bd9", value: "Rainbow Ink Splash", img: bdRainbow, desc: "Vivid multicolor ink-splash design — bold and artistic statement piece." },
-  { id: "bd10", value: "White Floral Wall", img: bdWhiteFloral, desc: "All-white flower wall — timeless and elegant for bridal and formal events." },
-];
-
-const PHONE = "954-548-5809";
-
-const BookingFormPage = () => {
-  const [keychain, setKeychain] = useState(false);
+export default function BookingFormPage() {
+  const [step, setStep] = useState(0);
+  const [event, setEvent] = useState({ ...initialEvent });
+  const [selected, setSelected] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<Record<string, Record<string, string>>>({});
+  const [extras, setExtras] = useState<string[]>([]);
+  const [design, setDesign] = useState<Record<string, string>>({ 'Design Title': '', 'Design Theme': '', Notes: '' });
   const [eventStyle, setEventStyle] = useState({ ...emptyEventStyle });
   const [uploading, setUploading] = useState(false);
   const [inquiryId, setInquiryId] = useState(() => crypto.randomUUID());
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
-
+  const [validation, setValidation] = useState('');
+  const [search, setSearch] = useState('');
+  const formRef = useRef<HTMLFormElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const selectedExperiences = experiences.filter(item => selected.includes(item.id));
+  const hasPhotoBooth = selectedExperiences.some(item => item.backdrop);
+  const toggleService = (id: string) => { setSelected(prev => prev.includes(id) ? prev.filter(value => value !== id) : [...prev, id]); setValidation(''); };
+  const changeAnswer = (id: string, key: string, value: string) => setAnswers(prev => ({ ...prev, [id]: { ...prev[id], [key]: value } }));
+  const goTo = (next: number) => { setStep(next); setValidation(''); setResult(null); requestAnimationFrame(() => sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })); };
+  const next = () => {
+    if (step === 0 && !formRef.current?.reportValidity()) return;
+    if (step === 1 && !selected.length) { setValidation('Please select at least one experience.'); return; }
+    goTo(Math.min(step + 1, 4));
+  };
+  const getFields = () => {
+    const fields: Record<string, string> = { ...event, ...design, 'Selected Services': selectedExperiences.map(item => item.name).join(', '), ...serviceFields(selected, answers), ...eventStyleFields(eventStyle) };
+    if (selected.includes('photo-keychain') || selected.includes('standalone-keychain')) fields['Add-On: Keychain Station'] = 'Yes, add the Keychain Station';
+    if (hasPhotoBooth) extras.forEach(extra => { fields[`Add-On: ${extra}`] = 'Yes'; });
+    return fields;
+  };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (step !== 4) { next(); return; }
     if (uploading || sending) return;
-    const form = e.currentTarget;
-    setSending(true);
-    setResult(null);
-    const fd = new FormData(form);
-    const payload: Record<string, string | boolean> = {
-      access_key: "b723116d-9c4c-4b2c-b438-3f8b9e045c37",
-      subject: "New Photo Booth Legends Booking Inquiry",
-      from_name: "Photo Booth Legends Website",
-    };
-    fd.forEach((value, key) => {
-      if (key === "botcheck") return;
-      const v = String(value);
-      payload[key] = payload[key] && typeof payload[key] === "string" ? `${payload[key]}, ${v}` : v;
-    });
-    payload.botcheck = (form.elements.namedItem("botcheck") as HTMLInputElement)?.checked ?? false;
-    for (const key of ['linens', 'decorations', 'flowerColors', 'flowerTypes', 'theme', 'inspirationLink']) delete payload[key];
-    Object.assign(payload, eventStyleFields(eventStyle));
+    if (!selected.length) { goTo(1); setValidation('Please select at least one experience.'); return; }
+    const bot = e.currentTarget.elements.namedItem('botcheck');
+    const botcheck = bot instanceof HTMLInputElement && bot.checked;
+    setSending(true); setResult(null);
+    const fields = getFields();
     try {
-      const fields = Object.fromEntries(Object.entries(payload).filter(([key, v]) => typeof v === 'string' && !['access_key', 'subject', 'from_name'].includes(key))) as Record<string, string>;
-      const { data: saved, error: saveError } = await supabase.functions.invoke('booking-inquiry', {
-        body: { id: inquiryId, fields, eventStyle: normalizeEventStyle(eventStyle), botcheck: payload.botcheck },
-      });
+      const { data: saved, error: saveError } = await supabase.functions.invoke('booking-inquiry', { body: { id: inquiryId, fields, eventStyle: normalizeEventStyle(eventStyle), botcheck } });
       if (saveError || !saved?.success) throw new Error('Unable to save inquiry');
-      payload['Inspiration Photo Uploads'] = (saved.photoLinks || []).join('\n');
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.success) throw new Error(data.message || "Failed");
-      form.reset();
-      setKeychain(false);
-      setEventStyle({ ...emptyEventStyle });
-      setInquiryId(crypto.randomUUID());
+      const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ access_key: 'b723116d-9c4c-4b2c-b438-3f8b9e045c37', subject: 'New Photo Booth Legends Booking Inquiry', from_name: 'Photo Booth Legends Website', ...fields, 'Inspiration Photo Uploads': (saved.photoLinks || []).join('\n'), botcheck }) });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.success) throw new Error('Email notification failed');
       setResult({ ok: true, msg: "Thank you! Your booking request was received. We'll contact you within 24 hours." });
-    } catch (err) {
-      console.error("Booking submit error:", err);
-      setResult({
-        ok: false,
-        msg: `Something went wrong sending your request. Please text or call us at ${PHONE} and we'll get you booked.`,
-      });
-    } finally {
-      setSending(false);
-    }
+      setEvent({ ...initialEvent }); setSelected([]); setAnswers({}); setExtras([]); setDesign({ 'Design Title': '', 'Design Theme': '', Notes: '' }); setEventStyle({ ...emptyEventStyle }); setInquiryId(crypto.randomUUID());
+      formRef.current?.reset();
+      sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } catch {
+      setResult({ ok: false, msg: "Something went wrong sending your request. Please text or call us at 954-548-5809 and we'll get you booked." });
+    } finally { setSending(false); }
   };
+  const field = (name: string, label: string, type = 'text', required = false, options?: string[], placeholder?: string) => <div className="booking-field" key={name}><label htmlFor={`event-${name.replace(/ /g, '-')}`}>{label}{required && <span className="booking-required"> *</span>}</label>{options ? <select id={`event-${name.replace(/ /g, '-')}`} name={name} required={required} value={event[name]} onChange={e => setEvent(prev => ({ ...prev, [name]: e.target.value }))}><option value="">Select one</option>{options.map(option => <option key={option}>{option}</option>)}</select> : <input id={`event-${name.replace(/ /g, '-')}`} name={name} type={type} required={required} min={type === 'number' ? 1 : undefined} autoComplete={name === 'Full Name' ? 'name' : name === 'Email' ? 'email' : name === 'Phone' ? 'tel' : undefined} maxLength={500} placeholder={placeholder} value={event[name]} onChange={e => setEvent(prev => ({ ...prev, [name]: e.target.value }))} />}</div>;
 
-  return (
-    <div className="pbl-booking">
-      <SEOHead
-        title="Book Your Photo Booth | Photo Booth Legends"
-        description="Book your South Florida photo booth experience. Share your event details, pick a backdrop, and add the Keychain Station — we reply within 24 hours."
-        canonical="https://photoboothlegends.com/booking"
-      />
-      <div className="wrap">
-        <div className="brand"><span className="mark">Photo Booth Legends</span></div>
-        <h1>Book Your Event</h1>
-        <p className="sub">
-          Fill out the details below and we'll follow up with pricing and availability. Add the keychain
-          station if you want guests to walk away with a wearable print, not just a photo.
-        </p>
-        <div className="divider"></div>
-
-        <form id="bookingForm" onSubmit={handleSubmit} noValidate={false}>
-          <input type="checkbox" name="botcheck" className="hp" tabIndex={-1} autoComplete="off" />
-
-          <fieldset>
-            <legend>Your Info</legend>
-            <div className="row2">
-              <div className="field">
-                <label className="req" htmlFor="name">Full name</label>
-                <input type="text" id="name" name="Full Name" required autoComplete="name" />
-              </div>
-              <div className="field">
-                <label className="req" htmlFor="phone">Phone</label>
-                <input type="tel" id="phone" name="Phone" required autoComplete="tel" />
-              </div>
-            </div>
-            <div className="field">
-              <label className="req" htmlFor="email">Email</label>
-              <input type="email" id="email" name="Email" required autoComplete="email" />
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Event Details</legend>
-            <div className="row2">
-              <div className="field">
-                <label className="req" htmlFor="eventType">Event type</label>
-                <select id="eventType" name="Event Type" required defaultValue="">
-                  <option value="" disabled>Select one</option>
-                  <option>Wedding</option>
-                  <option>Quinceañera</option>
-                  <option>Prom / School Dance</option>
-                  <option>Corporate Event</option>
-                  <option>Birthday</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div className="field">
-                <label className="req" htmlFor="eventDate">Event date</label>
-                <input type="date" id="eventDate" name="Event Date" required />
-              </div>
-            </div>
-            <div className="row2">
-              <div className="field">
-                <label htmlFor="startTime">Start time</label>
-                <input type="text" id="startTime" name="Start Time" placeholder="e.g. 7:00 PM" />
-              </div>
-              <div className="field">
-                <label htmlFor="hours">Hours of coverage</label>
-                <select id="hours" name="Hours of Coverage" defaultValue="">
-                  <option value="" disabled>Select one</option>
-                  <option>2 hours</option>
-                  <option>3 hours</option>
-                  <option>4 hours</option>
-                  <option>5+ hours</option>
-                  <option>Not sure yet</option>
-                </select>
-              </div>
-            </div>
-            <div className="field">
-              <label className="req" htmlFor="venue">Venue / location</label>
-              <input type="text" id="venue" name="Venue / Location" required placeholder="Venue name and city" />
-            </div>
-            <div className="field">
-              <label htmlFor="guests">Estimated guest count</label>
-              <input type="number" id="guests" name="Estimated Guest Count" min="1" placeholder="e.g. 120" />
-            </div>
-          </fieldset>
-
+  return <div className="pbl-booking">
+    <SEOHead title="Plan Your Legendary Event | Photo Booth Legends" description="Create your custom South Florida event experience. Choose photo booths, special effects and keepsakes, and request a personalized quote." canonical="https://photoboothlegend.com/booking" />
+    <BookingNavigation />
+    <section className="booking-intro"><span className="booking-eyebrow">PHOTO BOOTH LEGENDS · SOUTH FLORIDA</span><h1>Let's Make Your Event <em>Legendary</em></h1><p>From photo booths to unforgettable special effects, let's create the perfect experience for your celebration.</p><div className="booking-intro-note"><span />Choose your experiences, personalize the details, and receive a custom quote.<span /></div></section>
+    <main className="booking-main" ref={sectionRef}>
+      <nav className="booking-progress" aria-label="Booking progress">{steps.map((label, index) => <Button type="button" key={label} variant="ghost" className={`booking-step${index === step ? ' is-active' : ''}${index < step ? ' is-complete' : ''}`} disabled={index > step || sending || Boolean(result?.ok)} aria-current={index === step ? 'step' : undefined} onClick={() => goTo(index)}><span className="booking-step-number">{index < step ? <Check size={16} /> : String(index + 1).padStart(2, '0')}</span><span>{label}</span></Button>)}</nav>
+      {result?.ok ? <section className="booking-confirmation" aria-live="polite"><span className="booking-confirmation-mark"><Check size={32} /></span><span className="booking-eyebrow">A LEGENDARY EVENT STARTS HERE</span><h2>Your celebration is one step closer.</h2><p role="status">{result.msg}</p><Button type="button" className="booking-primary" onClick={() => { setResult(null); goTo(0); }}>Plan another event<ArrowRight /></Button><Link to="/gallery">Explore the gallery</Link></section> : <form ref={formRef} onSubmit={handleSubmit}>
+        <input type="checkbox" name="botcheck" className="booking-honeypot" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+        <div className="booking-form-heading"><div><span className="booking-eyebrow">STEP {String(step + 1).padStart(2, '0')} / 05</span><h2>{steps[step]}</h2></div><span className="booking-heading-detail">{step === 0 ? 'A few details. Endless possibilities.' : step === 1 ? 'Make it uniquely yours.' : step === 2 ? 'The details make the difference.' : step === 3 ? 'A little extra magic.' : 'Your celebration, beautifully considered.'}</span></div>
+        {step === 0 && <div className="booking-event-content"><section className="booking-section"><div className="booking-section-title"><span className="booking-small-number">01</span><div><h3>Your celebration</h3><p>Every legendary experience starts with your event.</p></div></div><div className="booking-fields">{field('Event Type', 'Event Type', 'text', true, ['Wedding', 'Quinceañera', 'Prom / School Dance', 'Corporate Event', 'Birthday', 'Sweet 16', 'Baby Shower', 'Other'])}{field('Event Date', 'Event Date', 'date', true)}{field('Start Time', 'Event Start Time', 'time')}{field('End Time', 'Event End Time', 'time')}{field('Venue / Location', 'Venue Name', 'text', true, undefined, 'Venue name and city')}{field('Venue Address', 'Venue Address', 'text', false, undefined, 'Street address, city, ZIP')}{field('Indoor or Outdoor Event', 'Indoor or Outdoor Event', 'text', false, ['Indoor', 'Outdoor', 'Both', 'Not sure yet'])}{field('Estimated Guest Count', 'Estimated Guest Count', 'number', false, undefined, 'e.g. 120')}{field('Venue Access', 'Venue Access', 'text', false, ['Ground floor / direct access', 'Elevator available', 'Stairs', 'Other / not sure yet'])}{field('Hours of Coverage', 'Hours of Coverage', 'text', false, ['2 hours', '3 hours', '4 hours', '5+ hours', 'Not sure yet'])}</div></section>
+          <section className="booking-section"><div className="booking-section-title"><span className="booking-small-number">02</span><div><h3>Your contact details</h3><p>Where we can reach you with your custom quote.</p></div></div><div className="booking-fields">{field('Full Name', 'Full Name', 'text', true)}{field('Phone', 'Phone', 'tel', true)}{field('Email', 'Email', 'email', true)}</div></section>
           <EventStyleSection value={eventStyle} onChange={setEventStyle} onUploading={setUploading} />
-
-          <fieldset>
-            <legend>Choose Your Backdrop</legend>
-            <div className="bd-grid">
-              {backdrops.map((b) => (
-                <label className="bd-card" key={b.id} htmlFor={b.id}>
-                  <input type="radio" id={b.id} name="Backdrop Choice" value={b.value} />
-                  <img className="bd-thumb" src={b.img} alt={`${b.value} backdrop`} loading="lazy" />
-                  <span className="bd-name">{b.value}</span>
-                  <span className="bd-desc">{b.desc}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Add-Ons</legend>
-            <label className={`addon${keychain ? " active" : ""}`} id="keychainCard" htmlFor="keychain">
-              <input
-                type="checkbox"
-                id="keychain"
-                name="Add-On: Keychain Station"
-                value="Yes, add the Keychain Station"
-                checked={keychain}
-                onChange={(e) => setKeychain(e.target.checked)}
-              />
-              <span className="txt">
-                <strong>Keychain Station</strong>
-                <span>
-                  Guests print a mini photo on the spot and turn it into a wearable keychain. A popular favor
-                  upgrade for weddings, quinceañeras, and school events.
-                </span>
-              </span>
-            </label>
-
-            <div className={`charmPanel${keychain ? " open" : ""}`} id="charmPanel">
-              <div className="charmInner">
-                <div className="field">
-                  <div className="miniLabel">Keyring color</div>
-                  <div className="pillrow">
-                    <label><input type="radio" name="Keyring Color" value="Gold" /> Gold</label>
-                    <label><input type="radio" name="Keyring Color" value="Silver" /> Silver</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="miniLabel">Clasp style</div>
-                  <div className="pillrow">
-                    <label><input type="radio" name="Clasp Style" value="Lobster Claw" /> Lobster claw</label>
-                    <label><input type="radio" name="Clasp Style" value="Keychain Clip" /> Keychain clip</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <label htmlFor="charmDetails">What charm(s) would you like?</label>
-                  <textarea
-                    id="charmDetails"
-                    name="Charm Details"
-                    placeholder="e.g. initials, a heart charm, a number for the birthday age, event date charm..."
-                  />
-                  <div className="helper">Describe shape, wording, or theme — we'll confirm options before your event.</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="field" style={{ marginTop: 18 }}>
-              <label>Other add-ons you're interested in</label>
-              <div className="pillrow">
-                <label><input type="checkbox" name="Add-On: Backdrop Upgrade" value="Yes" /> Backdrop upgrade</label>
-                <label><input type="checkbox" name="Add-On: Props" value="Yes" /> Prop set</label>
-                <label><input type="checkbox" name="Add-On: Guest Book" value="Yes" /> Photo guest book</label>
-                <label><input type="checkbox" name="Add-On: Unlimited Prints" value="Yes" /> Unlimited prints</label>
-              </div>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Design Template</legend>
-            <div className="field">
-              <label htmlFor="designTitle">Design title</label>
-              <input type="text" id="designTitle" name="Design Title" placeholder="e.g. Maria &amp; James Wedding Overlay" />
-              <div className="helper">What should we call this design/template?</div>
-            </div>
-            <div className="field">
-              <label htmlFor="theme">What theme or style do you want?</label>
-              <textarea
-                id="theme"
-                name="Design Theme"
-                placeholder="Describe wording, fonts, or print layout..."
-              />
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Anything Else</legend>
-            <div className="field" style={{ marginBottom: 0 }}>
-              <label htmlFor="notes">Notes or questions</label>
-              <textarea id="notes" name="Notes" />
-            </div>
-          </fieldset>
-
-          <Button type="submit" id="submitBtn" disabled={sending || uploading}>
-            {uploading ? "Uploading photos…" : sending ? "Sending…" : "Submit Booking Request"}
-          </Button>
-          {result && (
-            <p
-              role="status"
-              aria-live="polite"
-              style={{
-                marginTop: 16,
-                padding: "14px 16px",
-                borderRadius: 8,
-                textAlign: "center",
-                border: `1px solid ${result.ok ? "#C9A84C" : "#b4443c"}`,
-                color: result.ok ? "#8a6d24" : "#b4443c",
-              }}
-            >
-              {result.msg}
-            </p>
-          )}
-          <p className="foot">Photo Booth Legends · South Florida · We usually reply within 24 hours</p>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-export default BookingFormPage;
+        </div>}
+        {step === 1 && <section className="booking-experiences"><div className="booking-search"><Search size={18} /><input aria-label="Search experiences" placeholder="Find your perfect experience…" value={search} onChange={e => setSearch(e.target.value)} />{search && <Button type="button" variant="ghost" size="icon" aria-label="Clear search" onClick={() => setSearch('')}><X /></Button>}</div>
+          {['Photo experiences', 'Special effects', 'Keepsakes & guest books'].map(category => { const items = experiences.filter(item => item.category === category && `${item.name} ${item.description}`.toLowerCase().includes(search.toLowerCase())); return items.length ? <div className="booking-category" key={category}><h3>{category}</h3><div className="booking-service-grid">{items.map(item => { const Icon = icons[item.icon]; const active = selected.includes(item.id); return <Button key={item.id} type="button" variant="outline" aria-pressed={active} className={`booking-service-card${active ? ' is-selected' : ''}`} onClick={() => toggleService(item.id)}>{item.image ? <img src={item.image} alt={item.name} loading="lazy" /> : <div className="booking-service-symbol"><Icon size={36} strokeWidth={1} /></div>}<span className="booking-service-text"><strong>{item.name}</strong><span>{item.description}</span></span><span className="booking-service-checkbox">{active && <Check size={14} />}</span></Button>; })}</div></div> : null; })}
+          {!experiences.some(item => `${item.name} ${item.description}`.toLowerCase().includes(search.toLowerCase())) && <p role="status">No experiences match your search.</p>}
+        </section>}
+        {step === 2 && <BookingPersonalize selected={selected} answers={answers} onChange={changeAnswer} />}
+        {step === 3 && <><section className="booking-section"><div className="booking-section-title"><h3>The finishing touches</h3></div>{hasPhotoBooth && <div className="booking-addon-grid">{addOns.map(extra => { const Icon = extra.icon; return <Button type="button" variant="outline" key={extra.name} aria-pressed={extras.includes(extra.name)} className={`booking-addon${extras.includes(extra.name) ? ' is-selected' : ''}`} onClick={() => setExtras(prev => prev.includes(extra.name) ? prev.filter(item => item !== extra.name) : [...prev, extra.name])}><Icon size={24} /><span><strong>{extra.name}</strong><span>{extra.description}</span></span>{extras.includes(extra.name) && <Check />}</Button>; })}</div>}<div className="booking-fields">{['Design Title', 'Design Theme', 'Notes'].map(name => <div className={`booking-field${name !== 'Design Title' ? ' booking-field-wide' : ''}`} key={name}><label htmlFor={`design-${name}`}>{name === 'Notes' ? 'Anything else we should know?' : name}</label>{name === 'Design Title' ? <input id={`design-${name}`} name={name} maxLength={500} placeholder="e.g. Maria & James Wedding" value={design[name]} onChange={e => setDesign(prev => ({ ...prev, [name]: e.target.value }))} /> : <textarea id={`design-${name}`} name={name} maxLength={2000} value={design[name]} onChange={e => setDesign(prev => ({ ...prev, [name]: e.target.value }))} />}</div>)}</div></section></>}
+        {step === 4 && <section className="booking-review"><div className="booking-review-title"><h3>Your event at a glance</h3><Button type="button" variant="link" onClick={() => goTo(0)}>Edit event</Button></div><dl>{Object.entries(event).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><div className="booking-review-title"><h3>Your experiences</h3><Button type="button" variant="link" onClick={() => goTo(1)}>Edit experiences</Button></div><div className="booking-review-services">{selectedExperiences.map(item => <span key={item.id}><Check size={14} />{item.name}</span>)}</div><div className="booking-review-title"><h3>Personal details & special touches</h3><Button type="button" variant="link" onClick={() => goTo(2)}>Edit details</Button></div><dl>{Object.entries({ ...serviceFields(selected, answers), ...eventStyleFields(eventStyle), ...design, ...(hasPhotoBooth && extras.length ? { 'Special Touches': extras.join(', ') } : {}) }).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}{eventStyle.photos.length > 0 && <div><dt>Inspiration photos</dt><dd>{eventStyle.photos.map(photo => photo.name).join(', ')}</dd></div>}</dl><p className="booking-quote-note"><ShieldCheck size={18} />A custom quote request — no payment required.</p></section>}
+        {selected.length > 0 && step > 0 && step < 4 && <aside className="booking-selected-summary" aria-label="Selected services"><span>{selected.length} {selected.length === 1 ? 'experience' : 'experiences'} selected</span><div>{selectedExperiences.map(item => <Button type="button" variant="outline" key={item.id} onClick={() => toggleService(item.id)} aria-label={`Remove ${item.name}`}>{item.name}<X size={12} /></Button>)}</div></aside>}
+        {validation && <p className="booking-error" role="alert">{validation}</p>}{result && !result.ok && <p className="booking-error" role="alert">{result.msg}</p>}
+        <div className="booking-form-actions"><div>{step > 0 && <Button type="button" variant="ghost" disabled={sending} onClick={() => goTo(step - 1)}><ArrowLeft />Back</Button>}</div><span className="booking-action-note">{step === 0 ? '* Required event details' : 'Your event. Your vision.'}</span>{step < 4 ? <Button key="continue" type="button" className="booking-primary" disabled={uploading} onClick={next}>Continue<ArrowRight /></Button> : <Button key="submit" type="submit" className="booking-primary" disabled={sending || uploading}>{sending ? <><Loader2 className="animate-spin" />Sending…</> : <>Submit Booking Request<ArrowRight /></>}</Button>}</div>
+      </form>}
+      <div className="booking-assistance"><span>Something special in mind?</span><a href="tel:9545485809">Let's talk <ArrowRight size={14} /> 954-548-5809</a></div>
+    </main>
+    <footer className="booking-footer"><Link to="/" className="booking-wordmark">Photo Booth<span>LEGENDS</span></Link><p>Extraordinary moments. Beautifully remembered.</p><nav aria-label="Booking footer"><Link to="/about">Our story</Link><Link to="/faq">FAQ</Link><Link to="/contact">Contact</Link><a href="https://www.instagram.com/photoboothlegends/" target="_blank" rel="noreferrer">Instagram</a></nav><span>Photo Booth Legends · South Florida</span></footer>
+  </div>;
+}

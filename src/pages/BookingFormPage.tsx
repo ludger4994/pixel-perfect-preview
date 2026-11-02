@@ -1,5 +1,9 @@
 import { useState, type FormEvent } from "react";
 import SEOHead from "@/components/SEOHead";
+import { Button } from "@/components/ui/button";
+import EventStyleSection from "@/components/EventStyleSection";
+import { emptyEventStyle, eventStyleFields, normalizeEventStyle } from "@/lib/event-style";
+import { supabase } from "@/integrations/supabase/client";
 import "./booking-form.css";
 
 import bdBlack from "@/assets/booking/backdrop-black.jpg";
@@ -32,11 +36,15 @@ const PHONE = "954-548-5809";
 
 const BookingFormPage = () => {
   const [keychain, setKeychain] = useState(false);
+  const [eventStyle, setEventStyle] = useState({ ...emptyEventStyle });
+  const [uploading, setUploading] = useState(false);
+  const [inquiryId, setInquiryId] = useState(() => crypto.randomUUID());
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (uploading || sending) return;
     const form = e.currentTarget;
     setSending(true);
     setResult(null);
@@ -52,7 +60,15 @@ const BookingFormPage = () => {
       payload[key] = payload[key] && typeof payload[key] === "string" ? `${payload[key]}, ${v}` : v;
     });
     payload.botcheck = (form.elements.namedItem("botcheck") as HTMLInputElement)?.checked ?? false;
+    for (const key of ['linens', 'decorations', 'flowerColors', 'flowerTypes', 'theme', 'inspirationLink']) delete payload[key];
+    Object.assign(payload, eventStyleFields(eventStyle));
     try {
+      const fields = Object.fromEntries(Object.entries(payload).filter(([key, v]) => typeof v === 'string' && !['access_key', 'subject', 'from_name'].includes(key))) as Record<string, string>;
+      const { data: saved, error: saveError } = await supabase.functions.invoke('booking-inquiry', {
+        body: { id: inquiryId, fields, eventStyle: normalizeEventStyle(eventStyle), botcheck: payload.botcheck },
+      });
+      if (saveError || !saved?.success) throw new Error('Unable to save inquiry');
+      payload['Inspiration Photo Uploads'] = (saved.photoLinks || []).join('\n');
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -62,6 +78,8 @@ const BookingFormPage = () => {
       if (!res.ok || !data.success) throw new Error(data.message || "Failed");
       form.reset();
       setKeychain(false);
+      setEventStyle({ ...emptyEventStyle });
+      setInquiryId(crypto.randomUUID());
       setResult({ ok: true, msg: "Thank you! Your booking request was received. We'll contact you within 24 hours." });
     } catch (err) {
       console.error("Booking submit error:", err);
@@ -158,6 +176,8 @@ const BookingFormPage = () => {
             </div>
           </fieldset>
 
+          <EventStyleSection value={eventStyle} onChange={setEventStyle} onUploading={setUploading} />
+
           <fieldset>
             <legend>Choose Your Backdrop</legend>
             <div className="bd-grid">
@@ -243,18 +263,8 @@ const BookingFormPage = () => {
               <textarea
                 id="theme"
                 name="Design Theme"
-                placeholder="Describe colors, style, wording, fonts, or vibe you're going for..."
+                placeholder="Describe wording, fonts, or print layout..."
               />
-            </div>
-            <div className="field" style={{ marginBottom: 0 }}>
-              <label htmlFor="inspirationLink">Link to inspiration photos (Instagram, Pinterest, etc.)</label>
-              <input
-                type="url"
-                id="inspirationLink"
-                name="Inspiration Photos Link"
-                placeholder="https://"
-              />
-              <div className="helper">Optional — share a link so we can match your colors and style.</div>
             </div>
           </fieldset>
 
@@ -266,9 +276,9 @@ const BookingFormPage = () => {
             </div>
           </fieldset>
 
-          <button type="submit" id="submitBtn" disabled={sending}>
-            {sending ? "Sending…" : "Submit Booking Request"}
-          </button>
+          <Button type="submit" id="submitBtn" disabled={sending || uploading}>
+            {uploading ? "Uploading photos…" : sending ? "Sending…" : "Submit Booking Request"}
+          </Button>
           {result && (
             <p
               role="status"

@@ -67,6 +67,24 @@ export type Database = {
         }
         Relationships: []
       }
+      booking_request_limits: {
+        Row: {
+          ip_hash: string
+          request_count: number
+          window_start: string
+        }
+        Insert: {
+          ip_hash: string
+          request_count?: number
+          window_start?: string
+        }
+        Update: {
+          ip_hash?: string
+          request_count?: number
+          window_start?: string
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           add_ons: Json | null
@@ -521,6 +539,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      allow_booking_request: { Args: { ip_hash: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -8,6 +8,13 @@
       "when": 1793654153381,
       "tag": "0000_shared_event_styling",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793654323112,
+      "tag": "0001_booking_request_rate_limit",
+      "breakpoints": true
     }
   ]
 }

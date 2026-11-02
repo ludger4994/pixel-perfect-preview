@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 import SEOHead from "@/components/SEOHead";
+import EventStyleSection from "@/components/EventStyleSection";
+import { emptyEventStyle, normalizeEventStyle } from "@/lib/event-style";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
@@ -81,6 +83,9 @@ const BookingPage = () => {
   const [city, setCity] = useState("");
   const [venue, setVenue] = useState("");
   const [notes, setNotes] = useState("");
+  const [eventStyle, setEventStyle] = useState({ ...emptyEventStyle });
+  const [uploading, setUploading] = useState(false);
+  const [bookingError, setBookingError] = useState('');
 
   // UI state
   const [paypalClientId, setPaypalClientId] = useState<string | null>(null);
@@ -164,6 +169,7 @@ const BookingPage = () => {
   const handleSubmitBooking = async (paypalOrderId?: string, paypalStatus?: string) => {
     if (!selectedPackage || !eventDate) return;
     setLoading(true);
+    setBookingError('');
     try {
       const { error } = await supabase.functions.invoke("create-booking", {
         body: {
@@ -183,6 +189,7 @@ const BookingPage = () => {
           addOnsTotal: addOnTotal,
           totalPrice: total,
           notes: notes || undefined,
+          eventStyle: normalizeEventStyle(eventStyle),
           paypalOrderId,
           paypalStatus,
           serviceType: selectedPackage.serviceType,
@@ -192,6 +199,7 @@ const BookingPage = () => {
       setSubmitted(true);
     } catch (e) {
       console.error("Booking error:", e);
+      setBookingError('Your booking could not be saved. Please call 954-548-5809 so we can help.');
     } finally {
       setLoading(false);
     }
@@ -333,6 +341,8 @@ const BookingPage = () => {
                     </div>
                   </AnimateOnScroll>
 
+                  <EventStyleSection value={eventStyle} onChange={setEventStyle} onUploading={setUploading} />
+
                   <AnimateOnScroll delay={100}>
                     <h2 className="font-heading text-2xl text-foreground font-bold mb-6">Add Extras</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -406,6 +416,7 @@ const BookingPage = () => {
                             <Button
                               variant="gold"
                               className="w-full"
+                              disabled={uploading}
                               onClick={() => setStep("details")}
                             >
                               Continue to Details →
@@ -515,7 +526,7 @@ const BookingPage = () => {
                           </div>
                           <div className="sm:col-span-2">
                             <label className="text-sm text-foreground/70 mb-1 block">Additional Notes</label>
-                            <textarea className={inputClass("notes")} rows={3} placeholder="Theme, special requests, questions..." value={notes} onChange={(e) => setNotes(e.target.value)} />
+                            <textarea className={inputClass("notes")} rows={3} placeholder="Special requests, questions..." value={notes} onChange={(e) => setNotes(e.target.value)} />
                           </div>
                         </div>
                       </div>
@@ -641,6 +652,7 @@ const BookingPage = () => {
                       )}
 
                       <div className="mt-4">
+                        {bookingError && <p role="alert" className="text-destructive mb-4">{bookingError}</p>}
                         <Button variant="outline" onClick={() => setStep("details")} className="w-full">
                           ← Back to Details
                         </Button>

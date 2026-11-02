@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -49,6 +49,11 @@ import BlogPage from "./pages/BlogPage.tsx";
 import ChatWidget from "./components/ChatWidget";
 
 const queryClient = new QueryClient();
+
+const BookingAwareChat = () => {
+  const { pathname } = useLocation();
+  return pathname === '/booking' ? null : <ChatWidget />;
+};
 
 const ScrollProgressBar = () => {
   useEffect(() => {
@@ -118,7 +123,7 @@ const App = () => (
           <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <ChatWidget />
+        <BookingAwareChat />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

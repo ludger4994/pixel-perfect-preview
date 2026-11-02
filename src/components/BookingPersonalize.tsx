@@ -8,7 +8,7 @@ export default function BookingPersonalize({ selected, answers, onChange }: Prop
     return <section className="booking-service-questionnaire" key={experience.id}>
       <div className="booking-section-title"><span className="booking-eyebrow">Your selected experience</span><h3>{experience.name}</h3></div>
       <div className="booking-fields">{visibleQuestions(experience, values).map(question => {
-        const id = `${experience.id}-${question.key.replaceAll(' ', '-')}`;
+        const id = `${experience.id}-${question.key.replace(/ /g, '-')}`;
         return <div className={`booking-field${question.type === 'textarea' ? ' booking-field-wide' : ''}`} key={question.key}>
           <label htmlFor={id}>{question.label}</label>
           {question.options ? <select id={id} value={values[question.key] || ''} onChange={e => onChange(experience.id, question.key, e.target.value)}><option value="">Select a preference</option>{question.options.map(option => <option key={option}>{option}</option>)}</select>

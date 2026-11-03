@@ -83,6 +83,9 @@
 .booking-safety-note { font-size: 12px; line-height: 1.8; margin-top: 20px; }
 .booking-category h3 { font-size: 22px; margin-bottom: 16px; }
 .booking-service-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.booking-video-album { grid-column: 1 / -1; max-width: 360px; width: 100%; }
+.booking-addon-photo { width: 88px; height: 66px; object-fit: contain; flex-shrink: 0; background: hsl(var(--booking-cream)); }
+.booking-addon > span { min-width: 0; }
 .pbl-booking .booking-service-card { padding: 0; height: auto; display: flex; flex-direction: column; align-items: stretch; border: 1px solid hsl(var(--border)); border-radius: 6px; overflow: hidden; position: relative; text-align: left; gap: 0; background: hsl(var(--booking-white)); color: hsl(var(--foreground)); justify-content: flex-start; }
 .booking-service-card img,.booking-service-symbol { width: 100%; aspect-ratio: 4/3; object-fit: contain; background: hsl(var(--booking-cream)); }
 .booking-service-symbol { display: flex; align-items: center; justify-content: center; }

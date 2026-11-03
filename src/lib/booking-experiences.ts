@@ -21,6 +21,13 @@ import hedge from '@/assets/booking/backdrop-hedge.jpg';
 import pinkFloral from '@/assets/booking/backdrop-pink-purple-floral.jpg';
 import pinkSequin from '@/assets/booking/backdrop-pink-sequin.jpg';
 import rainbow from '@/assets/booking/backdrop-rainbow-ink-splash.jpg';
+import pBlush from '@/assets/premium/blush-ivory-flower-wall.jpg.asset.json';
+import pJewel from '@/assets/premium/jewel-tone-flower-wall.jpg.asset.json';
+import pPink from '@/assets/premium/pink-rose-flower-wall.jpg.asset.json';
+import pWhite from '@/assets/premium/white-rose-flower-wall.jpg.asset.json';
+import pGreen from '@/assets/premium/greenery-wall.jpg.asset.json';
+import pGold from '@/assets/premium/gold-shimmer-wall.jpg.asset.json';
+import pSilver from '@/assets/premium/silver-shimmer-wall.jpg.asset.json';
 import tealMarble from '@/assets/booking/backdrop-teal-gold-marble.jpg';
 
 export type BookingQuestion = { key: string; label: string; type?: 'text' | 'number' | 'time' | 'textarea'; options?: string[]; multiple?: boolean; when?: { key: string; value: string } };
@@ -43,6 +50,15 @@ export const bookingBackdrops = [
   { name: 'Black & Gold Marble', image: blackGoldMarble }, { name: 'Teal & Gold Marble', image: tealMarble },
   { name: 'Green Hedge Wall', image: hedge }, { name: 'Pink & Purple Floral Wall', image: pinkFloral },
   { name: 'Pink Sequin Wall', image: pinkSequin }, { name: 'Rainbow Ink Splash', image: rainbow },
+];
+export const premiumBackdrops = [
+  { name: 'Blush & Ivory Flower Wall', image: pBlush.url, group: 'Flower Walls' },
+  { name: 'Jewel Tone Flower Wall', image: pJewel.url, group: 'Flower Walls' },
+  { name: 'Pink Rose Flower Wall', image: pPink.url, group: 'Flower Walls' },
+  { name: 'White Rose Flower Wall', image: pWhite.url, group: 'Flower Walls' },
+  { name: 'Lush Greenery Wall', image: pGreen.url, group: 'Flower Walls' },
+  { name: 'Gold Shimmer Wall', image: pGold.url, group: 'Shimmer Walls' },
+  { name: 'Silver Sparkle Shimmer Wall', image: pSilver.url, group: 'Shimmer Walls' },
 ];
 export function canSelectBackdrop(id: string, answers: Record<string, string> = {}) {
   if (id === 'lux') return true;

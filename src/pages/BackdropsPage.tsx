@@ -23,6 +23,7 @@ import discoLights from "@/assets/backdrops/disco-lights.png";
 
 import eventSequin from "@/assets/event-sequin-backdrop.jpg";
 import premiumSilverSequin from "@/assets/backdrops/premium-silver-sequin.jpg";
+import { premiumBackdrops } from "@/lib/booking-experiences";
 import whiteFlowerWall from "@/assets/backdrops/white-flower-wall.png";
 
 interface Backdrop {
@@ -199,6 +200,35 @@ const BackdropsPage = () => {
                 }}
                 delay={80}
               />
+            </div>
+          </div>
+        </section>
+
+
+        <section className="pb-16 lg:pb-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <AnimateOnScroll>
+              <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">Premium Flower Walls</p>
+              <div className="w-16 h-px bg-primary/40 mb-6" />
+            </AnimateOnScroll>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {premiumBackdrops.filter((b) => b.group === "Flower Walls").map((b, i) => (
+                <BackdropCard key={b.name} backdrop={{ label: b.name, image: b.image, description: "Lush, luxurious florals for weddings, showers & celebrations", alt: `${b.name} premium photo booth backdrop South Florida` }} delay={i * 80} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-16 lg:pb-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            <AnimateOnScroll>
+              <p className="text-xs tracking-[0.15em] uppercase text-primary font-medium mb-1">Premium Shimmer Walls</p>
+              <div className="w-16 h-px bg-primary/40 mb-6" />
+            </AnimateOnScroll>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {premiumBackdrops.filter((b) => b.group === "Shimmer Walls").map((b, i) => (
+                <BackdropCard key={b.name} backdrop={{ label: b.name, image: b.image, description: "Dazzling shimmer panels that sparkle in every photo", alt: `${b.name} premium photo booth backdrop South Florida` }} delay={i * 80} />
+              ))}
             </div>
           </div>
         </section>

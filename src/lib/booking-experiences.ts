@@ -9,6 +9,12 @@ import geometric from '@/assets/booking/backdrop-black-gold-geometric.jpg';
 import gold from '@/assets/booking/backdrop-gold-sequin.jpg';
 import silver from '@/assets/booking/backdrop-silver-black-sequin.jpg';
 import white from '@/assets/backdrops/brilliant-white-original.jpg';
+import blackGoldMarble from '@/assets/booking/backdrop-black-gold-marble.jpg';
+import hedge from '@/assets/booking/backdrop-hedge.jpg';
+import pinkFloral from '@/assets/booking/backdrop-pink-purple-floral.jpg';
+import pinkSequin from '@/assets/booking/backdrop-pink-sequin.jpg';
+import rainbow from '@/assets/booking/backdrop-rainbow-ink-splash.jpg';
+import tealMarble from '@/assets/booking/backdrop-teal-gold-marble.jpg';
 
 export type BookingQuestion = { key: string; label: string; type?: 'text' | 'number' | 'time' | 'textarea'; options?: string[]; multiple?: boolean; when?: { key: string; value: string } };
 export type Experience = { id: string; name: string; title: string; category: string; description: string; image?: string; icon: 'camera' | 'key' | 'sparkles' | 'flower' | 'phone' | 'video'; backdrop?: boolean; questions: BookingQuestion[] };
@@ -29,6 +35,9 @@ export const bookingBackdrops = [
   { name: 'White Flower Wall', image: flowerWall }, { name: 'Silver Shimmer Wall', image: silver },
   { name: 'Gold Sequin Wall', image: gold }, { name: 'Black Pillow Backdrop', image: black },
   { name: 'White Pillow Backdrop', image: white }, { name: 'Black & Gold Geometric Backdrop', image: geometric },
+  { name: 'Black & Gold Marble', image: blackGoldMarble }, { name: 'Teal & Gold Marble', image: tealMarble },
+  { name: 'Green Hedge Wall', image: hedge }, { name: 'Pink & Purple Floral Wall', image: pinkFloral },
+  { name: 'Pink Sequin Wall', image: pinkSequin }, { name: 'Rainbow Ink Splash', image: rainbow },
 ];
 export function canSelectBackdrop(id: string, answers: Record<string, string> = {}) {
   if (id === 'lux') return true;

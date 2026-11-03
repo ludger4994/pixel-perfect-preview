@@ -44,6 +44,10 @@
 .booking-section-title { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
 .booking-section-title h3 { font-size: 23px; }
 .booking-section-title p { font-size: 12px; margin-top: 6px; }
+.booking-extra-details { margin-top: -8px; }
+.pbl-booking .booking-details-toggle { width: 100%; justify-content: flex-start; gap: 10px; border: 1px dashed hsl(var(--booking-champagne)); border-radius: 6px; background: transparent; color: hsl(var(--foreground)); font-size: 13px; padding: 14px 18px; }
+.pbl-booking .booking-details-toggle:hover { border-color: hsl(var(--booking-gold)); background: hsl(var(--booking-champagne) / .35); }
+.booking-extra-details .booking-fields { margin-top: 22px; }
 .booking-small-number { width: 34px; height: 34px; border: 1px solid hsl(var(--border)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; }
 .booking-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px 24px; }
 .booking-field { min-width: 0; }

@@ -18,7 +18,6 @@ export default function BookingPersonalize({ selected, answers, onChange }: Prop
       })}</div>
       {canSelectBackdrop(experience.id, values) && <div className="booking-backdrop-area"><h4>Choose Your Backdrop</h4><div className="booking-backdrops">{bookingBackdrops.map(backdrop => <Button type="button" variant="outline" aria-label={backdrop.name} key={backdrop.name} className={`booking-backdrop${values.Backdrop === backdrop.name ? ' is-selected' : ''}`} aria-pressed={values.Backdrop === backdrop.name} onClick={() => onChange(experience.id, 'Backdrop', values.Backdrop === backdrop.name ? '' : backdrop.name)}><img src={backdrop.image} alt={`${backdrop.name} backdrop`} loading="lazy" /><span>{backdrop.name}</span>{values.Backdrop === backdrop.name && <Check className="booking-selected-check" />}</Button>)}</div><Button type="button" variant="outline" aria-pressed={values.Backdrop === 'Help Me Choose'} onClick={() => onChange(experience.id, 'Backdrop', 'Help Me Choose')}>Help Me Choose</Button></div>}
       {experience.id === 'sparks' && <p className="booking-safety-note">Cold Sparks require venue approval and a safe, clear activation area. Our team will confirm placement and coordinate cues with your venue before the event.</p>}
-      {experience.id === 'flower-wall' && <p className="booking-safety-note">Inspiration photos can be uploaded in Your Event; your photos apply to this setup too.</p>}
     </section>;
   })}</div>;
 }

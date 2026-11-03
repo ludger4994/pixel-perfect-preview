@@ -107,6 +107,12 @@
 .booking-backdrops { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
 .pbl-booking .booking-backdrop { padding: 0; height: auto; flex-direction: column; gap: 0; overflow: hidden; position: relative; background: hsl(var(--booking-white)); color: hsl(var(--foreground)); border-color: hsl(var(--border)); justify-content: flex-start; }
 .booking-backdrop img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.booking-premium-backdrops { padding: 18px; margin-bottom: 22px; border: 1px solid hsl(var(--primary)); border-radius: 14px; background: hsl(var(--primary) / 0.08); }
+.booking-premium-label { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: hsl(var(--primary)); font-weight: 600; margin-bottom: 6px; }
+.booking-premium-label.is-standard { margin-bottom: 12px; }
+.booking-premium-group { font-family: 'Playfair Display', serif; font-size: 16px; margin: 12px 0 10px; }
+.pbl-booking .booking-backdrop.is-premium { border: 2px solid hsl(var(--primary)); }
+.booking-premium-badge { position: absolute; top: 8px; left: 8px; font-style: normal; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 .booking-backdrop span { padding: 12px 8px; font-size: 11px; line-height: 1.5; }
 .booking-selected-check { position: absolute; top: 8px; right: 8px; background: hsl(var(--booking-white)); border-radius: 50%; padding: 2px; }
 .booking-selected-summary { padding: 20px 0; border-top: 1px solid hsl(var(--border)); }

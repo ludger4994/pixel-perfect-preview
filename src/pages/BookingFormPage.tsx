@@ -22,7 +22,6 @@ export default function BookingFormPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const [answers, setAnswers] = useState<Record<string, Record<string, string>>>({});
   const [extras, setExtras] = useState<string[]>([]);
-  const [design, setDesign] = useState<Record<string, string>>({ 'Design Title': '', 'Design Theme': '', Notes: '' });
   const [eventStyle, setEventStyle] = useState({ ...emptyEventStyle });
   const [uploading, setUploading] = useState(false);
   const [inquiryId, setInquiryId] = useState(() => crypto.randomUUID());
@@ -34,9 +33,7 @@ export default function BookingFormPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const selectedExperiences = experiences.filter(item => selected.includes(item.id));
-  const addOns = compatibleAddons(selected);
   const activeExtras = selectedAddons(selected, answers, extras);
-  const automaticExtras = automaticAddons(selected, answers);
   const toggleService = (id: string) => {
     const nextSelected = selected.includes(id) ? selected.filter(value => value !== id) : [...selected, id];
     setSelected(nextSelected);

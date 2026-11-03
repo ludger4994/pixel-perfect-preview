@@ -7,7 +7,7 @@ import BookingNavigation from '@/components/BookingNavigation';
 import BookingPersonalize from '@/components/BookingPersonalize';
 import EventStyleSection from '@/components/EventStyleSection';
 import { emptyEventStyle, eventStyleFields, normalizeEventStyle } from '@/lib/event-style';
-import { experiences, serviceFields, cleanAnswers, compatibleAddons, automaticAddons, selectedAddons, groupedServices, videoAlbum } from '@/lib/booking-experiences';
+import { experiences, serviceFields, cleanAnswers, compatibleAddons, selectedAddons, groupedServices, videoAlbum } from '@/lib/booking-experiences';
 import { supabase } from '@/integrations/supabase/client';
 import './booking-form.css';
 

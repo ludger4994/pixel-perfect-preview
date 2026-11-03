@@ -7,7 +7,7 @@ import BookingNavigation from '@/components/BookingNavigation';
 import BookingPersonalize from '@/components/BookingPersonalize';
 import EventStyleSection from '@/components/EventStyleSection';
 import { emptyEventStyle, eventStyleFields, normalizeEventStyle } from '@/lib/event-style';
-import { experiences, serviceFields, cleanAnswers, compatibleAddons, automaticAddons, selectedAddons, groupedServices, videoAlbum } from '@/lib/booking-experiences';
+import { experiences, serviceFields, cleanAnswers, compatibleAddons, selectedAddons, groupedServices, videoAlbum } from '@/lib/booking-experiences';
 import { supabase } from '@/integrations/supabase/client';
 import './booking-form.css';
 
@@ -22,7 +22,6 @@ export default function BookingFormPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const [answers, setAnswers] = useState<Record<string, Record<string, string>>>({});
   const [extras, setExtras] = useState<string[]>([]);
-  const [design, setDesign] = useState<Record<string, string>>({ 'Design Title': '', 'Design Theme': '', Notes: '' });
   const [eventStyle, setEventStyle] = useState({ ...emptyEventStyle });
   const [uploading, setUploading] = useState(false);
   const [inquiryId, setInquiryId] = useState(() => crypto.randomUUID());
@@ -34,9 +33,7 @@ export default function BookingFormPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const selectedExperiences = experiences.filter(item => selected.includes(item.id));
-  const addOns = compatibleAddons(selected);
   const activeExtras = selectedAddons(selected, answers, extras);
-  const automaticExtras = automaticAddons(selected, answers);
   const toggleService = (id: string) => {
     const nextSelected = selected.includes(id) ? selected.filter(value => value !== id) : [...selected, id];
     setSelected(nextSelected);
@@ -61,7 +58,7 @@ export default function BookingFormPage() {
     goTo(Math.min(step + 1, 4));
   };
   const getFields = () => {
-    const fields: Record<string, string> = { ...event, ...design, 'Selected Services': selectedExperiences.map(item => item.name).join(', '), ...serviceFields(selected, answers), ...eventStyleFields(eventStyle) };
+    const fields: Record<string, string> = { ...event, 'Selected Services': selectedExperiences.map(item => item.name).join(', '), ...serviceFields(selected, answers), ...eventStyleFields(eventStyle) };
     activeExtras.forEach(extra => { fields[`Add-On: ${extra.name}`] = 'Yes'; });
     return fields;
   };
@@ -81,7 +78,7 @@ export default function BookingFormPage() {
       const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) throw new Error('Email notification failed');
       setResult({ ok: true, msg: "Thank you! Your booking request was received. We'll contact you within 24 hours." });
-      setEvent({ ...initialEvent }); setSelected([]); setAnswers({}); setExtras([]); setDesign({ 'Design Title': '', 'Design Theme': '', Notes: '' }); setEventStyle({ ...emptyEventStyle }); setInquiryId(crypto.randomUUID());
+      setEvent({ ...initialEvent }); setSelected([]); setAnswers({}); setExtras([]); setEventStyle({ ...emptyEventStyle }); setInquiryId(crypto.randomUUID());
       formRef.current?.reset();
       sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     } catch {
@@ -110,8 +107,8 @@ export default function BookingFormPage() {
           {!experiences.some(item => `${item.name} ${item.description}`.toLowerCase().includes(search.toLowerCase())) && !'video album'.includes(search.toLowerCase()) && <p role="status">No experiences match your search.</p>}
         </section>}
         {step === 2 && <BookingPersonalize selected={selected} answers={answers} onChange={changeAnswer} />}
-        {step === 3 && <><EventStyleSection value={eventStyle} onChange={setEventStyle} onUploading={setUploading} /><section className="booking-section"><div className="booking-section-title"><h3>The finishing touches</h3></div>{addOns.length > 0 && <div className="booking-addon-grid">{addOns.map(extra => { const included = extra.service ? selected.includes(extra.service) : activeExtras.some(addon => addon.id === extra.id); const automatic = automaticExtras.includes(extra.id); return <Button type="button" variant="outline" key={extra.name} aria-pressed={included} disabled={automatic || Boolean(extra.service && included)} className={`booking-addon${included ? ' is-selected' : ''}`} onClick={() => { if (extra.service) { const service = extra.service; setSelected(prev => prev.includes(service) ? prev : [...prev, service]); } else setExtras(prev => prev.includes(extra.id) ? prev.filter(item => item !== extra.id) : [...prev, extra.id]); }}>{extra.image ? <img className="booking-addon-photo" src={extra.image} alt={extra.name} loading="lazy" /> : <Sparkles size={24} />}<span><strong>{extra.name}</strong><span>{extra.description || (extra.service && included ? 'Already Selected' : automatic ? 'Included in your setup selection' : 'Optional enhancement')}</span></span>{included && <Check />}</Button>; })}</div>}<div className="booking-fields">{['Design Title', 'Design Theme', 'Notes'].map(name => <div className={`booking-field${name !== 'Design Title' ? ' booking-field-wide' : ''}`} key={name}><label htmlFor={`design-${name}`}>{name === 'Notes' ? 'Anything else we should know?' : name}</label>{name === 'Design Title' ? <input id={`design-${name}`} name={name} maxLength={500} placeholder="e.g. Maria & James Wedding" value={design[name]} onChange={e => setDesign(prev => ({ ...prev, [name]: e.target.value }))} /> : <textarea id={`design-${name}`} name={name} maxLength={2000} value={design[name]} onChange={e => setDesign(prev => ({ ...prev, [name]: e.target.value }))} />}</div>)}</div></section></>}
-        {step === 4 && <section className="booking-review"><div className="booking-review-title"><h3>Your event at a glance</h3><Button type="button" variant="link" onClick={() => goTo(0)}>Edit event</Button></div><dl>{Object.entries(event).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><div className="booking-review-title"><h3>Your experiences</h3><Button type="button" variant="link" onClick={() => goTo(1)}>Edit experiences</Button></div><div className="booking-review-services">{selectedExperiences.map(item => <span key={item.id}><Check size={14} />{item.name}</span>)}</div><div className="booking-review-title"><h3>Personal details & special touches</h3><Button type="button" variant="link" onClick={() => goTo(2)}>Edit details</Button></div><dl>{Object.entries({ ...serviceFields(selected, answers), ...eventStyleFields(eventStyle), ...design, ...(activeExtras.length ? { 'Special Touches': activeExtras.map(extra => extra.name).join(', ') } : {}) }).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}{eventStyle.photos.length > 0 && <div><dt>Inspiration photos</dt><dd>{eventStyle.photos.map(photo => photo.name).join(', ')}</dd></div>}</dl><p className="booking-quote-note"><ShieldCheck size={18} />A custom quote request — no payment required.</p></section>}
+        {step === 3 && <EventStyleSection value={eventStyle} onChange={setEventStyle} onUploading={setUploading} />}
+        {step === 4 && <section className="booking-review"><div className="booking-review-title"><h3>Your event at a glance</h3><Button type="button" variant="link" onClick={() => goTo(0)}>Edit event</Button></div><dl>{Object.entries(event).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}</dl><div className="booking-review-title"><h3>Your experiences</h3><Button type="button" variant="link" onClick={() => goTo(1)}>Edit experiences</Button></div><div className="booking-review-services">{selectedExperiences.map(item => <span key={item.id}><Check size={14} />{item.name}</span>)}</div><div className="booking-review-title"><h3>Personal details & special touches</h3><Button type="button" variant="link" onClick={() => goTo(2)}>Edit details</Button></div><dl>{Object.entries({ ...serviceFields(selected, answers), ...eventStyleFields(eventStyle), ...(activeExtras.length ? { 'Special Touches': activeExtras.map(extra => extra.name).join(', ') } : {}) }).filter(([, value]) => value).map(([key, value]) => <div key={key}><dt>{key}</dt><dd>{value}</dd></div>)}{eventStyle.photos.length > 0 && <div><dt>Inspiration photos</dt><dd>{eventStyle.photos.map(photo => photo.name).join(', ')}</dd></div>}</dl><p className="booking-quote-note"><ShieldCheck size={18} />A custom quote request — no payment required.</p></section>}
 
         {validation && <p className="booking-error" role="alert">{validation}</p>}{result && !result.ok && <p className="booking-error" role="alert">{result.msg}</p>}
         <div className="booking-form-actions"><div>{step > 0 && <Button type="button" variant="ghost" disabled={sending} onClick={() => goTo(step - 1)}><ArrowLeft />Back</Button>}</div><span className="booking-action-note">{step === 0 ? '* Required event details' : 'Your event. Your vision.'}</span>{step < 4 ? <Button key="continue" type="button" className="booking-primary" disabled={uploading} onClick={next}>Continue<ArrowRight /></Button> : <Button key="submit" type="submit" className="booking-primary" disabled={sending || uploading}>{sending ? <><Loader2 className="animate-spin" />Sending…</> : <>Submit Booking Request<ArrowRight /></>}</Button>}</div>

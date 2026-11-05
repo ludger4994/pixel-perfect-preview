@@ -1,5 +1,5 @@
 # Booking page replacement
-- [ ] Fix and verify submissions with optional venue details left blank.
+- [x] Fix optional venue validation; reproduced the original 400, deployed the correction, verified real inquiry persistence without a venue and confirmation with simulated email success; 26 tests pass. Actual email delivery remains unconfirmed below.
 - [x] Add supplied experience photos, rename the guest book heading, and offer a selectable Video Album beneath guest books; verified selections/review and mobile layout, with original uploads substituted for hosted asset URLs in local browser checks.
 - [x] Add searchable checkbox product dropdown, exact eleven questionnaires, dependent add-ons, and structured service submissions.
 - [x] Test all products individually, selection changes, conditional questions, mobile dropdown, and real multi-service persistence/readback; email success simulated because delivery remains blocked below.

@@ -2,6 +2,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 import { z } from 'npm:zod@3';
 import { EventStyleSchema } from '../_shared/event-style.ts';
+import { hasRequiredBookingFields } from '../_shared/booking-required-fields.ts';
 
 const ServiceSchema = z.object({ id: z.string().max(50), name: z.string().max(100), answers: z.record(z.string().max(100), z.string().max(2000)) });
 const Schema = z.object({ id: z.string().uuid(), fields: z.record(z.string().max(100), z.string().max(5000)), services: z.array(ServiceSchema).max(11).optional(), addons: z.array(z.string().max(100)).max(30).optional(), eventStyle: EventStyleSchema, botcheck: z.boolean().default(false) }).refine(d => !d.botcheck);
@@ -41,7 +42,7 @@ Deno.serve(async req => {
     const parsed = Schema.safeParse(await req.json());
     if (!parsed.success) return reply({ error: 'Invalid inquiry details' }, 400);
     const d = parsed.data;
-    if (!d.fields['Full Name']?.trim() || !z.string().email().safeParse(d.fields.Email).success || !d.fields.Phone?.trim() || !d.fields['Event Type'] || !/^\d{4}-\d{2}-\d{2}$/.test(d.fields['Event Date'] || '') || !d.fields['Venue / Location']?.trim()) return reply({ error: 'Missing event details' }, 400);
+    if (!hasRequiredBookingFields(d.fields) || !z.string().email().safeParse(d.fields.Email).success) return reply({ error: 'Missing event details' }, 400);
     const { error } = await db.from('booking_inquiries').upsert({ id: d.id, fields: { ...d.fields, ...(d.services ? { Services: d.services, Addons: d.addons || [] } : {}) }, event_style: d.eventStyle });
     if (error) throw error;
     const photoLinks: string[] = [];

@@ -1,4 +1,5 @@
 # Architecture rules
+- Validate inquiry essentials through the shared required-field helper so optional venue and timing details cannot block submission.
 - Keep shared event-style questions, normalization, and backdrop suggestions in one module/component used by both booking forms so answers are collected once.
 - Store inspiration photos privately through the validated booking-inquiry function; expose temporary signed URLs only for emails or authorized admin viewing.
 - Protect admin views using Cloud authentication and server-managed user_roles, never client-side passwords or storage flags.

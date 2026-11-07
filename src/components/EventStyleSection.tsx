@@ -26,12 +26,12 @@ export default function EventStyleSection({ value, onChange, onUploading }: Prop
     {field('theme', 'Do you have an event theme or inspiration photos?', 'Optional — share your event theme or inspiration...')}
     {field('inspirationLink', 'Link to inspiration photos (Instagram, Pinterest, etc.)', 'https://')}
     <div className="style-field"><label htmlFor={`${id}-photos`}>Inspiration photos (optional)</label>
-      <input id={`${id}-photos`} type="file" accept="image/jpeg,image/png,image/webp" multiple disabled={busy} onChange={async e => {
-        const input = e.currentTarget; const files = Array.from(input.files || []); if (!files.length) return;
+      <input id={`${id}-photos`} type="file" accept="image/*" multiple disabled={busy} onChange={async e => {
+        const input = e.currentTarget; const picked = Array.from(input.files || []); if (!picked.length) return;
         setError('');
-        if (files.length > 5 || files.some(f => f.size > 5 * 1024 * 1024 || !['image/jpeg', 'image/png', 'image/webp'].includes(f.type))) { setError('Choose up to 5 JPG, PNG, or WebP photos, each under 5 MB.'); input.value = ''; return; }
+        if (picked.length > 5) { setError('Choose up to 5 photos.'); input.value = ''; return; }
         setBusy(true); onUploading(true);
-        try { const body = new FormData(); files.forEach(f => body.append('photos', f));
+        try { const files = await Promise.all(picked.map(shrinkPhoto)); const body = new FormData(); files.forEach(f => body.append('photos', f));
           const { data, error: uploadError } = await supabase.functions.invoke('booking-inquiry', { body });
           if (uploadError || !data?.photos) throw new Error('Upload failed');
           onChange({ ...value, photos: data.photos });
@@ -45,4 +45,14 @@ export default function EventStyleSection({ value, onChange, onUploading }: Prop
     {suggestions.length > 0 && <p><strong>Coordinated backdrop options:</strong> {suggestions.join(' · ')}</p>}
     <p className="style-note">Your answers help us coordinate your photo booth, backdrop, and decorative setup with the look and feel of your celebration.</p>
   </section>;
+}
+async function shrinkPhoto(file: File): Promise<File> {
+  const bitmap = await createImageBitmap(file).catch(() => null);
+  if (!bitmap) { if (file.size <= 5 * 1024 * 1024 && ['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return file; throw new Error('Unsupported photo'); }
+  const scale = Math.min(1, 2000 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement('canvas'); canvas.width = Math.round(bitmap.width * scale); canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext('2d')!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  const blob = await new Promise<Blob | null>(r => canvas.toBlob(r, 'image/jpeg', 0.85));
+  if (!blob) throw new Error('Convert failed');
+  return new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' });
 }

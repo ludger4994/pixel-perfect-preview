@@ -4,6 +4,22 @@
 
 @layer base {
   :root {
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --booking-cream: 41 52% 94%;
+    --booking-taupe: 31 13% 36%;
+    --booking-gold: 36 37% 65%;
+    --booking-white: 0 0% 100%;
+    --booking-champagne: 36 42% 88%;
+    --booking-error: 0 55% 36%;
+    --booking-shadow: 0 8px 32px hsl(31 13% 36% / .05);
+    --packages-cream: 34.2857 50% 94.5098%;
+    --packages-taupe: 30 13.0435% 36.0784%;
+    --packages-gold: 35.4545 37.0787% 65.098%;
+    --packages-border: 36 40.9836% 88.0392%;
+    --packages-shadow: 0 8px 32px hsl(var(--packages-taupe) / .05);
+    --packages-hover-shadow: 0 18px 44px hsl(var(--packages-taupe) / .1);
+    --packages-bar-shadow: 0 -4px 24px hsl(var(--packages-taupe) / .06);
     --background: 0 0% 100%;
     --foreground: 0 0% 10%;
 
@@ -74,4 +90,5 @@
   body {
     @apply bg-background text-foreground;
   }
+  .pbl-booking h1, .pbl-booking h2, .pbl-booking h3, .pbl-booking h4 { font-family: var(--font-heading); }
 }

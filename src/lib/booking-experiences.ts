@@ -1,0 +1,134 @@
+import selfieAsset from '@/assets/booking/selfie-experience.jpeg.asset.json';
+import keychainAsset from '@/assets/booking/keychain-experience.jpeg.asset.json';
+import retroAsset from '@/assets/booking/retro-experience.jpeg.asset.json';
+import audioAsset from '@/assets/booking/audio-guestbook.jpeg.asset.json';
+import telephoneVideoAsset from '@/assets/booking/telephone-video-guestbook.jpeg.asset.json';
+import videoAlbumAsset from '@/assets/booking/video-album.jpeg.asset.json';
+const selfie = selfieAsset.url;
+export const videoAlbum = { id: 'video-album', name: 'Video Album', image: videoAlbumAsset.url, description: 'we put all your video recording in this physical album you keep forever!' };
+import luxAsset from '@/assets/lux-booth.jpg.asset.json';
+const lux = luxAsset.url;
+import booth360Asset from '@/assets/360-booth-main.jpg.asset.json';
+const booth360 = booth360Asset.url;
+import sparksAsset from '@/assets/cold-sparks.jpg.asset.json';
+const sparks = sparksAsset.url;
+import cloudsAsset from '@/assets/dancing-clouds.jpg.asset.json';
+const clouds = cloudsAsset.url;
+import flowerWallAsset from '@/assets/booking/backdrop-white-floral-wall.jpg.asset.json';
+const flowerWall = flowerWallAsset.url;
+import blackAsset from '@/assets/booking/backdrop-black.jpg.asset.json';
+const black = blackAsset.url;
+import geometricAsset from '@/assets/booking/backdrop-black-gold-geometric.jpg.asset.json';
+const geometric = geometricAsset.url;
+import goldAsset from '@/assets/booking/backdrop-gold-sequin.jpg.asset.json';
+const gold = goldAsset.url;
+import silverAsset from '@/assets/booking/backdrop-silver-black-sequin.jpg.asset.json';
+const silver = silverAsset.url;
+import whiteAsset from '@/assets/backdrops/brilliant-white-original.jpg.asset.json';
+const white = whiteAsset.url;
+import blackGoldMarbleAsset from '@/assets/booking/backdrop-black-gold-marble.jpg.asset.json';
+const blackGoldMarble = blackGoldMarbleAsset.url;
+import hedgeAsset from '@/assets/booking/backdrop-hedge.jpg.asset.json';
+const hedge = hedgeAsset.url;
+import pinkFloralAsset from '@/assets/booking/backdrop-pink-purple-floral.jpg.asset.json';
+const pinkFloral = pinkFloralAsset.url;
+import pinkSequinAsset from '@/assets/booking/backdrop-pink-sequin.jpg.asset.json';
+const pinkSequin = pinkSequinAsset.url;
+import rainbowAsset from '@/assets/booking/backdrop-rainbow-ink-splash.jpg.asset.json';
+const rainbow = rainbowAsset.url;
+import pBlush from '@/assets/premium/blush-ivory-flower-wall.jpg.asset.json';
+import pJewel from '@/assets/premium/jewel-tone-flower-wall.jpg.asset.json';
+import pPink from '@/assets/premium/pink-rose-flower-wall.jpg.asset.json';
+import pWhite from '@/assets/premium/white-rose-flower-wall.jpg.asset.json';
+import pGreen from '@/assets/premium/greenery-wall.jpg.asset.json';
+import pGold from '@/assets/premium/gold-shimmer-wall.jpg.asset.json';
+import pSilver from '@/assets/premium/silver-shimmer-wall.jpg.asset.json';
+import tealMarbleAsset from '@/assets/booking/backdrop-teal-gold-marble.jpg.asset.json';
+const tealMarble = tealMarbleAsset.url;
+
+export type BookingQuestion = { key: string; label: string; type?: 'text' | 'number' | 'time' | 'textarea'; options?: string[]; multiple?: boolean; when?: { key: string; value: string } };
+export type Experience = { id: string; name: string; title: string; category: string; description: string; image?: string; icon: 'camera' | 'key' | 'sparkles' | 'flower' | 'phone' | 'video'; backdrop?: boolean; questions: BookingQuestion[] };
+export const experiences: Experience[] = [
+  { id: "photo-keychain", name: "Photobooth Keychain Station", title: "Photobooth Keychain Station Customization", category: "Photo experiences", description: "Freshly captured photos, turned into keepsakes your guests can carry.", image: keychainAsset.url, icon: "key", backdrop: true, questions: [{"key": "Quantity", "label": "How many custom keychains would you like?", "options": ["25", "50", "100", "150", "200", "Custom Quantity"]}, {"key": "Hours", "label": "How many hours do you need the experience?", "options": ["2", "3", "4", "5", "6", "Custom"]}, {"key": "Straps", "label": "Which keychain strap styles do you like?", "options": ["Pearl", "Leather", "Both", "Help Me Choose"]}, {"key": "Charms", "label": "What charm styles would you prefer?", "options": ["Elegant", "Fun", "Themed", "Mixed"]}, {"key": "Backdrop Preference", "label": "Would you like to choose a backdrop?", "options": ["Yes", "Choose One for Me", "Not Sure"]}, {"key": "Custom Template", "label": "Would you like a customized print template?", "options": ["Yes", "No"]}, {"key": "Special Requests", "label": "Do you have any special keychain requests?", "type": "textarea"}, {"key": "Custom Quantity", "label": "Custom quantity", "type": "number", "when": {"key": "Quantity", "value": "Custom Quantity"}}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}] },
+  { id: "selfie", name: "Selfie Booth", title: "Selfie Booth Customization", category: "Photo experiences", description: "Beautiful portraits and instant digital memories with your favorite people.", image: selfie, icon: "camera", backdrop: true, questions: [{"key": "Experience", "label": "What type of experience would you like?", "options": ["Digital Only", "Digital With Prints", "Not Sure"]}, {"key": "Hours", "label": "How many hours?", "options": ["2", "3", "4", "5", "All Day", "Custom"]}, {"key": "Features", "label": "Which features interest you?", "options": ["Photos", "Boomerangs", "GIFs", "Videos", "Glam Filter", "Fun Filters"], "multiple": true}, {"key": "Attendant", "label": "Would you like an attendant?", "options": ["Yes", "No, Drop-Off", "Help Me Decide"]}, {"key": "Backdrop Preference", "label": "Would you like a backdrop?", "options": ["Yes", "Choose One for Me", "Not Sure"]}, {"key": "Custom Template", "label": "Would you like a customized photo template?", "options": ["Yes", "No"]}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}] },
+  { id: "lux", name: "Lux Booth (DSLR Booth)", title: "Lux Booth Customization", category: "Photo experiences", description: "Studio-quality DSLR portraits with a polished, editorial finish.", image: lux, icon: "camera", backdrop: true, questions: [{"key": "Hours", "label": "How many hours?", "options": ["2", "3", "4", "5", "Custom"]}, {"key": "Photo Style", "label": "Photo Style", "options": ["Natural Color", "Black & White Glam", "Both"]}, {"key": "Acrylic Frames", "label": "Interested in acrylic photo frames?", "options": ["Yes", "No", "Send Pricing"]}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}] },
+  { id: "360", name: "360 Photo Booth", title: "360 Photo Booth Customization", category: "Photo experiences", description: "A full-circle video moment, made to relive and share.", image: booth360, icon: "video", questions: [{"key": "Hours", "label": "How many hours?", "options": ["2", "3", "4", "Custom"]}, {"key": "Music", "label": "Preferred Music", "options": ["Hip-Hop", "R&B", "Afrobeats", "Latin", "Pop", "Mixed", "Specific Song", "Let Us Choose"]}, {"key": "Custom Overlay", "label": "Would you like a custom video overlay?", "options": ["Yes", "No"]}, {"key": "Overlay Theme", "label": "What event theme or colors should the overlay match?"}, {"key": "Themed Props", "label": "Would you like themed props?", "options": ["Yes", "No"]}, {"key": "Floor Space", "label": "Is sufficient floor space available?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Electrical Power", "label": "Is electrical power available nearby?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}, {"key": "Song Request", "label": "Song request", "when": {"key": "Music", "value": "Specific Song"}}] },
+  { id: "sparks", name: "Cold Sparks", title: "Cold Sparks Customization", category: "Special effects", description: "A spectacular sparkling entrance, first dance or grand finale.", image: sparks, icon: "sparkles", questions: [{"key": "Moment", "label": "What moment will the sparks be used for?", "options": ["Grand Entrance", "First Dance", "Cake Cutting", "Performance", "Send-Off", "Other"]}, {"key": "Activations", "label": "How many activation moments?", "options": ["1", "2", "3", "More Than 3", "Not Sure"]}, {"key": "Location", "label": "Indoor or Outdoor?", "options": ["Indoor", "Outdoor", "Not Sure"]}, {"key": "Venue Approval", "label": "Has the venue approved Cold Sparks?", "options": ["Yes", "No", "Pending"]}, {"key": "Coordinator Cue", "label": "Will a DJ or coordinator cue the effects?", "options": ["Yes", "No", "Not Sure"]}] },
+  { id: "clouds", name: "Dancing on the Clouds", title: "Dancing on the Clouds Customization", category: "Special effects", description: "A romantic low-lying cloud for an unforgettable dance.", image: clouds, icon: "sparkles", questions: [{"key": "Moment", "label": "What moment is the effect for?", "options": ["First Dance", "Grand Entrance", "Performance", "Other"]}, {"key": "Effect Time", "label": "Approximately what time will the effect take place?", "type": "time"}, {"key": "Location", "label": "Indoor or Outdoor?", "options": ["Indoor", "Outdoor", "Not Sure"]}, {"key": "Venue Approval", "label": "Has your venue approved low-lying fog effects?", "options": ["Yes", "No", "Pending"]}, {"key": "Cold Sparks", "label": "Would you also like Cold Sparks?", "options": ["Yes", "No", "Already Selected"]}] },
+  { id: "retro", name: "Retro Photobooth \u2014 Standalone", title: "Retro Photobooth Customization", category: "Photo experiences", description: "A nostalgic photo experience with timeless character.", image: retroAsset.url, icon: "camera", backdrop: true, questions: [{"key": "Hours", "label": "How many hours?", "options": ["2", "3", "4", "5", "Custom"]}, {"key": "Experience", "label": "Preferred Experience", "options": ["Digital Only", "Prints Included", "Not Sure"]}, {"key": "Custom Template", "label": "Would you like a custom photo template?", "options": ["Yes", "No"]}, {"key": "Themed Props", "label": "Would you like themed props?", "options": ["Yes", "No"]}, {"key": "Backdrop Preference", "label": "Do you need a decorative backdrop?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}] },
+  { id: "telephone", name: "Telephone Audio Guest Book", title: "Telephone Audio Guest Book Customization", category: "Video/audio telephone guest book", description: "Heartfelt messages, familiar voices and memories worth keeping.", image: audioAsset.url, icon: "phone", questions: [{"key": "Duration", "label": "How long would you like the telephone?", "options": ["Entire Event", "All Day", "Custom"]}, {"key": "Greeting", "label": "Would you like a personalized greeting?", "options": ["Yes", "No"]}, {"key": "Setup", "label": "Which setup do you prefer?", "options": ["Telephone Only", "Telephone With Decorative Table", "Telephone With Retro Telephone Booth Enclosure", "Telephone With Decorative White Panel Wall", "Help Me Choose"]}, {"key": "Placement", "label": "Preferred Placement", "options": ["Entrance", "Reception", "Guest Book Area", "Other"]}, {"key": "Quiet Area", "label": "Will the telephone be in a relatively quiet area?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Greeting Text", "label": "Personalized greeting text", "type": "textarea", "when": {"key": "Greeting", "value": "Yes"}}] },
+  { id: "video-guestbook", name: "Video Guest Book", title: "Video Guest Book Customization", category: "Video/audio telephone guest book", description: "Personal wishes and on-camera stories from the people you love.", image: telephoneVideoAsset.url, icon: "video", questions: [{"key": "Hours", "label": "How many hours?", "options": ["2", "3", "4", "Entire Event", "Custom"]}, {"key": "Messages", "label": "What types of messages?", "options": ["Birthday Wishes", "Wedding Messages", "Advice & Memories", "Corporate Testimonials", "Custom"]}, {"key": "Welcome Screen", "label": "Would you like a personalized welcome screen?", "options": ["Yes", "No"]}, {"key": "Custom Instructions", "label": "Would you like customized on-screen instructions?", "options": ["Yes", "No"]}, {"key": "Setup", "label": "Preferred Setup", "options": ["Standard", "Decorative White Panel Wall", "Floral Decor", "Help Me Choose"]}, {"key": "Electrical Power", "label": "Is electrical power available?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Quiet Area", "label": "Is a quiet area available for recording?", "options": ["Yes", "No", "Not Sure"]}, {"key": "Custom Hours", "label": "Custom hours", "type": "number", "when": {"key": "Hours", "value": "Custom"}}] },
+];
+export const bookingBackdrops = [
+  { name: 'White Flower Wall', image: flowerWall }, { name: 'Silver Shimmer Wall', image: silver },
+  { name: 'Gold Sequin Wall', image: gold }, { name: 'Black Pillow Backdrop', image: black },
+  { name: 'White Pillow Backdrop', image: white }, { name: 'Black & Gold Geometric Backdrop', image: geometric },
+  { name: 'Black & Gold Marble', image: blackGoldMarble }, { name: 'Teal & Gold Marble', image: tealMarble },
+  { name: 'Green Hedge Wall', image: hedge }, { name: 'Pink & Purple Floral Wall', image: pinkFloral },
+  { name: 'Pink Sequin Wall', image: pinkSequin }, { name: 'Rainbow Ink Splash', image: rainbow },
+];
+export const premiumBackdrops = [
+  { name: 'Blush & Ivory Flower Wall', image: pBlush.url, group: 'Flower Walls' },
+  { name: 'Jewel Tone Flower Wall', image: pJewel.url, group: 'Flower Walls' },
+  { name: 'Pink Rose Flower Wall', image: pPink.url, group: 'Flower Walls' },
+  { name: 'White Rose Flower Wall', image: pWhite.url, group: 'Flower Walls' },
+  { name: 'Lush Greenery Wall', image: pGreen.url, group: 'Flower Walls' },
+  { name: 'Gold Shimmer Wall', image: pGold.url, group: 'Shimmer Walls' },
+  { name: 'Silver Sparkle Shimmer Wall', image: pSilver.url, group: 'Shimmer Walls' },
+];
+export function canSelectBackdrop(id: string, answers: Record<string, string> = {}) {
+  if (id === 'lux') return true;
+  return ['selfie', 'photo-keychain', 'retro'].includes(id) && answers['Backdrop Preference'] === 'Yes';
+}
+export function visibleQuestions(experience: Experience, answers: Record<string, string>) {
+  return experience.questions.filter(question => !question.when || answers[question.when.key] === question.when.value);
+}
+export function cleanAnswers(id: string, answers: Record<string, string>): Record<string, string> {
+  const experience = experiences.find(item => item.id === id);
+  if (!experience) return {};
+  const clean: Record<string, string> = {};
+  for (const question of visibleQuestions(experience, answers)) if (answers[question.key]) clean[question.key] = answers[question.key];
+  if (canSelectBackdrop(id, answers) && answers.Backdrop) clean.Backdrop = answers.Backdrop;
+  return clean;
+}
+export function serviceFields(selected: string[], answers: Record<string, Record<string, string>>): Record<string, string> {
+  const fields: Record<string, string> = {};
+  for (const experience of experiences.filter(item => selected.includes(item.id))) {
+    for (const [key, value] of Object.entries(cleanAnswers(experience.id, answers[experience.id] || {}))) fields[`${experience.name}: ${key}`] = value;
+  }
+  return fields;
+}
+export function groupedServices(selected: string[], answers: Record<string, Record<string, string>>) {
+  return experiences.filter(item => selected.includes(item.id)).map(item => ({ id: item.id, name: item.name, answers: cleanAnswers(item.id, answers[item.id] || {}) }));
+}
+export type BookingAddon = { id: string; name: string; service?: string; image?: string; description?: string };
+const addonMap: Record<string, BookingAddon[]> = {
+  telephone: [videoAlbum, { id: 'telephone-enclosure', name: 'Retro Telephone Booth Enclosure' }, { id: 'white-panel', name: 'Decorative White Panel Wall' }],
+  'video-guestbook': [videoAlbum, { id: 'white-panel', name: 'Decorative White Panel Wall' }, { id: 'floral-decor', name: 'Floral Decor' }],
+  selfie: [{ id: 'print-upgrades', name: 'Print Upgrades' }, { id: 'additional-hours', name: 'Additional Hours' }, { id: 'backdrop-upgrade', name: 'Compatible Backdrop Upgrades' }],
+  lux: [{ id: 'acrylic-frames', name: 'Acrylic Frames' }, { id: 'additional-hours', name: 'Additional Hours' }],
+  'photo-keychain': [{ id: 'extra-keychains', name: 'Extra Keychains' }, { id: 'additional-hours', name: 'Additional Hours' }],
+  sparks: [{ id: 'clouds', name: 'Dancing on the Clouds', service: 'clouds' }],
+  clouds: [{ id: 'sparks', name: 'Cold Sparks', service: 'sparks' }],
+  retro: [{ id: 'retro-prints', name: 'Compatible Print Upgrades' }, { id: 'additional-hours', name: 'Additional Hours' }],
+  '360': [{ id: 'additional-hours', name: 'Additional Hours' }, { id: 'video-enhancements', name: 'Custom Video Enhancements' }],
+};
+export function compatibleAddons(selected: string[]) {
+  return [...new Map(selected.flatMap(id => addonMap[id] || []).map(addon => [addon.id, addon])).values()];
+}
+export function automaticAddons(selected: string[], answers: Record<string, Record<string, string>>) {
+  const addons: string[] = [];
+  if (selected.includes('telephone')) {
+    if (answers.telephone?.Setup === 'Telephone With Retro Telephone Booth Enclosure') addons.push('telephone-enclosure');
+    if (answers.telephone?.Setup === 'Telephone With Decorative White Panel Wall') addons.push('white-panel');
+  }
+  if (selected.includes('video-guestbook')) {
+    if (answers['video-guestbook']?.Setup === 'Decorative White Panel Wall') addons.push('white-panel');
+    if (answers['video-guestbook']?.Setup === 'Floral Decor') addons.push('floral-decor');
+  }
+  return [...new Set(addons)];
+}
+export function selectedAddons(selected: string[], answers: Record<string, Record<string, string>>, extras: string[]) {
+  const wanted = new Set([...extras, ...automaticAddons(selected, answers)]);
+  return compatibleAddons(selected).filter(addon => !addon.service && wanted.has(addon.id));
+}

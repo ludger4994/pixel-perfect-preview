@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
+import PackagesPage from "./pages/PackagesPage";
+import BookingFormPage from "./pages/BookingFormPage";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +16,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/packages" element={<PackagesPage />} />
+          <Route path="/booking" element={<BookingFormPage />} />
           <Route path="*" element={<Index />} />
         </Routes>
       </BrowserRouter>

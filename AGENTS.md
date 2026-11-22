@@ -8,3 +8,4 @@
 - Model physical video albums as shared guest-book add-ons, not separate recording services, so they stay compatible and deduplicated in inquiry emails and review.
 - Store grouped service answers and deduplicated add-ons alongside readable email fields inside the inquiry's existing JSON field; this preserves integrations without introducing a parallel submission store.
 - Scope the /booking light theme to its page and use separate inquiry navigation; keep /book payment checkout and other pages unchanged.
+- Packages and booking share the experience and backdrop catalog; validate and deduplicate URL experience IDs when initializing booking selections so navigation never creates unsupported services.

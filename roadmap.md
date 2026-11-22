@@ -17,6 +17,6 @@
 - [ ] Verify paid checkout end-to-end: no live payment was made; styling persistence was tested through the booking endpoint.
 
 # Packages page
-- [ ] Restore only the shared booking catalog, original photos, and inquiry form needed for the handoff.
-- [ ] Add the reference-matched /packages page, navigation, sitemap, and validated experience URL handoff.
-- [ ] Verify selection, booking preselection, original photos, and mobile/desktop layout.
+- [x] Restore only the shared booking catalog, original photos, and inquiry form needed for the handoff; original notification and submission behavior preserved.
+- [x] Add the reference-matched /packages page, navigation, sitemap, and validated experience URL handoff.
+- [x] Verify selection through booking review, mobile preselection, all 28 catalog photos, and mobile/desktop layout; original CDN images loaded through a local browser-only bridge. Four selection tests pass.

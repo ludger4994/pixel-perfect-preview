@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, Phone, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const links = [{ name: 'Home', href: '/' }, { name: 'Experiences', href: '/packages#experiences' }, { name: 'Packages', href: '/packages' }, { name: 'Contact', href: 'tel:9545485809' }];
+const links = [{ name: 'Home', href: '/' }, { name: 'Experiences', href: '/keychain-station' }, { name: 'Packages', href: '/packages' }, { name: 'Contact', href: 'tel:9545485809' }];
 export default function BookingNavigation() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();

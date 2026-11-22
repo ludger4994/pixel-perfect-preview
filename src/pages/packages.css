@@ -77,4 +77,51 @@
   .pbl-packages .booking-nav-actions { gap: 8px; }
   .pbl-packages .booking-nav-actions .booking-primary { padding: 8px 10px; min-height: 36px; font-size: 11px; }
 }
-@media(prefers-reduced-motion:reduce) { .package-service { transition: none; } .package-service:hover { transform: none; } }
+@media(prefers-reduced-motion:reduce) { .package-service { transition: none; } .package-service:hover { transform: none; } }/* Uploaded packages reference proportions; catalog and booking behavior stay shared. */
+.pbl-packages .booking-header { position:sticky; top:0; z-index:30; background:hsl(var(--background) / .92); backdrop-filter:blur(12px); }
+.pbl-packages .booking-header-inner { height:78px; padding:0 40px; gap:20px; }
+.pbl-packages .booking-call { font-size:13px; }
+.pbl-packages .booking-call svg { display:none; }
+.pbl-packages .booking-desktop-nav { gap:32px; font-size:13px; }
+.pbl-packages .booking-primary { background:hsl(var(--foreground)); color:hsl(var(--card)); }
+.pbl-packages .booking-nav-actions .booking-primary { min-height:42px; padding:10px 20px; font-size:13px; }
+.packages-main { max-width:1240px; padding:0 40px; }
+.package-intro { max-width:980px; margin:auto; padding:88px 24px 24px; }
+.package-intro h1 { font-size:56px; line-height:1.1; margin:22px 0 0; }
+.package-intro > p { font-size:15px; line-height:1.7; max-width:52ch; margin:18px auto 0; }
+.package-intro .booking-intro-note { font-size:12px; margin-top:26px; gap:18px; }
+.package-intro .booking-intro-note > span { width:64px; }
+.package-category { margin:0; padding-top:64px; }
+.package-category:first-child { padding-top:44px; }
+.package-category-heading { padding-bottom:22px; border-bottom:1px solid hsl(var(--border)); margin-bottom:26px; align-items:flex-start; gap:16px; }
+.package-category-heading h2 { font-size:26px; line-height:1.2; }
+.package-category-heading p { font-size:13px; margin-top:6px; }
+.package-service-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.package-signature { grid-column:span 2; flex-direction:column; }
+.package-signature .package-photo { width:100%; aspect-ratio:16/7; min-height:0; border-right:none; border-bottom:1px solid hsl(var(--border)); }
+.package-signature .package-photo img { position:static; }
+.package-photo { aspect-ratio:4/3; }
+.package-service-body { padding:22px 22px 24px; }
+.package-service h3 { font-size:23px; line-height:1.2; }
+.package-service-body > p { font-size:14px; line-height:1.6; margin:8px 0 14px; }
+.package-chips { gap:6px; margin-bottom:14px; }
+.package-chips > span { font-size:12px; line-height:1.2; padding:6px 10px; }
+.package-detail-label { font-size:9px; margin-bottom:10px; }
+.package-service-body > .package-addons { font-size:12px; line-height:1.5; margin-bottom:14px; }
+.pbl-packages .package-select { width:100%; min-height:46px; font-size:14px; }
+.package-backdrop-grid { grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:16px; }
+.package-backdrop-grid figure { border:none; border-radius:0; box-shadow:none; background:transparent; overflow:visible; }
+.package-backdrop-grid figure > img,.package-backdrop-grid figure > div { border:1px solid hsl(var(--border)); border-radius:6px; overflow:hidden; }
+.package-backdrop-grid img { aspect-ratio:3/4; border-radius:6px; }
+.package-backdrop-grid figcaption { font-size:13px; line-height:1.3; padding:10px 0 0; text-align:left; }
+.package-backdrop-collection { padding-top:80px; }
+.pbl-packages .booking-assistance { padding:80px 0 140px; margin:0; display:block; }
+.pbl-packages .booking-assistance > span { font-family:var(--font-heading); font-size:22px; font-style:italic; }
+.pbl-packages .booking-assistance > a { justify-content:center; font-size:14px; margin-top:10px; }
+.package-selection-inner { max-width:1240px; padding:14px 40px; gap:14px; }
+.package-selection-count { width:34px; height:34px; background:hsl(var(--primary)); font-family:var(--font-body); font-size:11px; }
+.package-selection-summary strong { font-family:var(--font-heading); font-size:18px; font-weight:400; }
+.package-selection-summary p { font-size:12px; }
+.pbl-packages .package-continue { min-height:52px; padding:14px 28px; font-size:14px; }
+@media(max-width:1000px) { .package-service-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.pbl-packages .booking-desktop-nav { display:none; }.pbl-packages .booking-menu-button { display:inline-flex; } }
+@media(max-width:640px) { .packages-main { padding:0 18px; }.package-intro { padding:56px 24px 24px; }.package-intro h1 { font-size:38px; }.package-intro .booking-intro-note { font-size:11px; gap:10px; }.package-intro .booking-intro-note > span { width:20px; flex-shrink:0; }.package-category { padding-top:40px; }.package-service-grid { grid-template-columns:1fr; }.package-signature { grid-column:auto; }.package-signature .package-photo { aspect-ratio:16/7; }.package-selection-inner { padding:14px 18px calc(14px + env(safe-area-inset-bottom)); }.package-selection-summary { width:100%; }.pbl-packages .booking-header-inner { padding:0 18px; }.pbl-packages .booking-nav-actions .booking-primary { padding:10px 14px; font-size:11px; }.package-backdrop-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.pbl-packages .booking-assistance { padding:56px 0 120px; } }

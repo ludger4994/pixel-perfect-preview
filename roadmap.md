@@ -20,3 +20,9 @@
 - [x] Restore only the shared booking catalog, original photos, and inquiry form needed for the handoff; original notification and submission behavior preserved.
 - [x] Add the reference-matched /packages page, navigation, sitemap, and validated experience URL handoff.
 - [x] Verify selection through booking review, mobile preselection, all 28 catalog photos, and mobile/desktop layout; original CDN images loaded through a local browser-only bridge. Four selection tests pass.
+
+
+# Exact website reference
+- [x] Build the uploaded homepage and Keychain Station page with working navigation, slideshow, and local keepsake preview; retain original photos and replace reference-only placeholder notes with established content.
+- [x] Match the packages reference grid, card layout, controls, and spacing while retaining shared original photos and booking handoff.
+- [x] Verify all three pages, slideshow arrows, menus, photo preview, five-charm limit, reset, and booking links at desktop and mobile sizes; six rule tests pass. Wristlet/charm product photos were not supplied, so the visualizer uses illustrative shapes rather than product photos.

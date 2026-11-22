@@ -10,9 +10,9 @@ import './booking-form.css';
 import './packages.css';
 
 const groups = [
-  { number: '01', title: 'Photo Experiences', subtitle: 'Beautiful portraits. Instant keepsakes. Unforgettable moments.', ids: ['photo-keychain', 'selfie', 'lux', '360', 'retro'] },
-  { number: '02', title: 'Special Effects', subtitle: 'For the moments that deserve a little more magic.', ids: ['sparks', 'clouds'] },
-  { number: '03', title: 'Audio & Video Guest Books', subtitle: 'The voices, wishes and stories you’ll keep forever.', ids: ['telephone', 'video-guestbook'] },
+  { number: '01', title: 'Photo Experiences', subtitle: 'The heart of the party. Every guest leaves with a memory.', ids: ['photo-keychain', 'selfie', 'lux', '360', 'retro'] },
+  { number: '02', title: 'Special Effects', subtitle: 'Moments that make the whole room stop and watch.', ids: ['sparks', 'clouds'] },
+  { number: '03', title: 'Audio & Video Guest Books', subtitle: 'Voices and wishes you can replay for years.', ids: ['telephone', 'video-guestbook'] },
 ];
 
 function ServiceCard({ experience, selected, onToggle }: { experience: Experience; selected: boolean; onToggle: () => void }) {
@@ -40,6 +40,6 @@ export default function PackagesPage() {
       <section className="package-category package-backdrop-collection"><CategoryHeading number="04" title="Backdrop Collection" subtitle="Pair your photo experience with a beautiful backdrop, or let us choose one for you." /><h3 className="package-backdrop-group">Standard Backdrops</h3><div className="package-backdrop-grid">{bookingBackdrops.map(backdrop => <figure key={backdrop.name}><img src={backdrop.image} alt={backdrop.name} loading="lazy" /><figcaption>{backdrop.name}</figcaption></figure>)}</div><div className="package-premium-heading"><h3 className="package-backdrop-group">Flower & Shimmer Walls</h3><span>Premium Backdrops</span></div><div className="package-backdrop-grid">{premiumBackdrops.map(backdrop => <figure className="package-premium-backdrop" key={backdrop.name}><div><img src={backdrop.image} alt={backdrop.name} loading="lazy" /><span className="package-premium-badge">Premium</span></div><figcaption>{backdrop.name}</figcaption></figure>)}</div></section>
       <div className="booking-assistance"><span>Something special in mind?</span><a href="tel:9545485809">Let's talk <ArrowRight size={14} /> 954-548-5809</a></div>
     </main>
-    <aside className="package-selection-bar" aria-label="Selected experiences"><div className="package-selection-inner"><div className="package-selection-summary" aria-live="polite"><span className="package-selection-count">{selected.length}</span><div><strong>{selected.length === 1 ? 'experience selected' : 'experiences selected'}</strong><p>{selectedNames.length ? selectedNames.join(' · ') : 'Your celebration starts here.'}</p></div></div><Button asChild className="booking-primary package-continue"><Link to={bookingSelectionUrl(selected)}>Continue to Booking <ArrowRight size={16} /></Link></Button></div></aside>
+    <aside className="package-selection-bar" aria-label="Selected experiences"><div className="package-selection-inner"><div className="package-selection-summary" aria-live="polite"><span className="package-selection-count">{selected.length}</span><div><strong>{selected.length === 0 ? 'No experiences selected yet' : `${selected.length} ${selected.length === 1 ? 'experience' : 'experiences'} selected`}</strong><p>{selectedNames.length ? selectedNames.join(' · ') : 'Your celebration starts here.'}</p></div></div><Button asChild className="booking-primary package-continue"><Link to={bookingSelectionUrl(selected)}>Continue to Booking <ArrowRight size={16} /></Link></Button></div></aside>
   </div>;
 }

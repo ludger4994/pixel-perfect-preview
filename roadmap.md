@@ -15,3 +15,8 @@
 - [ ] Verify owner admin readback: no auth accounts exist; owner must sign in before administrator access can be assigned.
 - [ ] Verify real email receipt: Web3Forms blocks sandbox requests with HTTP 403; email delivery remains unconfirmed.
 - [ ] Verify paid checkout end-to-end: no live payment was made; styling persistence was tested through the booking endpoint.
+
+# Packages page
+- [ ] Restore only the shared booking catalog, original photos, and inquiry form needed for the handoff.
+- [ ] Add the reference-matched /packages page, navigation, sitemap, and validated experience URL handoff.
+- [ ] Verify selection, booking preselection, original photos, and mobile/desktop layout.
